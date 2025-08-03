@@ -1,102 +1,57 @@
 // @feature:shared-types @domain:common @shared
-// @summary: Common TypeScript type definitions for the proxy family project
+// @summary: Common TypeScript type definitions for non-database shared types
 
-export interface User {
+// API Response wrapper types
+export interface ApiResponse<T = any> {
+  data: T | null
+  error: string | null
+}
+
+// Common status types
+export type Status = 'online' | 'offline' | 'pending' | 'error'
+
+// Common action types for routing
+export type RoutingAction = 'DIRECT' | 'PROXY' | 'BLOCK'
+
+// Device status for UI
+export interface DeviceStatus {
   id: string
   name: string
-  email: string
-  emailVerified: boolean
-  image?: string
-  createdAt: Date
-  updatedAt: Date
+  status: Status
+  lastSeen: Date
 }
 
-export interface RoutingRule {
+// Connection status for logs/monitoring
+export interface ConnectionStatus {
   id: string
-  domain: string
-  action: 'DIRECT' | 'PROXY' | 'BLOCK'
-  region?: string
-  priority: number
-  description?: string
-  enabled: boolean
-  createdAt: Date
-  updatedAt: Date
+  device: string
+  profile: string
+  startedAt: Date
+  durationMin: number
+  transferredMB: number
+  status: 'ok' | 'dropped' | 'failed'
 }
 
-export interface ProxyEndpoint {
-  id: string
-  name: string
-  url: string
-  enabled: boolean
-  priority: number
-  createdAt: Date
-  updatedAt: Date
+// Generic pagination types
+export interface PaginationParams {
+  page: number
+  limit: number
 }
 
-export interface FamilyProfile {
-  id: string
-  name: string
-  userId: string
-  restrictions?: string // JSON string
-  allowedDomains?: string // JSON string
-  blockedDomains?: string // JSON string
-  createdAt: Date
-  updatedAt: Date
+export interface PaginatedResponse<T> {
+  data: T[]
+  pagination: {
+    page: number
+    limit: number
+    total: number
+    totalPages: number
+  }
 }
 
-export interface DeviceConfig {
-  deviceId: string
-  userId?: string
-  workerConfig?: string // JSON string for WorkerConfig
-  createdAt: Date
-  updatedAt: Date
-}
-
-export interface AnalyticsData {
-  id: string
-  deviceId: string
-  timestamp: Date
-  totalRequests: number
-  directCount: number
-  proxyCount: number
-  blockedCount: number
-  domainStats?: string // JSON string for map[string]number
-  createdAt: Date
-}
-
-// Auth session types
-export interface Session {
-  id: string
-  expiresAt: Date
-  token: string
-  createdAt: Date
-  updatedAt: Date
-  ipAddress?: string
-  userAgent?: string
-  userId: string
-}
-
-export interface Account {
-  id: string
-  accountId: string
-  providerId: string
-  userId: string
-  accessToken?: string
-  refreshToken?: string
-  idToken?: string
-  accessTokenExpiresAt?: Date
-  refreshTokenExpiresAt?: Date
-  scope?: string
-  password?: string
-  createdAt: Date
-  updatedAt: Date
-}
-
-export interface Verification {
-  id: string
-  identifier: string
-  value: string
-  expiresAt: Date
-  createdAt: Date
-  updatedAt: Date
+// Generic filter/search types
+export interface SearchParams {
+  query?: string
+  filters?: Record<string, any>
+  sortBy?: string
+  sortOrder?: 'asc' | 'desc'
 }

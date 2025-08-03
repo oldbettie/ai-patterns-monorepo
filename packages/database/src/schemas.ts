@@ -4,7 +4,6 @@
 import { boolean, integer, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
-import type { User, RoutingRule, ProxyEndpoint, FamilyProfile } from '@proxy-fam/common/src/types'
 
 // Get database URL from environment
 const getDatabaseUrl = () => {
@@ -134,8 +133,6 @@ export const analyticsData = pgTable('analytics_data', {
 // Connect to Postgres
 export const db = drizzle(sql)
 
-// Legacy type exports for compatibility
-export type UserTable = User
-export type RoutingRuleTable = RoutingRule  
-export type ProxyEndpointTable = ProxyEndpoint
-export type FamilyProfileTable = FamilyProfile
+// Re-export types for workspace imports
+export * from './types'
+

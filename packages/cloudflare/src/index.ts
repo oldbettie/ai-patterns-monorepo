@@ -1,7 +1,7 @@
 // @feature:cloudflare-worker @domain:workers @shared
 // @summary: Cloudflare Worker for proxy routing and traffic management
 
-import type { ProxyEndpoint, RoutingRule } from '@proxy-fam/common/src/types'
+import type { ProxyEndpoint, RoutingRule } from '@proxy-fam/database/src/types'
 
 // Import Cloudflare Worker types
 type ExecutionContext = {

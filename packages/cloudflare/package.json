@@ -12,7 +12,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@proxy-fam/common": "workspace:*"
+    "@proxy-fam/common": "workspace:*",
+    "@proxy-fam/database": "workspace:*"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.0.0",
