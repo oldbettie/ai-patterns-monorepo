@@ -1,0 +1,16 @@
+{
+  "name": "@proxy-fam/common",
+  "version": "0.1.0",
+  "description": "Common types, configurations, and utilities for Proxy Family",
+  "main": "src/types.ts",
+  "types": "src/types.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "zod": "^3.22.0"
+  }
+}

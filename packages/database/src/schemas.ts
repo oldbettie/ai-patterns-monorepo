@@ -4,7 +4,7 @@
 import { boolean, integer, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
-import type { User, RoutingRule, ProxyEndpoint, FamilyProfile } from '@proxy-fam/shared-types'
+import type { User, RoutingRule, ProxyEndpoint, FamilyProfile } from '@proxy-fam/common/src/types'
 
 // Get database URL from environment
 const getDatabaseUrl = () => {

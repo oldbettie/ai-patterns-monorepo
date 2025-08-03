@@ -1,7 +1,13 @@
 // @feature:cloudflare-worker @domain:workers @shared
 // @summary: Cloudflare Worker for proxy routing and traffic management
 
-import type { ProxyEndpoint, RoutingRule } from '@proxy-fam/shared-types'
+import type { ProxyEndpoint, RoutingRule } from '@proxy-fam/common/src/types'
+
+// Import Cloudflare Worker types
+type ExecutionContext = {
+  waitUntil(promise: Promise<any>): void
+  passThroughOnException(): void
+}
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
@@ -58,7 +64,10 @@ async function determineRoute(domain: string, env: Env): Promise<RoutingDecision
         id: 'default-proxy',
         name: 'Default Proxy',
         url: 'https://proxy.example.com:8080',
-        enabled: true
+        enabled: true,
+        priority: 0,
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     }
   }

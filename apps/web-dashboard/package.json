@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@proxy-fam/database": "workspace:*",
-    "@proxy-fam/shared-types": "workspace:*",
+    "@proxy-fam/common": "workspace:*",
     "@react-email/components": "^0.3.1",
     "@react-email/render": "^1.1.3",
     "@react-email/tailwind": "^1.2.1",

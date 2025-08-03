@@ -1,4 +1,4 @@
-import { account, db, session, user, verification } from '@proxy-fam/database'
+import { account, db, session, user, verification } from '@proxy-fam/database/src/schemas'
 import { env } from '@/lib/env'
 import { EmailService } from '@/lib/resend/email-service'
 import { betterAuth } from 'better-auth'
