@@ -1,10 +1,21 @@
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
+import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
+import { auth } from '@/lib/auth/auth'
 import Container from '../components/ui/Container'
 import Button from '../components/ui/Button'
 import SectionHeading from '../components/ui/SectionHeading'
 
-export default function Home() {
+export default async function Home() {
+  // Check if user is already authenticated
+  const session = await auth.api.getSession({ headers: await headers() })
+  
+  // If authenticated, redirect to dashboard
+  if (session) {
+    redirect('/dashboard')
+  }
+
   const t = useTranslations('pages.landing')
 
   return (
