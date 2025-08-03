@@ -1,85 +1,60 @@
 services:
-    # PostgreSQL Database
-    postgres:
-        image: postgres:15-alpine
-        container_name: proxy-fam-postgres
-        restart: unless-stopped
-        environment:
-            POSTGRES_DB: proxyfam
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres
-        ports:
-            - "5432:5432"
-        volumes:
-            - postgres_data:/var/lib/postgresql/data
-        healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U postgres"]
-            interval: 10s
-            timeout: 5s
-            retries: 5
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: proxy-fam-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: proxyfam
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-    # Family Proxy Service (Go)
-    proxy-service:
-        build:
-            context: .
-            dockerfile: docker/proxy-service.Dockerfile
-        container_name: proxy-fam-service
-        restart: unless-stopped
-        ports:
-            - "8080:8080"    # HTTP proxy
-            - "8443:8443"    # HTTPS proxy
-            - "9090:9090"    # Management API
-        environment:
-            - PROXY_CONFIG_PATH=/app/configs/docker.json
-            - PROXY_LISTEN_ADDRESS=0.0.0.0
-            - PROXY_HTTP_PORT=8080
-            - PROXY_HTTPS_PORT=8443
-            - PROXY_API_PORT=9090
-        volumes:
-            - ./configs:/app/configs:ro
-            - proxy_certs:/app/certs
-        depends_on:
-            postgres:
-                condition: service_healthy
+  # Web Dashboard (Next.js)
+  dashboard:
+    build:
+      context: .
+      dockerfile: docker/web-dashboard.Dockerfile
+    container_name: proxy-fam-dashboard
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env.docker
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      # Mount entire web-dashboard for hot reloading
+      - ./apps/web-dashboard:/workspace/apps/web-dashboard
+      # Preserve installed dependencies and build artifacts
+      - /workspace/node_modules
+      - /workspace/apps/web-dashboard/.next
 
-    # Web Dashboard (Next.js)
-    web-dashboard:
-        build:
-            context: .
-            dockerfile: docker/web-dashboard.Dockerfile
-        container_name: proxy-fam-dashboard
-        restart: unless-stopped
-        ports:
-            - "3000:3000"
-        env_file:
-            - .env.docker
-        environment:
-            - NODE_ENV=development
-            - PROXY_API_URL=http://proxy-service:9090
-        depends_on:
-            postgres:
-                condition: service_healthy
-            proxy-service:
-                condition: service_started
-        volumes:
-            - ./apps/web-dashboard:/app
-            - /app/node_modules
-            - /app/.next
-
-    # PostgreSQL Dashboard
-    pg-dashboard:
-        image: sosedoff/pgweb:latest
-        container_name: proxy-fam-pgweb
-        restart: unless-stopped
-        ports:
-            - "5050:8081"
-        depends_on:
-            postgres:
-                condition: service_healthy
-        environment:
-            DATABASE_URL: "postgres://postgres:postgres@postgres:5432/proxyfam?sslmode=disable"
-        command: pgweb --bind=0.0.0.0 --listen=8081 --url=$DATABASE_URL
+  # PostgreSQL Dashboard
+  pg-dashboard:
+    image: sosedoff/pgweb:latest
+    container_name: proxy-fam-pgweb
+    restart: unless-stopped
+    ports:
+      - '5050:8081'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: 'postgres://postgres:postgres@postgres:5432/proxyfam?sslmode=disable'
+    command: pgweb --bind=0.0.0.0 --listen=8081 --url=$DATABASE_URL
 
 volumes:
-    postgres_data:
-    proxy_certs:
+  postgres_data:
+  proxy_certs:

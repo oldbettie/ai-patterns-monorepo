@@ -1,0 +1,31 @@
+{
+  "name": "@proxy-fam/database",
+  "version": "1.0.0",
+  "description": "Database schemas and migrations for family proxy",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "private": true,
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@proxy-fam/shared-types": "workspace:*",
+    "drizzle-orm": "^0.44.2",
+    "postgres": "^3.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "dotenv": "^17.2.0",
+    "drizzle-kit": "^0.31.4",
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "src/**/*",
+    "migrations/**/*",
+    "drizzle.config.ts"
+  ]
+}

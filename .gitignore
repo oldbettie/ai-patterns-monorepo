@@ -7,6 +7,7 @@
 *.dll
 *.so
 *.dylib
+.env.local
 
 # Test binary, built with `go test -c`
 *.test
@@ -26,8 +27,17 @@ go.work.sum
 
 # env file
 .env
+.env.docker
 
 # Editor/IDE
 .idea/
 # .vscode/
 node_modules
+
+# TypeScript build cache
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# Build output
+dist/
+*.d.ts.map

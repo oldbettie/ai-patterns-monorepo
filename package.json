@@ -12,7 +12,11 @@
     "proxy:build": "pnpm --filter proxy-service build",
     "proxy:dev": "pnpm --filter proxy-service dev",
     "web:build": "pnpm --filter web-dashboard build",
-    "web:dev": "pnpm --filter web-dashboard dev"
+    "web:dev": "pnpm --filter web-dashboard dev",
+    "db:generate": "cd packages/database && pnpm db:generate",
+    "db:migrate": "cd packages/database && pnpm db:migrate",
+    "db:push": "cd packages/database && pnpm db:push",
+    "db:studio": "cd packages/database && pnpm db:studio"
   },
   "workspaces": [
     "apps/*",

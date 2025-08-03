@@ -1,0 +1,72 @@
+# Git
+.git
+.gitignore
+
+# Dependencies
+node_modules
+*/node_modules
+
+# Build output
+dist
+*/dist
+.next
+*/.next
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Miscellaneous
+.DS_Store
+*.pem
+
+# Debug
+.vscode-test
+
+# Local Netlify folder
+.netlify
+
+# IDEs
+.vscode
+.idea
+
+# OS
+Thumbs.db
