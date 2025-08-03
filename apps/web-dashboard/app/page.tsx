@@ -1,55 +1,8 @@
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-
-function Container({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return <div className={`mx-auto w-full max-w-6xl px-4 md:px-6 ${className}`}>{children}</div>
-}
-
-function Button({
-  href,
-  children,
-  variant = 'primary',
-}: {
-  href: string
-  children: React.ReactNode
-  variant?: 'primary' | 'secondary'
-}) {
-  const base =
-    'inline-flex items-center justify-center rounded-lg px-5 py-3 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2'
-  const styles =
-    variant === 'primary'
-      ? 'bg-blue-600 text-white hover:bg-blue-600/90 focus-visible:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400'
-      : 'bg-white text-neutral-900 hover:bg-neutral-50 border border-neutral-300 shadow-sm focus-visible:ring-neutral-300 dark:bg-neutral-900 dark:text-neutral-100 dark:hover:bg-neutral-800 dark:border-neutral-800'
-  return (
-    <Link className={`${base} ${styles}`} href={href}>
-      {children}
-    </Link>
-  )
-}
-
-function SectionHeading({
-  eyebrow,
-  title,
-  subtitle,
-}: {
-  eyebrow?: string
-  title: string
-  subtitle?: string
-}) {
-  return (
-    <div className='mx-auto max-w-2xl text-center'>
-      {eyebrow ? (
-        <p className='text-xs uppercase tracking-widest text-neutral-500 dark:text-neutral-400'>{eyebrow}</p>
-      ) : null}
-      <h2 className='mt-2 text-2xl md:text-4xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100'>
-        {title}
-      </h2>
-      {subtitle ? (
-        <p className='mt-3 text-neutral-700 dark:text-neutral-300 leading-relaxed'>{subtitle}</p>
-      ) : null}
-    </div>
-  )
-}
+import Container from '../components/ui/Container'
+import Button from '../components/ui/Button'
+import SectionHeading from '../components/ui/SectionHeading'
 
 export default function Home() {
   const t = useTranslations('pages.landing')
@@ -64,7 +17,7 @@ export default function Home() {
 
       {/* Hero */}
       <section className='pt-28 pb-16 md:pt-36 md:pb-24'>
-        <Container className='text-center'>
+        <Container className='text-center' aria-label='Hero'>
           <div className='inline-flex items-center rounded-full border border-neutral-300 bg-white px-3 py-1 text-xs text-neutral-600 shadow-sm backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70 dark:text-neutral-300'>
             {t('badge')}
           </div>
@@ -89,7 +42,7 @@ export default function Home() {
       </section>
 
       {/* Value props */}
-      <section className='py-16 md:py-24'>
+      <section className='py-16 md:py-24' aria-label='Value propositions'>
         <Container>
           <SectionHeading
             eyebrow={t('sections.value.eyebrow')}
@@ -115,7 +68,7 @@ export default function Home() {
       </section>
 
       {/* How it works */}
-      <section className='py-16 md:py-24'>
+      <section className='py-16 md:py-24' aria-label='How it works'>
         <Container>
           <SectionHeading
             eyebrow={t('sections.how.eyebrow')}
@@ -139,7 +92,7 @@ export default function Home() {
       </section>
 
       {/* Pricing CTA */}
-      <section className='py-16 md:py-24'>
+      <section className='py-16 md:py-24' aria-label='Pricing'>
         <Container>
           <div className='rounded-2xl border border-neutral-300 bg-white p-8 shadow-sm backdrop-blur md:p-12 dark:border-neutral-800 dark:bg-neutral-900/80'>
             <div className='mx-auto max-w-2xl text-center'>
@@ -157,7 +110,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className='pb-10 pt-6'>
+      <footer className='pb-10 pt-6' role='contentinfo'>
         <Container className='flex flex-col items-center justify-between gap-4 text-sm text-neutral-600 md:flex-row dark:text-neutral-500'>
           <span>&copy; {new Date().getFullYear()} Family Privacy Proxy</span>
           <div className='flex items-center gap-4'>
