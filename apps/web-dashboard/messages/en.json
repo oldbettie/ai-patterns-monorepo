@@ -1,0 +1,169 @@
+{
+  "common": {
+    "language": "Language",
+    "english": "English",
+    "japanese": "Japanese",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "continue": "Continue",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "save": "Save",
+    "name": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "components": {
+    "languageSelector": {
+      "language": "Language"
+    },
+    "authStatus": {
+      "authenticationStatus": "Authentication Status",
+      "loggedIn": "You are signed in",
+      "loggedOut": "You are not signed in",
+      "login": "Sign In",
+      "logout": "Sign Out",
+      "signup": "Sign Up",
+      "verified": "Verified"
+    }
+  },
+  "pages": {
+    "landing": {
+      "badge": "Performance + Privacy for families",
+      "hero": {
+        "title": "Keep games fast. Keep browsing private.",
+        "subtitle": "Family Privacy Proxy intelligently routes traffic: direct for latency‑sensitive apps, proxy for privacy‑critical sites. Family‑first controls with zero complexity."
+      },
+      "cta": {
+        "getStarted": "Get started",
+        "signIn": "Sign in"
+      },
+      "sections": {
+        "value": {
+          "eyebrow": "Why Family Privacy Proxy",
+          "title": "Performance where it matters. Privacy where it counts.",
+          "subtitle": "Selective routing ensures games and streaming stay fast while social and tracking-heavy destinations go through privacy-protecting proxies.",
+          "items": {
+            "privacy": {
+              "title": "Smart Privacy",
+              "desc": "Automatically routes social and data-harvesting platforms through secure proxies."
+            },
+            "performance": {
+              "title": "Gaming Performance",
+              "desc": "Bypasses proxies for latency-sensitive apps like games and video calls."
+            },
+            "family": {
+              "title": "Family Controls",
+              "desc": "Profiles, shared rules, and simple monitoring built for families."
+            }
+          }
+        },
+        "how": {
+          "eyebrow": "How it works",
+          "title": "Hybrid local-edge routing",
+          "subtitle": "A lightweight local agent makes instant routing decisions; Cloudflare Workers provide privacy at the edge.",
+          "steps": {
+            "1": "Install the local agent on your device.",
+            "2": "Choose routing rules for family members in the web dashboard.",
+            "3": "Enjoy fast games and private browsing automatically."
+          }
+        }
+      },
+      "pricing": {
+        "title": "Start free. Upgrade when you’re ready.",
+        "subtitle": "Simple plans for families. No lock‑in. Cancel anytime.",
+        "primary": "Create free account",
+        "secondary": "Sign in"
+      },
+      "footer": {
+        "login": "Login",
+        "signup": "Sign Up"
+      }
+    },
+    "login": {
+      "title": "Sign in to your account",
+      "loginButton": "Sign in",
+      "forgotPassword": "Forgot Password?",
+      "dontHaveAccount": "Don't have an account?",
+      "signUpInstead": "Sign up instead",
+      "emailPlaceholder": "Enter your email",
+      "passwordPlaceholder": "Enter your password"
+    },
+    "signup": {
+      "title": "Create your account",
+      "signupButton": "Sign up",
+      "alreadyHaveAccount": "Already have an account?",
+      "signInInstead": "Sign in instead",
+      "namePlaceholder": "Enter your full name",
+      "emailPlaceholder": "Enter your email",
+      "passwordPlaceholder": "Create a password"
+    },
+    "forgotPassword": {
+      "title": "Reset your password",
+      "description": "Enter your email address and we'll send you a link to reset your password.",
+      "sendResetLink": "Send Reset Link",
+      "emailSent": "Email sent! Check your inbox for instructions.",
+      "backToLogin": "Back to login",
+      "checkEmail": "Check your email for the reset link. If you don't see it, check your spam folder.",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "Enter your email address"
+    },
+    "resetPassword": {
+      "title": "Reset Password",
+      "description": "Enter your new password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "resetButton": "Reset Password",
+      "passwordResetSuccess": "Password reset successfully!",
+      "invalidResetLink": "Invalid reset link. Please request a new password reset.",
+      "requestNewResetLink": "Request new reset link",
+      "passwordMismatch": "Passwords don't match",
+      "passwordTooShort": "Password must be at least 8 characters long",
+      "resettingPassword": "Resetting password...",
+      "backToLogin": "Back to sign in",
+      "newPasswordPlaceholder": "Enter your new password",
+      "confirmPasswordPlaceholder": "Confirm your new password",
+      "passwordRequirement": "Password must be at least 8 characters long",
+      "signInWithNewPassword": "Sign in with new password",
+      "passwordUpdated": "Your password has been updated. You can now sign in with your new password."
+    },
+    "verifyEmail": {
+      "title": "Verify your email",
+      "description": "We sent you an email with a verification link. Please check your inbox and click the link to verify your email address.",
+      "checkEmail": "Check your email",
+      "emailVerified": "Email verified successfully!",
+      "invalidToken": "Invalid or expired token",
+      "resendEmail": "Resend email",
+      "checkEmailTitle": "Check your email",
+      "emailSentTo": "We've sent a verification link to",
+      "clickLinkInstructions": "Click the link in the email to verify your account. If you don't see the email, check your spam folder.",
+      "resendVerificationEmail": "Resend verification email",
+      "verificationEmailSent": "Verification email sent! Please check your inbox.",
+      "backToLogin": "Back to sign in",
+      "sending": "Sending...",
+      "resendIn": "Resend in",
+      "verifyingEmail": "Verifying your email...",
+      "pleaseWait": "Please wait while we verify your email address.",
+      "verificationFailed": "Verification failed",
+      "emailVerificationCompletedButLoginFailed": "Email verification completed, but automatic login failed. Please try signing in manually.",
+      "unexpectedErrorDuringVerification": "An unexpected error occurred during verification",
+      "emailVerifiedSuccessfully": "Email verified successfully!",
+      "accountVerifiedRedirect": "Your account has been verified. You're now logged in and will be redirected shortly.",
+      "continueToDashboard": "Continue to dashboard"
+    }
+  },
+  "errors": {
+    "somethingWentWrong": "Something went wrong",
+    "tryAgain": "Please try again",
+    "invalidCredentials": "Invalid credentials",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "passwordTooShort": "Password must be at least 8 characters",
+    "emailInvalid": "Please enter a valid email address"
+  }
+}

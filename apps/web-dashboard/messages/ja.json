@@ -1,0 +1,169 @@
+{
+  "common": {
+    "language": "言語",
+    "english": "英語",
+    "japanese": "日本語",
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "continue": "続行",
+    "cancel": "キャンセル",
+    "submit": "送信",
+    "back": "戻る",
+    "next": "次へ",
+    "save": "保存",
+    "name": "氏名",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "yes": "はい",
+    "no": "いいえ"
+  },
+  "components": {
+    "languageSelector": {
+      "language": "言語"
+    },
+    "authStatus": {
+      "authenticationStatus": "認証状態",
+      "loggedIn": "ログイン中です",
+      "loggedOut": "ログインしていません",
+      "login": "ログイン",
+      "logout": "ログアウト",
+      "signup": "サインアップ",
+      "verified": "認証済み"
+    }
+  },
+  "pages": {
+    "landing": {
+      "badge": "家族のためのパフォーマンス + プライバシー",
+      "hero": {
+        "title": "ゲームは速く、閲覧はプライベートに。",
+        "subtitle": "Family Privacy Proxy はトラフィックを賢くルーティング。遅延に敏感なアプリはダイレクト、プライバシー重視のサイトはプロキシへ。家族向けの簡単コントロール。"
+      },
+      "cta": {
+        "getStarted": "はじめる",
+        "signIn": "ログイン"
+      },
+      "sections": {
+        "value": {
+          "eyebrow": "Family Privacy Proxy の特長",
+          "title": "必要な場所にパフォーマンスを。重要な場所にプライバシーを。",
+          "subtitle": "選択的ルーティングにより、ゲームとストリーミングは高速のまま、ソーシャルやトラッキングの多い宛先はプライバシー保護プロキシを経由します。",
+          "items": {
+            "privacy": {
+              "title": "スマートプライバシー",
+              "desc": "ソーシャルや情報収集系プラットフォームを自動で安全なプロキシへルーティング。"
+            },
+            "performance": {
+              "title": "ゲーミング性能",
+              "desc": "ゲームやビデオ通話など遅延に敏感なアプリはプロキシをバイパス。"
+            },
+            "family": {
+              "title": "ファミリーコントロール",
+              "desc": "プロフィール、共有ルール、かんたんモニタリングで家族に最適。"
+            }
+          }
+        },
+        "how": {
+          "eyebrow": "仕組み",
+          "title": "ローカル + エッジのハイブリッドルーティング",
+          "subtitle": "軽量なローカルエージェントが即時に判断し、Cloudflare Workers がエッジでプライバシーを提供します。",
+          "steps": {
+            "1": "ローカルエージェントをデバイスにインストール。",
+            "2": "Web ダッシュボードで家族メンバーごとのルールを設定。",
+            "3": "ゲームは高速に、閲覧は自動的にプライベートに。"
+          }
+        }
+      },
+      "pricing": {
+        "title": "無料で開始。必要になったらアップグレード。",
+        "subtitle": "家族向けのシンプルなプラン。縛りなし。いつでも解約可能。",
+        "primary": "無料アカウントを作成",
+        "secondary": "ログイン"
+      },
+      "footer": {
+        "login": "ログイン",
+        "signup": "サインアップ"
+      }
+    },
+    "login": {
+      "title": "アカウントにログイン",
+      "loginButton": "ログイン",
+      "forgotPassword": "パスワードをお忘れですか？",
+      "dontHaveAccount": "アカウントをお持ちではありませんか？",
+      "signUpInstead": "サインアップする",
+      "emailPlaceholder": "メールアドレスを入力",
+      "passwordPlaceholder": "パスワードを入力"
+    },
+    "signup": {
+      "title": "アカウント作成",
+      "signupButton": "サインアップ",
+      "alreadyHaveAccount": "すでにアカウントをお持ちですか？",
+      "signInInstead": "ログインする",
+      "namePlaceholder": "氏名を入力",
+      "emailPlaceholder": "メールアドレスを入力",
+      "passwordPlaceholder": "パスワードを作成"
+    },
+    "forgotPassword": {
+      "title": "パスワードリセット",
+      "description": "メールアドレスを入力すると、パスワードリセット用のリンクをお送りします。",
+      "sendResetLink": "リセットリンクを送信",
+      "emailSent": "メールを送信しました！受信トレイで手順を確認してください。",
+      "backToLogin": "ログインに戻る",
+      "checkEmail": "メールでリセットリンクを確認してください。見つからない場合は、スパムフォルダーを確認してください。",
+      "emailLabel": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力"
+    },
+    "resetPassword": {
+      "title": "パスワードリセット",
+      "description": "新しいパスワードを入力してください",
+      "newPassword": "新しいパスワード",
+      "confirmPassword": "パスワードの確認",
+      "resetButton": "パスワードリセット",
+      "passwordResetSuccess": "パスワードのリセットが完了しました！",
+      "invalidResetLink": "無効なリセットリンクです。新しいパスワードリセットをリクエストしてください。",
+      "requestNewResetLink": "新しいリセットリンクをリクエスト",
+      "passwordMismatch": "パスワードが一致しません",
+      "passwordTooShort": "パスワードは8文字以上である必要があります",
+      "resettingPassword": "パスワードをリセット中...",
+      "backToLogin": "ログインに戻る",
+      "newPasswordPlaceholder": "新しいパスワードを入力",
+      "confirmPasswordPlaceholder": "新しいパスワードを確認",
+      "passwordRequirement": "パスワードは8文字以上である必要があります",
+      "signInWithNewPassword": "新しいパスワードでログイン",
+      "passwordUpdated": "パスワードが更新されました。新しいパスワードでログインできます。"
+    },
+    "verifyEmail": {
+      "title": "メール認証",
+      "description": "認証リンクが記載されたメールを送信しました。受信トレイを確認し、リンクをクリックしてメールアドレスを認証してください。",
+      "checkEmail": "メールを確認してください",
+      "emailVerified": "メール認証が完了しました！",
+      "invalidToken": "無効または期限切れのトークンです",
+      "resendEmail": "メールを再送信",
+      "checkEmailTitle": "メールを確認してください",
+      "emailSentTo": "認証リンクを送信しました",
+      "clickLinkInstructions": "メール内のリンクをクリックしてアカウントを認証してください。メールが見つからない場合は、スパムフォルダーを確認してください。",
+      "resendVerificationEmail": "認証メールを再送信",
+      "verificationEmailSent": "認証メールを送信しました！受信トレイを確認してください。",
+      "backToLogin": "ログインに戻る",
+      "sending": "送信中...",
+      "resendIn": "再送信まで",
+      "verifyingEmail": "メールを認証中...",
+      "pleaseWait": "メールアドレスの認証をお待ちください。",
+      "verificationFailed": "認証に失敗しました",
+      "emailVerificationCompletedButLoginFailed": "メール認証は完了しましたが、自動ログインに失敗しました。手動でログインをお試しください。",
+      "unexpectedErrorDuringVerification": "認証中に予期しないエラーが発生しました",
+      "emailVerifiedSuccessfully": "メール認証が完了しました！",
+      "accountVerifiedRedirect": "アカウントが認証されました。ログインしており、まもなくリダイレクトされます。",
+      "continueToDashboard": "ダッシュボードに進む"
+    }
+  },
+  "errors": {
+    "somethingWentWrong": "問題が発生しました",
+    "tryAgain": "もう一度お試しください",
+    "invalidCredentials": "認証情報が無効です",
+    "emailRequired": "メールアドレスが必要です",
+    "passwordRequired": "パスワードが必要です",
+    "passwordTooShort": "パスワードは8文字以上である必要があります",
+    "emailInvalid": "有効なメールアドレスを入力してください"
+  }
+}
