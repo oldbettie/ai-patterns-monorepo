@@ -1,0 +1,101 @@
+---
+description: Main project guidelines and patterns for Next.js Better Stack template
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Project Guidelines - Next.js Better Stack
+
+## Architecture & Patterns
+
+### Code Organization (Domain-Driven Design)
+- **Repository Pattern** for data access (`/lib/repositories`)
+- **Service Layer** for business logic (`lib/services/`)
+- **Server-Only** code marked with `import "server-only"`
+- **Server-Actions** in (`/actions`)
+- **Business API Routes** in `app/(routes)/api/core/`
+- **Auth API Routes** in `app/(routes)/api/auth/`
+
+### Key Patterns
+1. **Services** - Business logic (e.g., `AuthService`, `ProductService`)
+2. **Repositories** - Data access abstraction
+3. **Validation** - Zod schemas in `lib/validationSchema/`
+4. **Components** - Reusable UI in `components/`
+5. **Actions** - Always use actions to call API routes to protect the API (`/actions`)
+
+## API Route Structure
+
+All API routes use this wrapper pattern:
+```typescript
+// Public route
+export const GET = createRouteHandler({ isPublic: true }, async (req, ctx) => {
+  // No auth required
+})
+
+// Authenticated route  
+export const POST = createRouteHandler({ isAuthenticated: true }, async (req, ctx) => {
+  const { user, session } = req
+})
+```
+
+### API Conventions
+- RESTful endpoints with consistent error handling
+- Always return: `{ data: T | null, error: error | null }`
+- Validation with Zod schemas
+- No middleware auth on API calls (frontend auth only)
+
+## Technology Stack
+
+### Frontend
+- **Next.js App Router** with Server Components by default
+- **Tailwind CSS** for styling
+- **Radix UI** primitives with Shadcn/ui components
+- **React Hook Form** with Zod validation
+- **TypeScript** (strict mode, no `any` types)
+
+### Backend
+- **Better Auth** for authentication
+- **Drizzle ORM** for database operations
+- **Server Actions** for form handling
+
+## Component Patterns
+
+### Structure
+- Use functional components with hooks
+- Define TypeScript interfaces for props
+- Export as named exports (not default unless it's a page)
+- Server Components by default, add "use client" only when needed
+
+### Forms
+- React Hook Form with `@hookform/resolvers`
+- Zod validation schemas
+- Custom form components in `components/form/`
+
+## Security & Performance
+
+### Security
+- Server-only sensitive operations (mark with `import "server-only"`)
+- Validate all inputs with Zod
+- Use environment variables for secrets
+- Session management with Better Auth
+
+### Performance
+- Server Components by default
+- Next.js Image optimization
+- Code splitting with dynamic imports
+- Proper caching strategies
+
+## Code Quality
+
+### TypeScript
+- Strict mode enabled
+- No `any` types
+- Define interfaces for all props and API responses
+- Use type guards for runtime validation
+
+### General
+- Descriptive naming conventions
+- Small, focused functions
+- Proper error handling with try-catch
+- Remove console.log statements before committing
+

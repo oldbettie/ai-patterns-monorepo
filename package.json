@@ -1,0 +1,40 @@
+{
+  "name": "proxy-fam-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Family Privacy Proxy - Monorepo for cross-platform proxy service and web dashboard",
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm -r dev",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "clean": "pnpm -r clean",
+    "proxy:build": "pnpm --filter proxy-service build",
+    "proxy:dev": "pnpm --filter proxy-service dev",
+    "web:build": "pnpm --filter web-dashboard build",
+    "web:dev": "pnpm --filter web-dashboard dev"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@eslint/eslintrc": "^3.3.1",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vitest/ui": "^3.2.4",
+    "eslint": "9.31.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.6.2",
+    "typescript": "^5.0.0",
+    "vitest": "^3.2.4"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

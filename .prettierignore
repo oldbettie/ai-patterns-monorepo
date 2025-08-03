@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.next/
+.turbo/
+*.min.js
+*.map
+go.sum
+vendor/
+certs/

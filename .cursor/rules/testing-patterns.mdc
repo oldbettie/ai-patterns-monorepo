@@ -1,0 +1,44 @@
+---
+description: Testing patterns and conventions using Vitest
+globs: ["**/*.test.ts", "**/*.test.tsx", "**/tests/**/*"]
+alwaysApply: false
+---
+
+# Testing Patterns
+
+## Test Structure
+- **Vitest** with TypeScript support
+- **Black box testing** with service layer testing mandatory
+- **Mock repositories** for testing services
+- **Test files** end with `.test.ts` or `.test.tsx`
+
+## Service Testing Pattern
+```typescript
+describe("ServiceName", () => {
+    const createTestService = () => {
+        const repositories = {
+            userRepo: new MockUserRepository(),
+            // ... other mocks
+        }
+        
+        const service = new ServiceName(repositories.userRepo)
+        return { ...repositories, service }
+    }
+    
+    it("should do something", async () => {
+        const { service } = createTestService()
+        // ... test logic
+    })
+})
+```
+
+## Test Commands
+- `pnpm test` - Run all tests
+- `pnpm test:watch` - Run tests in watch mode
+
+## Best Practices
+- Test business logic thoroughly
+- Mock external dependencies
+- Test error conditions and edge cases
+- Use descriptive test names
+- Setup tests in `tests/domain/`

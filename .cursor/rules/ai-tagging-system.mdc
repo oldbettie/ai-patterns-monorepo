@@ -1,0 +1,52 @@
+---
+description: AI tagging system for code organization and discovery
+globs: ["**/*.ts", "**/*.tsx"]
+alwaysApply: false
+---
+
+# AI Tagging System
+
+## Overview
+This project uses structured tags to help users & AI assistants find relevant code.
+You should always updated the `ai-tags.md` when you create new tags. Always check this file for existing tags before creating new ones.
+
+## Core Tag Types
+- **@feature:** - Specific feature (e.g., `@feature:user-profile`)
+- **@domain:** - Business domain (e.g., `@domain:auth`, `@domain:payments`)
+- **@backend** / **@api** / **@frontend** - System layer
+- **@reusable** - Components/utilities that can be reused
+- **@shared** - Code shared across multiple domains
+
+## Tag Format
+Add tags as comments at the top of files:
+
+```javascript
+// @feature:user-profile @domain:users @frontend
+// @summary: User profile editing form with validation
+```
+
+## Finding Code with Tags
+Use grep to search for related code:
+```bash
+# Find all user profile related code
+grep -r "@feature:user-profile" src/
+
+# Find frontend authentication code
+grep -r "@domain:auth.*@frontend" src/
+
+# Find all reusable components
+grep -r "@reusable" src/
+```
+
+## Tag Inference Rules
+- **Controllers/Routes**: `@api` + domain + feature
+- **React Components**: `@frontend` + domain + feature
+- **Services/Business Logic**: `@backend` + domain + feature
+- **Database Models**: `@backend` + domain
+- **Shared utilities**: `@reusable` or `@shared`
+
+## Code Generation Guidelines
+1. Always check `ai-tags.md` first for existing tags
+2. Use 2-3 tags minimum (feature + domain + layer)
+3. Add a `@summary` comment describing the code
+4. Create new tags sparingly - reuse existing ones
