@@ -6,6 +6,7 @@ import { auth } from '@/lib/auth/auth'
 import Container from '../components/ui/Container'
 import Button from '../components/ui/Button'
 import SectionHeading from '../components/ui/SectionHeading'
+import { getTranslations } from 'next-intl/server'
 
 export default async function Home() {
   // Check if user is already authenticated
@@ -16,7 +17,7 @@ export default async function Home() {
     redirect('/dashboard')
   }
 
-  const t = useTranslations('pages.landing')
+  const t = await getTranslations('pages.landing')
 
   return (
     <main className='relative min-h-screen overflow-x-hidden'>

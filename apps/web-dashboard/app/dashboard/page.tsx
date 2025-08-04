@@ -86,7 +86,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <main className="container-balanced py-8 md:py-12">
+    <main className="container-balanced py-8 md:py-20">
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-50">Dashboard</h1>
