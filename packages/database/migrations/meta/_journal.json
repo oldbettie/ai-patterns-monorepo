@@ -15,6 +15,13 @@
       "when": 1754216675936,
       "tag": "0001_unknown_iron_lad",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1754578096512,
+      "tag": "0002_quick_agent_zero",
+      "breakpoints": true
     }
   ]
 }

@@ -8,10 +8,10 @@ export default defineConfig({
   test: {
     environment: 'node',
     globals: true,
-    setupFiles: [path.resolve(__dirname, './apps/web-dashboard/tests/setup.ts')],
+    setupFiles: ['./apps/web-dashboard/tests/setup.ts'],
     include: [
-      path.resolve(__dirname, 'apps/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'),
-      path.resolve(__dirname, 'packages/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}')
+      'apps/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
+      'packages/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'
     ],
     exclude: [
       '**/node_modules/**',
@@ -24,10 +24,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, '.'),
-      '@/web': path.resolve(__dirname, './apps/web-dashboard'),
-      '@/proxy': path.resolve(__dirname, './apps/proxy-service'),
-      '@/shared': path.resolve(__dirname, './packages/shared-types'),
+      '@': __dirname,
     },
   },
   esbuild: {

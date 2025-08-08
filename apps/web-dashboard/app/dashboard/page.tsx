@@ -72,7 +72,7 @@ export default function DashboardPage() {
       <main className="container-balanced py-8 md:py-12">
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
             <p className="mt-4 text-sm text-neutral-600 dark:text-neutral-400">Loading...</p>
           </div>
         </div>
@@ -122,7 +122,7 @@ export default function DashboardPage() {
                 <p><span className="text-neutral-500">Email:</span> {session.user.email ?? '—'}</p>
                 <p><span className="text-neutral-500">Member since:</span> {session.user.createdAt ? new Date(session.user.createdAt).toLocaleDateString() : '—'}</p>
                 <div className="mt-3 inline-flex items-center gap-2 rounded-md border border-emerald-300 bg-emerald-50 px-2 py-1 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-900/30 dark:text-emerald-300">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
+                  <span className="h-2 w-2 rounded-full bg-emerald-500" />
                   Active subscription
                 </div>
               </div>
@@ -181,7 +181,7 @@ export default function DashboardPage() {
         {/* Usage placeholder */}
         <div className="col-span-1 rounded-xl border border-neutral-300 bg-white p-5 shadow-sm dark:border-neutral-800 dark:bg-neutral-900/80">
           <h2 className="text-sm font-semibold text-neutral-800 dark:text-neutral-200">Usage (24h)</h2>
-          <div className="mt-4 h-28 w-full rounded-md bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900"></div>
+          <div className="mt-4 h-28 w-full rounded-md bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900" />
           <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">Graph placeholder</p>
         </div>
       </section>
@@ -214,7 +214,7 @@ export default function DashboardPage() {
                         ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300'
                         : 'bg-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400'
                     }`}>
-                      <span className={`h-1.5 w-1.5 rounded-full ${d.status === 'online' ? 'bg-emerald-500' : 'bg-neutral-400'}`}></span>
+                      <span className={`h-1.5 w-1.5 rounded-full ${d.status === 'online' ? 'bg-emerald-500' : 'bg-neutral-400'}`} />
                       {d.status}
                     </span>
                   </td>

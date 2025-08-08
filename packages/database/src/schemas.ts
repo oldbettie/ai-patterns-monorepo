@@ -2,21 +2,6 @@
 // @summary: Database schema definitions for proxy services
 
 import { boolean, integer, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
-import { drizzle } from 'drizzle-orm/postgres-js'
-import postgres from 'postgres'
-
-// Get database URL from environment
-const getDatabaseUrl = () => {
-  const url = process.env.POSTGRES_URL || process.env.DATABASE_URL
-  if (!url) {
-    throw new Error('POSTGRES_URL or DATABASE_URL environment variable is required')
-  }
-  return url
-}
-
-const sql = postgres(getDatabaseUrl(), {
-  ssl: process.env.NODE_ENV === 'production' ? 'require' : false,
-})
 
 // Better Auth Tables
 export const user = pgTable('user', {
@@ -130,8 +115,29 @@ export const analyticsData = pgTable('analytics_data', {
   createdAt: timestamp('created_at').notNull().defaultNow(),
 })
 
-// Connect to Postgres
-export const db = drizzle(sql)
+// Family allow lists for VPN bypass applications
+export const familyAllowLists = pgTable('family_allow_lists', {
+  id: text('id').primaryKey(),
+  familyId: text('family_id').notNull(), // Family identifier
+  userId: text('user_id')
+    .notNull()
+    .references(() => user.id, { onDelete: 'cascade' }), // Owner/manager of family
+  allowedApplications: text('allowed_applications'), // JSON array of application names/paths
+  presetMode: varchar('preset_mode', { length: 50 }).default('custom'), // "custom" | "privacy-first" | "gaming-optimized" | "balanced"
+  listVersion: integer('list_version').notNull().default(1), // For desktop app sync
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow(),
+})
+
+// Preset allow lists for default application configurations
+export const presetAllowLists = pgTable('preset_allow_lists', {
+  id: text('id').primaryKey(),
+  modeName: varchar('mode_name', { length: 50 }).notNull(), // "privacy-first" | "gaming-optimized" | "balanced"
+  applications: text('applications').notNull(), // JSON array of default applications for this mode
+  description: text('description'),
+  isActive: boolean('is_active').notNull().default(true),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
+})
 
 // Re-export types for workspace imports
 export * from './types'

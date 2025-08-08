@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { useTranslations } from 'next-intl'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 import { auth } from '@/lib/auth/auth'

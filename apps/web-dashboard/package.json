@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "echo 'Run tests from root: pnpm test'",
+    "test": "cd ../.. && vitest run",
     "db:generate": "cd ../../packages/database && pnpm db:generate",
     "db:migrate": "cd ../../packages/database && pnpm db:migrate",
     "db:push": "cd ../../packages/database && pnpm db:push",
@@ -47,6 +47,7 @@
     "@types/node": "24.0.13",
     "@typescript-eslint/parser": "^8.0.0",
     "@vitest/ui": "^3.2.4",
-    "dotenv": "^17.2.0"
+    "dotenv": "^17.2.0",
+    "vitest": "^3.2.4"
   }
 }

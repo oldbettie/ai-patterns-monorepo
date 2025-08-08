@@ -11,7 +11,9 @@ import {
   proxyEndpoints, 
   familyProfiles, 
   deviceConfigs, 
-  analyticsData 
+  analyticsData,
+  familyAllowLists,
+  presetAllowLists
 } from './schemas'
 
 // User types
@@ -49,6 +51,14 @@ export type NewDeviceConfig = InferInsertModel<typeof deviceConfigs>
 // Analytics data types
 export type AnalyticsData = InferSelectModel<typeof analyticsData>
 export type NewAnalyticsData = InferInsertModel<typeof analyticsData>
+
+// Family allow list types
+export type FamilyAllowList = InferSelectModel<typeof familyAllowLists>
+export type NewFamilyAllowList = InferInsertModel<typeof familyAllowLists>
+
+// Preset allow list types
+export type PresetAllowList = InferSelectModel<typeof presetAllowLists>
+export type NewPresetAllowList = InferInsertModel<typeof presetAllowLists>
 
 // Re-export for backward compatibility
 export type UserTable = User

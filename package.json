@@ -16,7 +16,8 @@
     "db:generate": "cd packages/database && pnpm db:generate",
     "db:migrate": "cd packages/database && pnpm db:migrate",
     "db:push": "cd packages/database && pnpm db:push",
-    "db:studio": "cd packages/database && pnpm db:studio"
+    "db:studio": "cd packages/database && pnpm db:studio",
+    "db:seed-presets": "cd packages/database && pnpm db:seed-presets"
   },
   "workspaces": [
     "apps/*",
