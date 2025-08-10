@@ -20,3 +20,5 @@ const sql = postgres(getDatabaseUrl(), {
 
 // Connect to Postgres (server-only)
 export const db = drizzle(sql)
+
+export type DB = typeof db

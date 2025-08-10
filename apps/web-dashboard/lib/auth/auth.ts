@@ -1,5 +1,5 @@
-import { account, session, user, verification } from '@proxy-fam/database/src/schemas'
-import { db } from '@proxy-fam/database/src/database'
+import { account, session, user, verification } from '@auto-paster/database/src/schemas'
+import { db } from '@auto-paster/database/src/database'
 import { env } from '@/lib/env'
 import { EmailService } from '@/lib/resend/email-service'
 import { betterAuth } from 'better-auth'
@@ -21,7 +21,7 @@ export const auth = betterAuth({
     },
   }),
   secret: env.BETTER_AUTH_SECRET,
-  baseURL: env.NEXT_PUBLIC_BETTER_AUTH_URL,
+  baseURL: env.NEXT_PUBLIC_URL,
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,

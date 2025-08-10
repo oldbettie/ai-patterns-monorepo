@@ -6,6 +6,9 @@ const nextConfig = {
     domains: ['images.ctfassets.net'],
   },
   output: 'standalone',
+  // Allow dev-box (tailscale hostname) to hit the dev server in development
+  allowedDevOrigins: ['dev-box', '*.dev-box'],
+  transpilePackages: ['@auto-paster/database']
 }
 
 module.exports = withNextIntl(nextConfig)

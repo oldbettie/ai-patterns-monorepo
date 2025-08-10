@@ -1,7 +1,7 @@
 // @feature:database-schemas @domain:database @shared
-// @summary: Database schema definitions for proxy services
+// @summary: Database schema definitions for clipboard synchronization system
 
-import { boolean, integer, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
+import { boolean, integer, pgTable, text, timestamp, varchar, bigint, jsonb, serial } from 'drizzle-orm/pg-core'
 
 // Better Auth Tables
 export const user = pgTable('user', {
@@ -54,89 +54,81 @@ export const verification = pgTable('verification', {
   updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 })
 
-// Proxy-specific tables
-export const routingRules = pgTable('routing_rules', {
+// Clipboard Synchronization Tables
+export const devices = pgTable('devices', {
   id: text('id').primaryKey(),
-  domain: varchar('domain', { length: 255 }).notNull(),
-  action: varchar('action', { length: 50 }).notNull(), // "DIRECT", "PROXY", "BLOCK"
-  region: varchar('region', { length: 100 }), // "us-east", "uk-london", etc.
-  priority: integer('priority').notNull().default(0),
-  description: text('description'),
-  enabled: boolean('enabled').notNull().default(true),
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at').notNull().defaultNow(),
-})
-
-export const proxyEndpoints = pgTable('proxy_endpoints', {
-  id: text('id').primaryKey(),
-  name: varchar('name', { length: 255 }).notNull(),
-  url: varchar('url', { length: 512 }).notNull(),
-  enabled: boolean('enabled').notNull().default(true),
-  priority: integer('priority').notNull().default(0),
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at').notNull().defaultNow(),
-})
-
-export const familyProfiles = pgTable('family_profiles', {
-  id: text('id').primaryKey(),
-  name: varchar('name', { length: 255 }).notNull(),
-  userId: text('user_id')
+  userId: text('userId')
     .notNull()
     .references(() => user.id, { onDelete: 'cascade' }),
-  restrictions: text('restrictions'), // JSON string
-  allowedDomains: text('allowed_domains'), // JSON string
-  blockedDomains: text('blocked_domains'), // JSON string
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at').notNull().defaultNow(),
+  deviceId: text('deviceId').notNull().unique(), // matches clipboard agent device ID
+  name: text('name').notNull(), // user-friendly device name
+  platform: text('platform').notNull(), // "linux", "darwin", "windows"
+  ipAddress: text('ipAddress'), // for Tailscale integration
+  userAgent: text('userAgent'),
+  apiKey: text('apiKey').unique(), // long-lived API key for desktop app authentication
+  verified: boolean('verified').notNull().default(false), // requires user verification on target device
+  receiveUpdates: boolean('receiveUpdates').notNull().default(true), // toggle for receiving clipboard updates
+  lastSeenAt: timestamp('lastSeenAt').notNull().defaultNow(),
+  isActive: boolean('isActive').notNull().default(true),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
+  updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 })
 
-// Device configurations (corresponds to Go UserConfig)
-export const deviceConfigs = pgTable('device_configs', {
-  deviceId: text('device_id').primaryKey(),
-  userId: text('user_id')
+export const clipboardItems = pgTable('clipboardItems', {
+  id: text('id').primaryKey(),
+  userId: text('userId')
+    .notNull()
     .references(() => user.id, { onDelete: 'cascade' }),
-  workerConfig: text('worker_config'), // JSON string for WorkerConfig
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at').notNull().defaultNow(),
-})
-
-// Analytics data (corresponds to Go AnalyticsData)
-export const analyticsData = pgTable('analytics_data', {
-  id: text('id').primaryKey(),
-  deviceId: text('device_id')
+  deviceId: text('deviceId')
     .notNull()
-    .references(() => deviceConfigs.deviceId, { onDelete: 'cascade' }),
-  timestamp: timestamp('timestamp').notNull(),
-  totalRequests: integer('total_requests').notNull().default(0),
-  directCount: integer('direct_count').notNull().default(0),
-  proxyCount: integer('proxy_count').notNull().default(0),
-  blockedCount: integer('blocked_count').notNull().default(0),
-  domainStats: text('domain_stats'), // JSON string for map[string]int64
-  createdAt: timestamp('created_at').notNull().defaultNow(),
+    .references(() => devices.id, { onDelete: 'cascade' }),
+  seq: serial('seq'), // auto-increment for synchronization ordering
+  type: text('type').notNull(), // "text", "image", "file"
+  mime: text('mime'), // content MIME type
+  contentHash: text('contentHash').notNull(), // SHA-256 for deduplication (of encrypted content)
+  sizeBytes: bigint('sizeBytes', { mode: 'number' }).notNull(),
+  content: text('content'), // encrypted content (base64 encoded) for smaller items
+  isEncrypted: boolean('isEncrypted').notNull().default(true), // whether content is encrypted
+  encryptionAlgorithm: text('encryptionAlgorithm').default('AES-256-GCM'), // encryption algorithm used
+  metadata: jsonb('metadata'), // width, height, etc.
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
 })
 
-// Family allow lists for VPN bypass applications
-export const familyAllowLists = pgTable('family_allow_lists', {
+export const clipboardFiles = pgTable('clipboardFiles', {
   id: text('id').primaryKey(),
-  familyId: text('family_id').notNull(), // Family identifier
-  userId: text('user_id')
+  clipboardItemId: text('clipboardItemId')
     .notNull()
-    .references(() => user.id, { onDelete: 'cascade' }), // Owner/manager of family
-  allowedApplications: text('allowed_applications'), // JSON array of application names/paths
-  presetMode: varchar('preset_mode', { length: 50 }).default('custom'), // "custom" | "privacy-first" | "gaming-optimized" | "balanced"
-  listVersion: integer('list_version').notNull().default(1), // For desktop app sync
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at').notNull().defaultNow(),
+    .references(() => clipboardItems.id, { onDelete: 'cascade' }),
+  content: text('content'), // base64 or text content for large items
+  objectStorageUrl: text('objectStorageUrl'), // S3/storage URL for very large files
+  compressionType: text('compressionType'), // "gzip", "brotli", null
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
 })
 
-// Preset allow lists for default application configurations
-export const presetAllowLists = pgTable('preset_allow_lists', {
-  id: text('id').primaryKey(),
-  modeName: varchar('mode_name', { length: 50 }).notNull(), // "privacy-first" | "gaming-optimized" | "balanced"
-  applications: text('applications').notNull(), // JSON array of default applications for this mode
-  description: text('description'),
-  isActive: boolean('is_active').notNull().default(true),
-  createdAt: timestamp('created_at').notNull().defaultNow(),
+export const wsTokens = pgTable('wsTokens', {
+  token: text('token').primaryKey(),
+  userId: text('userId')
+    .notNull()
+    .references(() => user.id, { onDelete: 'cascade' }),
+  deviceId: text('deviceId')
+    .references(() => devices.id, { onDelete: 'cascade' }), // nullable for user-level tokens
+  expiresAt: timestamp('expiresAt').notNull(),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
+})
+
+export const pendingDeviceRegistrations = pgTable('pendingDeviceRegistrations', {
+  token: text('token').primaryKey(), // device registration token (e.g., dev_linux-be_1754803752)
+  userId: text('userId')
+    .notNull()
+    .references(() => user.id, { onDelete: 'cascade' }),
+  deviceIdPrefix: text('deviceIdPrefix').notNull(), // extracted prefix (e.g., linux-be)
+  detectedDeviceId: text('detectedDeviceId'), // full device ID if detected (e.g., linux-bettie-1754802938-b299f18e15e044b0)
+  detectedName: text('detectedName'), // detected hostname (e.g., bettie)
+  detectedPlatform: text('detectedPlatform'), // detected platform (e.g., linux)
+  userApproved: boolean('userApproved').default(false), // whether user has approved the device
+  expiresAt: timestamp('expiresAt').notNull(),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
+  updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 })
 
 // Re-export types for workspace imports

@@ -2,10 +2,10 @@ services:
   # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
-    container_name: proxy-fam-postgres
+    container_name: auto-paster-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: proxyfam
+      POSTGRES_DB: auto_paster
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
@@ -23,7 +23,7 @@ services:
     build:
       context: .
       dockerfile: docker/web-dashboard.Dockerfile
-    container_name: proxy-fam-dashboard
+    container_name: auto-paster-dashboard
     restart: unless-stopped
     ports:
       - '3000:3000'
@@ -31,20 +31,25 @@ services:
       - .env.docker
     environment:
       - NODE_ENV=development
+      # Public URL used by the browser (accessed from other machines)
+      - NEXT_PUBLIC_URL=http://localhost:3000
+      # Internal URL used by server-side fetches inside Docker
+      - INTERNAL_URL=http://dashboard:3000
+      - POSTGRES_URL=postgres://postgres:postgres@postgres:5432/auto_paster?sslmode=disable
     depends_on:
       postgres:
         condition: service_healthy
     volumes:
-      # Mount entire web-dashboard for hot reloading
-      - ./apps/web-dashboard:/workspace/apps/web-dashboard
-      # Preserve installed dependencies and build artifacts
+      # Mount entire workspace for hot reloading and proper package resolution
+      - .:/workspace
+      # Preserve installed dependencies and build artifacts (anonymous volumes in container)
       - /workspace/node_modules
       - /workspace/apps/web-dashboard/.next
 
   # PostgreSQL Dashboard
   pg-dashboard:
     image: sosedoff/pgweb:latest
-    container_name: proxy-fam-pgweb
+    container_name: auto-paster-pgweb
     restart: unless-stopped
     ports:
       - '5050:8081'
@@ -52,7 +57,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      DATABASE_URL: 'postgres://postgres:postgres@postgres:5432/proxyfam?sslmode=disable'
+      DATABASE_URL: 'postgres://postgres:postgres@postgres:5432/auto_paster?sslmode=disable'
     command: pgweb --bind=0.0.0.0 --listen=8081 --url=$DATABASE_URL
 
 volumes:

@@ -1,23 +1,24 @@
 {
-  "name": "proxy-fam-monorepo",
+  "name": "auto-paster-monorepo",
   "version": "1.0.0",
   "private": true,
-  "description": "Family Privacy Proxy - Monorepo for cross-platform proxy service and web dashboard",
+  "description": "Auto managed copy and paste across devices",
   "scripts": {
     "build": "pnpm -r build",
     "dev": "pnpm -r dev",
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
     "clean": "pnpm -r clean",
-    "proxy:build": "pnpm --filter proxy-service build",
-    "proxy:dev": "pnpm --filter proxy-service dev",
+    "go-build-dev": "cd apps/clipboard-agent && SERVICE_URL='http://localhost:3000' ./scripts/build.sh",
+    "go-clipboard-agent": "cd /home/bettie/Documents/projects/copy-paste/apps/clipboard-agent && ./dist/clipboard-agent",
+    "auto-paster:build": "pnpm --filter auto-paster build",
+    "auto-paster:dev": "pnpm --filter auto-paster dev",
     "web:build": "pnpm --filter web-dashboard build",
     "web:dev": "pnpm --filter web-dashboard dev",
     "db:generate": "cd packages/database && pnpm db:generate",
     "db:migrate": "cd packages/database && pnpm db:migrate",
     "db:push": "cd packages/database && pnpm db:push",
-    "db:studio": "cd packages/database && pnpm db:studio",
-    "db:seed-presets": "cd packages/database && pnpm db:seed-presets"
+    "db:studio": "cd packages/database && pnpm db:studio"
   },
   "workspaces": [
     "apps/*",

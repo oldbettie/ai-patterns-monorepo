@@ -1,78 +1,72 @@
-# TECHNICAL_SPEC.md - Family Privacy Proxy
+# TECHNICAL_SPEC.md - Auto Clipboard Sync
 
 ## Project Overview
 
-**Family Privacy Proxy** - A family-focused privacy solution that intelligently routes traffic based on application needs through a hybrid local-edge architecture.
+**Auto Clipboard Sync** - A cross-device clipboard that securely synchronizes text and images in real time between all a user's devices. A lightweight Go desktop agent watches the OS clipboard for changes and sends them to a central API which persists the item and broadcasts it over WebSocket to all other connected devices. Receiving devices apply the clipboard item locally.
 
 ### Core Value Proposition
 
-Unlike traditional VPNs that can have slow connections, this maintains gaming/streaming performance with VPN bypass while protecting privacy where it matters most. Family-first design addresses an underserved market with shared policies and centralized management.
+Seamless, private, and fast clipboard continuity across desktops without manual steps, cloud drives, or messaging apps. Optimized for low-latency sync, offline buffering, and safe handling of sensitive data.
 
-## Updated Architecture (Simplified Go + Web Platform)
+## Updated Architecture (Go Agent + Next.js Web Platform)
 
 ### System Components
 
 ```
-[User Device] → [Go Local Agent] → {DIRECT or Cloudflare Worker} → [Internet]
-                      ↑
-              [Web Config Platform] ← [User configures via browser]
-                      ↓
-                  [Database API]
+[User Device] → [Go Clipboard Agent] → [API + WS Hub] → [Postgres / Object Storage]
+                         ↑                     ↓
+                 [Web Dashboard (Next.js)] ← [Auth]
 ```
 
 ### Component Responsibilities
 
-#### **Go Local Agent (This Project)**
+#### **Go Clipboard Agent (This Project)**
 
-**Scope: System-wide traffic interception and routing decisions**
+**Scope: Monitor and apply system clipboard, sync via API/WebSocket**
 
--   **Traffic Interception** - Capture ALL network traffic (browsers, Discord, Slack, games)
--   **TUN/TAP Interface** - Virtual network interface for transparent traffic capture
--   **Traffic Routing Engine** - Evaluate rules and decide: DIRECT, PROXY, or BLOCK
--   **System Integration** - Configure OS network settings automatically
--   **Config Synchronization** - Fetch user rules from web platform API
--   **Performance Optimization** - Keep gaming/streaming traffic local for speed
+- **Clipboard Monitoring** - Detect changes to text and images with OS-specific watchers or polling fallback
+- **Change Deduplication** - Hash-based detection to avoid loops and redundant uploads
+- **Sync Client** - Authenticated REST (create/fetch) + WebSocket (subscribe/broadcast) with exponential backoff
+- **Apply Clipboard** - Safely set clipboard on receipt, tagging origin to prevent echo
+- **Local Queue** - Offline persistence and backfill on reconnect
+- **Config & Health** - Device ID persistence, metrics, diagnostics, and self-update hooks
 
 **Key Functions:**
 
 ```go
-func (a *Agent) handleTraffic(packet NetworkPacket) {
-    destination := packet.ExtractDestination()
-    rule := a.evaluateRules(destination.Hostname())
-
-    switch rule.Action {
-    case "DIRECT":   // Send directly to internet (Discord, Steam, Netflix)
-        forwardDirect(packet)
-    case "PROXY":    // Send to Cloudflare Worker (social media from any app)
-        forwardToWorker(packet, rule.WorkerURL)
-    case "BLOCK":    // Block request (parental controls, malware)
-        dropPacket(packet)
+// Emit on local change (not from remote apply)
+func (a *Agent) onClipboardChange(item ClipboardItem) {
+    if a.isDuplicate(item) || a.isSelfEcho(item) {
+        return
     }
+    a.enqueueForUpload(item)
 }
 
-// Captures traffic from ALL applications that are defined as requiring proxy connections:
-// - Web browsers (Chrome, Firefox, Safari)
-// - Desktop apps (Discord, Slack, Spotify)
-// - Games (Steam, Epic Games, Minecraft)
-// - System services (Windows Update, macOS software update)
+// Receive from server via WS and apply locally
+func (a *Agent) onRemoteItem(msg RemoteClipboardMessage) {
+    if msg.DeviceID == a.deviceID {
+        return // ignore own events
+    }
+    if a.isNewerThanLocal(msg) {
+        a.applyClipboard(msg)
+    }
+}
 ```
 
-#### **Web Configuration Platform (Separate Project)**
+#### **Web Dashboard (This Repo: apps/web-dashboard)**
 
--   **React/Next.js Dashboard** - Family management interface
--   **User Authentication** - Account management and family profiles
--   **Rule Management** - Domain-based routing rules configuration
--   **Analytics Dashboard** - Usage monitoring and reporting
--   **API Endpoints** - Serve configurations to Go agents
+- **Next.js App Router** - Auth, device management, clipboard history
+- **API Endpoints** - REST for item creation/fetch; WS endpoint for realtime fan-out
+- **Business Logic** - Services layer (Drizzle repositories + service orchestration)
+- **Policies** - Content limits, retention, and access control
 
-#### **Cloudflare Workers (Separate Project)**
+#### **Realtime Sync (WebSocket Hub)**
 
--   **Edge Proxy Servers** - Multiple regions (us-east, uk-london, etc.)
--   **TypeScript Implementation** - Familiar web technology
--   **Instant Deployment** - No server provisioning delays
--   **Global Performance** - 200+ edge locations worldwide
+- **Per-User Channels** - Broadcast clipboard items to all connected devices except origin
+- **Presence** - Track connected devices for diagnostics
+- **Backfill** - On connect, deliver missed items since last cursor
 
-## Go Local Agent Technical Specification
+## Go Clipboard Agent Technical Specification
 
 ### Architecture Patterns
 
@@ -80,183 +74,226 @@ func (a *Agent) handleTraffic(packet NetworkPacket) {
 
 ```
 pkg/
-├── tunnel/         # TUN/TAP interface for traffic interception
-├── router/         # Traffic routing engine and rule evaluation
-├── config/         # Configuration fetching and management
-├── system/         # OS-specific network configuration
-└── health/         # Connection monitoring and diagnostics
+├── clipboard/     # OS watchers/writers (macOS, Windows, Linux/Wayland)
+├── sync/          # REST/WS client, backoff, offline queue, dedupe
+├── config/        # Device ID, auth token, persisted settings
+├── system/        # OS-specific integration (startup, permissions)
+└── health/        # Metrics, diagnostics, self-test
 
 cmd/
-└── agent/          # Main application entry point
+└── agent/         # Main application entry point
 ```
 
 ### Core Components
 
-#### **Traffic Interception** (`pkg/tunnel/`)
+#### **Clipboard Monitoring & Apply** (`pkg/clipboard/`)
 
--   **TUN/TAP Interface** - Virtual network interface for system-wide traffic capture
--   **Packet Processing** - Parse and route network packets from all applications
--   **Connection Tracking** - Maintain state for TCP connections and UDP flows
--   **Protocol Support** - Handle HTTP, HTTPS, TCP, UDP traffic transparently
+- **Platform Watchers**
+  - macOS: NSPasteboard changeCount polling with debounced reads
+  - Windows: AddClipboardFormatListener callback, UTF-8/text + BITMAP
+  - Linux: X11 selection + Wayland portal; polling fallback
+- **Content Types**: `text/plain` (UTF-8), images (`image/png`,`image/jpeg`)
+- **Self-Echo Prevention**: Tag locally applied items with transient token and ignore subsequent local change events
 
-#### **Traffic Router** (`pkg/router/`)
+#### **Sync Client** (`pkg/sync/`)
 
--   **Domain Pattern Matching** - Support wildcards (\*.facebook.com)
--   **Priority-Based Rules** - Higher priority rules override lower ones
--   **Rule Evaluation Engine** - Fast domain lookup and routing decisions
--   **Cache Management** - Cache routing decisions for performance
+- **REST**: Create item, fetch since cursor; retries with exponential backoff and jitter
+- **WebSocket**: Authenticated subscription; receive/broadcast in per-user scope
+- **Deduplication**: SHA-256 content hash + type + normalized metadata
+- **Offline Queue**: Encrypted local store, durable on crash; flush on reconnect
+- **Ordering**: Server-assigned monotonic sequence (`seq`) per user; last-writer-wins
 
 #### **Configuration Management** (`pkg/config/`)
 
--   **API Client** - Fetch user configuration from web platform
--   **Hot Reloading** - Update rules without restarting agent
--   **Local Caching** - Store config locally for offline operation
--   **Validation** - Ensure rule integrity and format
+- **Device Identity**: Stable `deviceId` generated on first run
+- **Auth**: Short-lived WS tokens minted via authenticated REST with refresh
+- **Settings**: Include max item size, allowed types, retention window, startup behavior
 
 #### **System Integration** (`pkg/system/`)
 
--   **Network Interface Setup** - Configure TUN/TAP interface on all platforms
--   **Routing Table Management** - Direct all traffic through virtual interface
--   **Service Management** - Run as system service/daemon with elevated privileges
--   **Auto-Start** - Launch on system boot and maintain persistent connection
+- **Startup Registration**: Launch agent at login (macOS LaunchAgents, Windows Run key, Linux systemd user) optional
+- **Permissions**: Clipboard access and screen capture disclaimers where required
+- **Crash Resilience**: Single-instance lock, watchdog to restart on failure
 
 ### Configuration Schema
 
-#### **User Configuration Format**
+#### **Agent Config (local file)**
 
 ```go
-type UserConfig struct {
-    DeviceID     string               `json:"device_id"`
-    Rules        []RoutingRule        `json:"rules"`
-    Workers      map[string]string    `json:"workers"`     // region -> worker URL
-    UpdatedAt    time.Time            `json:"updated_at"`
+type AgentConfig struct {
+    DeviceID       string        `json:"device_id"`
+    AccessToken    string        `json:"access_token"`        // persisted session token
+    WsAuthToken    string        `json:"ws_auth_token"`       // short-lived, refreshed
+    LastSeq        int64         `json:"last_seq"`            // last applied server seq
+    QueuePath      string        `json:"queue_path"`
+    MaxItemBytes   int64         `json:"max_item_bytes"`
+    AllowImages    bool          `json:"allow_images"`
+    CreatedAt      time.Time     `json:"created_at"`
+    UpdatedAt      time.Time     `json:"updated_at"`
 }
 
-type RoutingRule struct {
-    ID          string      `json:"id"`
-    Domain      string      `json:"domain"`           // "*.facebook.com"
-    Action      string      `json:"action"`           // "DIRECT", "PROXY", "BLOCK"
-    Region      string      `json:"region,omitempty"` // "us-east", "uk-london"
-    Priority    int         `json:"priority"`
-    Description string      `json:"description"`
+type ClipboardItem struct {
+    ID            string            `json:"id"`
+    UserID        string            `json:"user_id"`
+    DeviceID      string            `json:"device_id"`
+    Seq           int64             `json:"seq"`              // server assigned
+    Type          string            `json:"type"`             // "text" | "image"
+    Mime          string            `json:"mime"`             // e.g. "text/plain"
+    Text          string            `json:"text,omitempty"`
+    ImageBase64   string            `json:"image_base64,omitempty"` // initial impl
+    ContentHash   string            `json:"content_hash"`      // sha256
+    SizeBytes     int64             `json:"size_bytes"`
+    Meta          map[string]string `json:"meta,omitempty"`    // e.g. width,height
+    CreatedAt     time.Time         `json:"created_at"`
 }
 ```
 
-#### **API Integration**
+#### **API Integration (simplified)**
 
 ```go
-// Simple HTTP API calls to web platform
-func fetchUserConfig(deviceID string) (*UserConfig, error) {
-    url := fmt.Sprintf("https://api.family-proxy.com/config/%s", deviceID)
-    resp, err := http.Get(url)
-    // Parse JSON response
-}
+// POST create item
+func (c *Client) CreateItem(ctx context.Context, item ClipboardItem) (ClipboardItem, error)
 
-func reportAnalytics(deviceID string, stats AnalyticsData) error {
-    // Send usage statistics back to web platform
-}
+// GET incremental fetch (since last seq)
+func (c *Client) FetchSince(ctx context.Context, sinceSeq int64, limit int) ([]ClipboardItem, error)
+
+// WS subscribe to realtime updates
+func (c *Client) ConnectWebSocket(ctx context.Context, wsToken string) (<-chan ClipboardItem, error)
 ```
 
-### Routing Logic
+### Sync Logic
 
-#### **Default Rules**
+#### **Rules**
 
--   **Gaming Platforms** → DIRECT (Steam, Epic Games, Xbox Live)
--   **Streaming Services** → DIRECT (Netflix, YouTube, Spotify)
--   **Social Media** → PROXY via selected region (Facebook, Instagram, Twitter)
--   **General Browsing** → PROXY via selected region
--   **Blocked Content** → BLOCK (configurable per family profile)
+- **Ignore-Origin**: Do not echo clipboard updates back to the source `deviceId`
+- **Last-Writer-Wins**: Apply only if `msg.seq > LastSeq`
+- **Deduplicate**: Drop if `contentHash` matches latest applied of same `type`
+- **Backfill**: On connect, `GET /items?since=LastSeq` then start WS stream
+- **Limits**: Reject items above `MaxItemBytes`; compress images when possible
 
 #### **Performance Optimization**
 
--   **Local DNS Cache** - Reduce lookup times
--   **Connection Reuse** - Pool connections to Cloudflare Workers
--   **Minimal Latency** - Direct connections bypass all proxying
--   **Smart Fallback** - Direct connection if worker unavailable
+- **Debounced Reads**: Coalesce rapid clipboard changes
+- **Binary Handling**: For images, base64 in v1; migrate to object storage URL when size exceeds threshold
+- **Connection Reuse**: Single long-lived WS with keepalive pings
+- **Smart Retry**: Fast-first retries, exponential backoff, max jitter
 
-### Development & Deployment
+## Web Platform Technical Specification (Next.js + Drizzle)
 
-#### **Build System**
+### API & Realtime Routes
+
+- `POST /api/core/v1/clipboard/items` (auth): create item
+- `GET /api/core/v1/clipboard/items?since=<seq>&limit=<n>` (auth): incremental fetch
+- `GET /api/core/v1/clipboard/ws` (auth via header or query token): WebSocket subscribe
+
+All routes follow the shared wrapper pattern returning `{ data, error }`.
+
+### Data Model (Drizzle ORM)
+
+- **Tables**
+  - `clipboard_items`: `id`, `user_id`, `device_id`, `seq`, `type`, `mime`, `text`, `image_base64`, `content_hash`, `size_bytes`, `meta` (json), `created_at`
+  - `devices`: `id`, `user_id`, `name`, `platform`, `last_seen_at`, `created_at`
+  - `ws_tokens`: `token`, `user_id`, `expires_at`, `created_at`
+
+### Services & Repositories
+
+- **Repositories** (`packages/database/src/repositories/`)
+  - `clipboardRepository` (create, fetchSince, latestSeq)
+  - `deviceRepository` (upsert presence)
+- **Service Layer** (`apps/web-dashboard/lib/services/`)
+  - `clipboardService` (validation, hash calc, sequence assignment, fan-out)
+
+### WebSocket Hub Semantics
+
+- **Authentication**: Short-lived WS token bound to user; validated on connect
+- **Channeling**: Per-user group; origin-aware broadcast (exclude sender)
+- **Ordering**: Broadcast in server `seq` order; single producer per user ensures monotonicity
+- **Presence**: Periodic heartbeats update `devices.last_seen_at`
+
+## Development & Deployment
+
+### Build System
 
 ```bash
-# Cross-platform builds
-go build -o dist/family-proxy-windows.exe cmd/agent/main.go
-go build -o dist/family-proxy-macos cmd/agent/main.go
-go build -o dist/family-proxy-linux cmd/agent/main.go
+# Cross-platform builds for agent
+go build -o dist/clipboard-agent-windows.exe cmd/agent/main.go
+go build -o dist/clipboard-agent-macos cmd/agent/main.go
+go build -o dist/clipboard-agent-linux cmd/agent/main.go
 ```
 
-#### **Installation Process**
+### Installation Process
 
 1. **Download Binary** - Single executable per platform
-2. **First Run** - Generates unique device ID
-3. **Authentication** - User links device to family account via web
-4. **Auto-Configuration** - Sets system proxy settings
-5. **Background Service** - Runs continuously as system service
+2. **First Run** - Generates `deviceId`; user signs in via browser to link device
+3. **Token Provisioning** - App exchanges session for long-lived access token and short-lived WS token
+4. **Startup Option** - User may enable launch-at-login
+5. **Background Service** - Agent runs in tray/background and reconnects automatically
 
-#### **Testing Strategy**
+### Testing Strategy
 
--   **Unit Tests** - Core routing logic and rule evaluation
--   **Integration Tests** - System proxy configuration
--   **Performance Tests** - Latency impact measurement
--   **Cross-Platform Tests** - Windows, macOS, Linux compatibility
+- **Unit Tests (Go)** - Clipboard normalization, hashing, dedupe, queue flush, retry backoff
+- **Integration Tests (Go)** - WS reconnect, REST/WS interop, apply/echo prevention
+- **Unit/Integration (Web, Vitest)** - Services, repositories, API handlers, WS hub
+- **E2E (Optional)** - Multi-agent sync scenarios with fake clipboard layer
 
-### Security Considerations
+## Security & Privacy Considerations
 
-#### **Local Security**
+### Local Security
 
--   **Localhost Binding** - Proxy only accessible from local machine
--   **No Credential Storage** - Device ID only, no passwords
--   **Secure Communication** - HTTPS for all API calls
--   **Process Isolation** - Run with minimal system privileges
+- **Least Privilege** - Agent runs as user, not system
+- **Local Storage** - Encrypt offline queue at rest (OS keychain/DPAPI/Libsecret)
+- **Self-Echo Token** - Ephemeral tokens never persisted
 
-#### **Network Security**
+### Network Security
 
--   **Certificate Validation** - Verify Cloudflare Worker certificates
--   **DNS Security** - Use secure DNS resolvers
--   **Traffic Isolation** - No inspection of HTTPS content
--   **Privacy Protection** - No logging of user browsing data
+- **TLS** - All REST/WS over HTTPS/WSS
+- **Authentication** - Session-based REST; short-lived WS tokens (5–15 min) with refresh
+- **Content Limits** - Server-side validation of size and types; reject dangerous payloads
+- **Privacy** - No server logs of clipboard contents beyond DB persistence; structured audit events do not include content
+
+### Optional End-to-End Encryption (Future)
+
+- Per-user symmetric key; content encrypted client-side; server stores ciphertext and routes blindly. Key exchange via authenticated dashboard.
 
 ## Key Design Decisions
 
 ### **Separation of Concerns**
 
--   **Go Agent**: Local system integration and traffic routing only
--   **Web Platform**: All user interface, configuration, and analytics
--   **Cloudflare Workers**: All remote proxy functionality
+- **Go Agent**: Clipboard I/O, local queue, transport client
+- **Web Platform**: Auth, persistence, sequencing, fan-out, policy
+- **Database**: Drizzle-managed schema and migrations (PostgreSQL)
 
 ### **Technology Choices**
 
--   **Go**: Excellent for local system integration and network proxy
--   **Web Technologies**: Familiar stack for UI/UX and business logic
--   **Cloudflare Workers**: Global edge network with instant deployment
+- **Go**: Cross-platform desktop integration and robust networking
+- **Next.js (App Router)**: Dashboard + API routes; server components by default
+- **Drizzle ORM + PostgreSQL**: Strong typing and portable migrations
 
 ### **Performance First**
 
--   **Local routing decisions** - No latency for direct connections
--   **Edge proxy execution** - Cloudflare's global network performance
--   **Minimal resource usage** - Lightweight Go agent
+- **Realtime Sync** - Single WS hub per user with keepalives
+- **Low Overhead** - Debounced watchers, minimal allocations, bounded queues
+- **Scalable Fan-out** - Per-user broadcast groups reduce contention
 
-### **Family-Centric Design**
+### **User-Centric Design**
 
--   **Easy installation** - Single binary, auto-configuration
--   **Centralized management** - Parents configure via web dashboard
--   **Per-device policies** - Different rules for different family members
--   **Usage monitoring** - Family-friendly analytics and reporting
+- **Zero-friction** - Works automatically after sign-in
+- **Predictable** - Clear limits, visibility into history and devices
+- **Respectful** - Private by default; easy pause/disable
 
 ## Success Metrics
 
 ### **Performance Targets**
 
--   **<1ms latency overhead** for direct connections
--   **<50ms additional latency** for proxied connections
--   **<10MB memory usage** for Go agent
--   **99.9% uptime** for local proxy service
+- **<300ms median** end-to-end sync for text
+- **<800ms median** for small images (<1MB)
+- **>99.95%** successful delivery across active connections
+- **<25MB RAM** typical agent footprint; **<2% CPU** idle
 
 ### **User Experience Goals**
 
--   **One-click installation** - No technical configuration required
--   **Instant rule updates** - Changes apply within 30 seconds
--   **Transparent operation** - Users don't notice performance impact
--   **Family-friendly** - Parents can manage all devices from web dashboard
+- **Instant continuity** - Copy on one device, paste on another with minimal delay
+- **Offline-friendly** - Queue and backfill seamlessly
+- **Safe by default** - Reasonable limits and privacy-preserving defaults
 
-This simplified architecture leverages the strengths of each technology while maintaining the family-focused user experience and performance optimization goals.
+This architecture delivers fast, reliable clipboard synchronization while aligning with the project's Next.js + Go stack and service/repository pattern. It emphasizes low latency, device resilience, and privacy.

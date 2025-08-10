@@ -1,11 +1,12 @@
 import { createRouteHandler } from '@/lib/auth/route-handler'
+import { createDesktopRouteHandler } from '@/lib/auth/desktop-route-handler'
 import { NextResponse } from 'next/server'
 
-export const GET = createRouteHandler({ isAuthenticated: true }, async req => {
+// Desktop app endpoint (using API key authentication)
+export const GET = createDesktopRouteHandler({ requireApiKey: true }, async req => {
   return NextResponse.json({
     data: {
       user: req.user,
-      session: req.session,
     },
     error: null,
   })

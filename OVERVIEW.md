@@ -1,207 +1,148 @@
-# Family Privacy Proxy - Project Overview & Roadmap
+# Auto Clipboard Sync - Project Overview & Roadmap
 
 ## Product Concept
 
-A family-focused privacy solution that intelligently routes traffic based on application needs:
+A cross-device clipboard that securely synchronizes text and images in real time across all a user's devices. The desktop agent watches the system clipboard and uses an authenticated API + WebSocket hub to persist and broadcast updates. Other devices receive the item and apply it to their local clipboard.
 
-- **High-performance direct routing** for latency-sensitive applications (games, video calls, streaming)
-- **Privacy-protecting proxy routing** for social media, browsing, and data-harvesting platforms
-- **Family-centric management** with parental controls and usage monitoring
+- **Realtime sync** for text and images
+- **Low-latency** delivery with offline queuing and backfill
+- **Privacy-first** design with optional end-to-end encryption (future)
+- **Device management** and clipboard history via the web dashboard
 
 ## Core Value Proposition
 
-Unlike traditional VPNs that slow everything down, this maintains gaming/streaming performance while protecting privacy where it matters most. Family-first design addresses an underserved market with shared policies and centralized management.
+Eliminate the friction of sending snippets, commands, and screenshots between computers. Copy once, paste anywhere—securely and instantly.
 
 ## Technology Stack
 
-**Go Local Agent:** System-wide traffic interception and routing (TUN/TAP interface)
-**Web Dashboard:** Next.js/React family management platform with database backend
-**Edge Proxy Network:** Cloudflare Workers for global proxy endpoints
-**Shared Packages:** TypeScript types, configuration utilities, and database schemas
-**Deployment:** Multi-component architecture (local agent + cloud platform)
+- **Go Clipboard Agent:** Cross-platform desktop integration (macOS, Windows, Linux)
+- **Web Dashboard:** Next.js App Router (auth, devices, history, settings)
+- **Realtime Sync:** WebSocket hub with per-user channels and origin-aware broadcasts
+- **Database:** PostgreSQL with Drizzle ORM (typed repositories and migrations)
+- **Shared Packages:** Common types and utilities
+- **Deployment:** Docker for web/dashboard + DB; native binaries for the agent
 
-## MVP Timeline (4-6 weeks)
+## MVP Scope (Weeks 1–4)
 
-### Week 1-2: Core Local Agent & Infrastructure Setup
+- Clipboard sync for `text/plain` and small images (`image/png`/`image/jpeg`)
+- Go agent with self-echo prevention, hashing/deduplication, and offline queue
+- Next.js APIs: create item, fetch since cursor; WebSocket subscribe
+- Sequencing per user (`seq`), last-writer-wins, and backfill on connect
+- Device management UI and basic history view
+- Authentication and session management
+- Limits and validation (max item size, allowed types)
 
-**Go Local Agent Development:**
+## MVP Timeline (4–6 weeks)
 
-- TUN/TAP interface for system-wide traffic interception
-- Traffic routing engine with rule evaluation (DIRECT/PROXY/BLOCK)
-- Configuration API client for web platform synchronization
-- Basic system integration (Windows/macOS/Linux)
+### Week 1–2: Agent + Backend Foundations
 
-**Infrastructure Setup:**
+- Clipboard watchers and apply on macOS/Windows/Linux
+- REST client, WebSocket client with reconnect/backoff
+- Next.js project setup with auth and database baseline (Drizzle)
+- Schema: `clipboard_items`, `devices`, `ws_tokens`
 
-- Next.js web dashboard foundation with authentication
-- Database schema design for users, devices, and routing rules
-- Basic Cloudflare Workers proxy endpoints
+### Week 3–4: Realtime + History + Policies
 
-**Technical Deliverable:** Local agent with system-wide traffic capture + basic web platform
+- WebSocket hub with per-user channels, origin-aware broadcast
+- History fetch since cursor, pagination
+- Limits (size/type), validation with Zod, error handling
+- Device presence and last seen UI
 
-### Week 3-4: Web Dashboard & Family Management
+### Week 5–6: Polish + Stability
 
-**Web Dashboard Development:**
-
-- Family account management and device registration
-- Interactive rule management interface (add/remove domains, priorities)
-- Real-time analytics dashboard (traffic routing, performance metrics)
-- Family profile management with inheritance settings
-
-**Advanced Agent Features:**
-
-- Hot configuration reloading from web platform API
-- Performance monitoring and automatic fallback to direct routing
-- Enhanced system integration and service management
-- Cross-platform installation and auto-start capabilities
-
-**Technical Deliverable:** Full web-based family management platform with multi-device agent support
-
-### Week 5-6: Polish & User Testing
-
-**User Experience:**
-
-- Streamlined agent installation and device registration flow
-- Web-based onboarding with default rule templates
-- Performance monitoring with latency comparisons (direct vs proxy)
-- Comprehensive error reporting and troubleshooting guides
-
-**Production Features:**
-
-- Cloudflare Workers deployment across multiple regions
-- Advanced analytics (usage patterns, performance optimization suggestions)
-- Rule import/export and family template sharing
-- Mobile-responsive dashboard for on-the-go management
-
-**Technical Deliverable:** Production-ready MVP with global edge network and family management platform
+- Robust dedupe and crash-safe offline queue
+- Agent startup-at-login option and tray integration (basic)
+- Performance and load tests (WS fan-out, DB hot paths)
+- Observability and diagnostics
 
 ## Long-Term Feature Roadmap
 
-### Advanced Application Detection (Month 2-3)
+### Additional Clipboard Types
 
-- Process monitoring for application identification
-- Deep packet inspection for traffic classification
-- User agent fingerprinting
-- Automatic game/streaming application detection
+- Rich text (RTF/HTML), files/attachments (object storage), structured snippets
 
-### Gaming Performance Optimization
+### Mobile & Browser
 
-- Competition mode (bypass all proxies for competitive gaming)
-- Automatic detection of gaming applications
-- Latency monitoring and alerts
-- Game-specific routing profiles
+- iOS/Android lightweight agents
+- Browser extension for tab-to-tab sync
 
-### Tailscale Integration
+### Advanced Privacy & Security
 
-- Smart routing for local vs remote Tailscale traffic
-- Avoid double-proxying encrypted Tailscale connections
-- Integration with Tailscale exit nodes
-- Local network optimization
+- End-to-end encryption (per-user symmetric key)
+- Per-device approvals and granular permissions
 
-### Remote Streaming Compatibility
+### Collaboration & Sharing
 
-- NVIDIA GameStream/Sunshine protocol detection
-- Parsec and remote desktop optimization
-- QoS for real-time streaming protocols
-- Bandwidth monitoring for streaming sessions
+- Share clipboards with trusted contacts or teams
+- Spaces (personal, work) with scoped history
 
-### Advanced Family Features (Month 4+)
+### Productivity Enhancements
 
-- Profile inheritance (kids inherit parent rules + restrictions)
-- Time-based routing rules (school hours, bedtime)
-- Family activity reporting and dashboards
-- Remote management via mobile app
-
-### Enterprise Features (Month 6+)
-
-- Multi-location proxy endpoint support
-- Team/business group policy management
-- Compliance reporting and data flow auditing
-- API integration with third-party security tools
-
-## Market Opportunity
-
-**Target Markets:**
-
-- Families concerned about online privacy (primary)
-- Remote workers needing selective privacy protection
-- Small businesses requiring employee privacy compliance
-- Gaming communities wanting performance + privacy
-
-**Competitive Advantages:**
-
-- Performance-first approach (unlike traditional VPNs)
-- Family-centric design and management
-- Intelligent application-aware routing
-- Regulatory compliance assistance (Australia age verification, etc.)
-
-## Early User Validation Strategy
-
-**Week 6-8: Closed Beta**
-
-- 10-20 technical early adopters
-- Focus on core proxy functionality validation
-- Performance data collection and edge case identification
-
-**Week 8-12: Expanded Beta**
-
-- 50-100 family users
-- Test family management features
-- Gaming community validation
-- Tailscale user compatibility testing
+- Snippet pinning and search
+- OCR for images, quick actions (copy as code block, sanitize formatting)
+- Cross-device hotkeys and rules (ignore apps, throttle noisy sources)
 
 ## Technical Risk Assessment
 
-**High Priority Risks:**
+**High Priority Risks**
 
-- TUN/TAP interface complexity across different operating systems
-- Web platform scalability and real-time configuration synchronization
-- Cloudflare Workers performance consistency and regional availability
+- OS clipboard API variability (Wayland, X11, macOS sandboxing)
+- Clipboard event loops and dedup accuracy
+- Image format conversions and size overhead (base64 vs. binary)
+- WebSocket scaling and ordering guarantees per user
 
-**Medium Priority Risks:**
+**Medium Priority Risks**
 
-- Cross-platform compatibility issues
-- User experience complexity for non-technical families
-- Regulatory compliance as laws evolve
+- Auth/session edge cases for short-lived WS tokens
+- Offline queue corruption and recovery
+- Database hot partitions and sequence contention
 
-**Mitigation Strategies:**
+**Mitigations**
 
-- Start with simplest possible implementation
-- Extensive early user testing
-- Incremental feature rollout based on feedback
-- Strong focus on performance monitoring
+- Normalize content and hash; tag applied origin to prevent echo
+- Debounce watchers; limit item sizes; compress images when possible
+- Monotonic per-user sequencing with simple producer path
+- Backoff with jitter; WS heartbeats and presence tracking
 
-## Business Model Considerations
+## Market Opportunity
 
-**Monetization Options:**
+**Target Users**
 
-- Tiered family subscription plans
-- Premium features (advanced analytics, enterprise controls)
-- White-label solutions for other privacy-focused companies
+- Developers, designers, and knowledge workers with multiple devices
+- Remote workers and cross-platform users (macOS/Windows/Linux)
 
-**Infrastructure Costs:**
+**Competitive Advantages**
 
-- Cloudflare Workers bandwidth and compute usage
-- Web dashboard hosting and database infrastructure
-- Authentication service and API hosting
-- Customer support and documentation platform
+- Focus on reliability and low-latency sync
+- Privacy-first with clear roadmap to E2EE
+- Open, extensible architecture with typed APIs and services
 
 ## Success Metrics
 
-**Technical Metrics:**
+**Technical Metrics**
 
-- Proxy performance vs direct connection latency
-- System resource usage (memory, CPU)
-- Uptime and reliability statistics
+- Median end-to-end latency: text <300ms; small images <800ms
+- Delivery success rate >99.95% across active sessions
+- Crash-free sessions >99.9%; agent RAM <25MB typical; idle CPU <2%
 
-**User Metrics:**
+**User Metrics**
 
-- Family adoption and active usage
-- Feature utilization (which routing rules are most common)
-- User retention and satisfaction scores
+- Weekly active devices per user
+- 4-week retention and daily paste success rate
+- Time-to-first-sync after login
 
-**Business Metrics:**
+## Business Considerations (Optional)
 
-- Customer acquisition cost
-- Monthly recurring revenue growth
-- Market penetration in target segments
+**Monetization**
+
+- Free tier: text-only, limited history
+- Pro: images, longer history, E2EE, snippets, teams
+
+**Infrastructure Costs**
+
+- Web/API hosting, DB, and WebSocket bandwidth
+- Optional object storage for large binaries
+
+---
+
+This overview aligns with the updated technical spec and the monorepo's Next.js + Go architecture, focusing on low-latency sync, device resilience, and privacy by design.

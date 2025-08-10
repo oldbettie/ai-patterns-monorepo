@@ -10,28 +10,6 @@ export interface ApiResponse<T = any> {
 // Common status types
 export type Status = 'online' | 'offline' | 'pending' | 'error'
 
-// Common action types for routing
-export type RoutingAction = 'DIRECT' | 'PROXY' | 'BLOCK'
-
-// Device status for UI
-export interface DeviceStatus {
-  id: string
-  name: string
-  status: Status
-  lastSeen: Date
-}
-
-// Connection status for logs/monitoring
-export interface ConnectionStatus {
-  id: string
-  device: string
-  profile: string
-  startedAt: Date
-  durationMin: number
-  transferredMB: number
-  status: 'ok' | 'dropped' | 'failed'
-}
-
 // Generic pagination types
 export interface PaginationParams {
   page: number

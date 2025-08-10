@@ -1,9 +1,8 @@
 {
-  "name": "@proxy-fam/database",
+  "name": "@auto-paster/database",
   "version": "1.0.0",
-  "description": "Database schemas and migrations for family proxy",
-  "main": "src/schemas.ts",
-  "types": "src/schemas.ts",
+  "description": "Database schemas and migrations",
+
   "private": true,
   "scripts": {
     "type-check": "tsc --noEmit",
@@ -14,7 +13,7 @@
     "db:seed-presets": "tsx src/seedPresets.ts"
   },
   "dependencies": {
-    "@proxy-fam/common": "workspace:*",
+    "@auto-paster/common": "workspace:*",
     "drizzle-orm": "^0.44.2",
     "postgres": "^3.4.7"
   },

@@ -34,10 +34,10 @@
   },
   "pages": {
     "landing": {
-      "badge": "Performance + Privacy for families",
+      "badge": "Copy once, paste anywhere",
       "hero": {
-        "title": "Privacy when it matters, Performance when you need it!",
-        "subtitle": "Family focused VPN, you decide whats best for your family in the online world. Don't let big brother decide whats right for you!"
+        "title": "Auto Clipboard Sync",
+        "subtitle": "Secure, realtime clipboard sync for text and images across all your devices."
       },
       "cta": {
         "getStarted": "Get started",
@@ -45,44 +45,119 @@
       },
       "sections": {
         "value": {
-          "eyebrow": "Why Family Privacy Proxy",
-          "title": "Performance where it matters. Privacy where it counts.",
-          "subtitle": "Selective routing ensures games and streaming stay fast while social and tracking-heavy destinations go through privacy-protecting proxies.",
+          "eyebrow": "Why Auto Clipboard Sync",
+          "title": "Seamless, private, and fast",
+          "subtitle": "Copy on one device and paste on another in milliseconds—private by design.",
           "items": {
             "privacy": {
-              "title": "Smart Privacy",
-              "desc": "Automatically routes social and data-harvesting platforms through secure proxies."
+              "title": "Private by default",
+              "desc": "Encrypted transport, access control, and clear retention policies."
             },
             "performance": {
-              "title": "Gaming Performance",
-              "desc": "Bypasses proxies for latency-sensitive apps like games and video calls."
+              "title": "Low latency",
+              "desc": "Optimized WebSocket delivery with offline queuing and backfill."
             },
             "family": {
-              "title": "Family Controls",
-              "desc": "Profiles, shared rules, and simple monitoring built for families."
+              "title": "Cross-device",
+              "desc": "Works across macOS, Windows, and Linux desktops."
             }
           }
         },
         "how": {
           "eyebrow": "How it works",
-          "title": "Hybrid local-edge routing",
-          "subtitle": "A lightweight local agent makes instant routing decisions; Cloudflare Workers provide privacy at the edge.",
+          "title": "Agent + API + WebSocket",
+          "subtitle": "A lightweight desktop agent watches the clipboard and syncs via an authenticated API and realtime hub.",
           "steps": {
-            "1": "Install the local agent on your device.",
-            "2": "Choose routing rules for family members in the web dashboard.",
-            "3": "Enjoy fast games and private browsing automatically."
+            "1": "Install the desktop agent.",
+            "2": "Sign in and link your devices.",
+            "3": "Copy on one device, paste on another."
           }
         }
       },
       "pricing": {
-        "title": "Start free. Upgrade when you’re ready.",
-        "subtitle": "Simple plans for families. No lock‑in. Cancel anytime.",
+        "title": "Start free. Upgrade when you're ready.",
+        "subtitle": "Simple plans for individuals and teams.",
         "primary": "Create free account",
         "secondary": "Sign in"
       },
       "footer": {
+        "brand": "Auto Clipboard Sync",
         "login": "Login",
         "signup": "Sign Up"
+      }
+    },
+    "dashboard": {
+      "title": "Clipboard Manager",
+      "subtitle": "View your recent items, manage devices, and control sync.",
+      "account": "Account",
+      "memberSince": "Member since",
+      "subscriptionActive": "Active subscription",
+      "devices": "Devices",
+      "addDevice": "Add device",
+      "deviceName": "Name",
+      "deviceStatus": "Status",
+      "deviceLastSeen": "Last seen",
+      "actions": "Actions",
+      "revoke": "Delete",
+      "history": "Recent Items",
+      "noItems": "No items yet",
+      "type": "Type",
+      "createdAt": "Created",
+      "contentPreview": "Preview",
+      "statusOnline": "online",
+      "statusOffline": "offline",
+      "addThisDevice": "Add This Device",
+      "manualAddDevice": "Manual Add",
+      "deviceVerified": "Verified",
+      "deviceUnverified": "Unverified",
+      "deviceReceivesUpdates": "Receiving updates",
+      "deviceUpdatesDisabled": "Updates disabled",
+      "verifyDevice": "Verify",
+      "generateVerification": "Generate Link",
+      "toggleUpdates": "Toggle Updates",
+      "renameDevice": "Rename",
+      "deviceManagement": "Device Management",
+      "noDevices": "No devices added yet",
+      "addFirstDevice": "Add your first device to start syncing",
+      "verificationRequired": "Device verification required",
+      "verificationDescription": "This device needs to be verified before it can receive clipboard updates. Generate a verification link to complete setup.",
+      "ipAddress": "IP Address",
+      "platform": "Platform",
+      "optional": "Optional",
+      "autoDetected": "Auto-detected",
+      "tailscaleName": "Tailscale Name",
+      "addDeviceModal": {
+        "title": "Add New Device",
+        "description": "Choose how you want to add a device to your clipboard sync.",
+        "thisDevice": {
+          "title": "Add This Device",
+          "description": "Register the current browser/device you're using now",
+          "form": {
+            "deviceName": "Device Name",
+            "deviceNamePlaceholder": "e.g., My MacBook",
+            "ipAddress": "IP Address (Optional)",
+            "ipAddressPlaceholder": "e.g., 192.168.1.100",
+            "submit": "Add Device"
+          }
+        },
+        "manual": {
+          "title": "Manual Add",
+          "description": "Add a device by entering its details manually",
+          "form": {
+            "deviceName": "Device Name",
+            "deviceNamePlaceholder": "e.g., Home Desktop",
+            "ipAddress": "IP Address",
+            "ipAddressPlaceholder": "e.g., 192.168.1.100",
+            "tailscaleName": "Tailscale Name",
+            "tailscaleNamePlaceholder": "e.g., home-desktop",
+            "platform": "Platform",
+            "selectPlatform": "Select platform",
+            "linux": "Linux",
+            "darwin": "macOS",
+            "windows": "Windows",
+            "submit": "Add Device"
+          }
+        }
       }
     },
     "login": {

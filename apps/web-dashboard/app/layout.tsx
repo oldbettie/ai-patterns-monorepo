@@ -4,28 +4,27 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import { LanguageSelector } from '@/components/language-selector'
 import ThemeToggle from '@/components/theme-toggle'
+import type { Metadata, Viewport } from 'next'
 
-export const metadata = {
-  metadataBase: new URL('https://familyprivacyproxy.example'), // replace with real domain when available
+export const metadata: Metadata = {
+  metadataBase: new URL('https://autoclip.example'), // replace with real domain when available
   title: {
-    default: 'Family Privacy Proxy — Privacy when it matters, Performance when you need it!',
-    template: '%s — Family Privacy Proxy',
+    default: 'Auto Clipboard Sync — Copy once, paste anywhere',
+    template: '%s — Auto Clipboard Sync',
   },
   description:
-    "Family focused VPN and smart routing. You decide what's best for your family online—fast for games and calls, private for tracking-heavy sites.",
-  applicationName: 'Family Privacy Proxy',
+    'Cross-device clipboard that securely synchronizes text and images in real time across your devices.',
+  applicationName: 'Auto Clipboard Sync',
   keywords: [
-    'family vpn',
+    'clipboard sync',
+    'copy paste across devices',
+    'realtime sync',
+    'websocket',
     'privacy',
-    'parental controls',
-    'cloudflare',
-    'proxy',
-    'low latency gaming',
-    'hybrid routing',
   ],
-  authors: [{ name: 'Family Privacy Proxy' }],
-  creator: 'Family Privacy Proxy',
-  publisher: 'Family Privacy Proxy',
+  authors: [{ name: 'Auto Clipboard Sync' }],
+  creator: 'Auto Clipboard Sync',
+  publisher: 'Auto Clipboard Sync',
   alternates: {
     canonical: '/',
   },
@@ -34,17 +33,17 @@ export const metadata = {
     follow: true,
   },
   openGraph: {
-    title: 'Family Privacy Proxy — Privacy when it matters, Performance when you need it!',
+    title: 'Auto Clipboard Sync — Copy once, paste anywhere',
     description:
-      "Family focused VPN and smart routing. You decide what's best for your family online—fast for games and calls, private for tracking-heavy sites.",
-    url: 'https://familyprivacyproxy.example/',
-    siteName: 'Family Privacy Proxy',
+      'Cross-device clipboard that securely synchronizes text and images in real time across your devices.',
+    url: 'https://autoclip.example/',
+    siteName: 'Auto Clipboard Sync',
     images: [
       {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'Family Privacy Proxy',
+        alt: 'Auto Clipboard Sync',
       },
     ],
     locale: 'en_US',
@@ -52,19 +51,20 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Family Privacy Proxy — Privacy when it matters, Performance when you need it!',
+    title: 'Auto Clipboard Sync — Copy once, paste anywhere',
     description:
-      "Family focused VPN and smart routing. You decide what's best for your family online—fast for games and calls, private for tracking-heavy sites.",
+      'Cross-device clipboard that securely synchronizes text and images in real time across your devices.',
     images: ['/opengraph-image.png'],
   },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
     { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
   ],
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-  },
 }
 
 const inter = Inter({

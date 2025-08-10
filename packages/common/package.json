@@ -1,7 +1,7 @@
 {
-  "name": "@proxy-fam/common",
+  "name": "@auto-paster/common",
   "version": "0.1.0",
-  "description": "Common types, configurations, and utilities for Proxy Family",
+  "description": "Common types, configurations",
   "main": "src/types.ts",
   "types": "src/types.ts",
   "scripts": {

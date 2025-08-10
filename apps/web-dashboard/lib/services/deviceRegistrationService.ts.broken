@@ -1,0 +1,264 @@
+// @feature:device-registration @domain:devices @backend
+// @summary: Service layer for managing pending device registrations during setup flow
+
+import "server-only"
+import { DeviceRepository } from "@auto-paster/database/src/repositories/deviceRepository"
+import { PendingDeviceRegistrationRepository } from "@auto-paster/database/src/repositories/pendingDeviceRegistrationRepository"
+import { db } from "@auto-paster/database/src/database"
+import type { PendingDeviceRegistration, Device } from "@auto-paster/database/src/types"
+
+export interface CreatePendingRegistrationInput {
+  token: string
+  userId: string
+  deviceIdPrefix: string
+}
+
+export interface UpdateDetectedDeviceInput {
+  token: string
+  detectedDeviceId: string
+  detectedName: string
+  detectedPlatform: string
+}
+
+export interface ProcessDeviceRegistrationInput {
+  token: string
+  deviceId: string
+  name: string
+  platform: "linux" | "darwin" | "windows"
+}
+
+export interface DeviceRegistrationResult {
+  apiKey: string
+  deviceId: string
+  device: Device
+}
+
+export class DeviceRegistrationService {
+  private readonly pendingRegistrationRepository: PendingDeviceRegistrationRepository
+  private readonly deviceRepository: DeviceRepository
+
+  constructor(
+    pendingRegistrationRepository: PendingDeviceRegistrationRepository,
+    deviceRepository: DeviceRepository
+  ) {
+    this.pendingRegistrationRepository = pendingRegistrationRepository
+    this.deviceRepository = deviceRepository
+  }
+
+  /**
+   * Create a new pending device registration from a token
+   */
+  async createPendingRegistration(input: CreatePendingRegistrationInput): Promise<PendingDeviceRegistration> {
+    const expiresAt = new Date(Date.now() + 5 * 60 * 1000) // 5 minutes from now
+    
+    return await this.pendingRegistrationRepository.createPendingRegistration({
+      token: input.token,
+      userId: input.userId,
+      deviceIdPrefix: input.deviceIdPrefix,
+      userApproved: false,
+      expiresAt,
+    })
+  }
+
+  /**
+   * Get a pending registration by token
+   */
+  async getPendingRegistration(token: string): Promise<PendingDeviceRegistration | null> {
+    return await this.pendingRegistrationRepository.getPendingRegistration(token)
+  }
+
+  /**
+   * Get all pending registrations for a user
+   */
+  async getUserPendingRegistrations(userId: string): Promise<PendingDeviceRegistration[]> {
+    return await this.pendingRegistrationRepository.getUserPendingRegistrations(userId)
+  }
+
+  /**
+   * Update a pending registration with detected device info
+   */
+  async updateDetectedDeviceInfo(input: UpdateDetectedDeviceInput): Promise<PendingDeviceRegistration | null> {
+    return await this.pendingRegistrationRepository.updateDetectedDeviceInfo(
+      input.token,
+      input.detectedDeviceId,
+      input.detectedName,
+      input.detectedPlatform
+    )
+  }
+
+  /**
+   * Approve a pending registration (called when user clicks "Add Device")
+   */
+  async approveRegistration(token: string): Promise<PendingDeviceRegistration | null> {
+    return await this.pendingRegistrationRepository.approveRegistration(token)
+  }
+
+  /**
+   * Process a device registration request from the agent
+   * This validates the token, creates/updates the device, and returns an API key
+   */
+  async processDeviceRegistration(input: ProcessDeviceRegistrationInput): Promise<DeviceRegistrationResult> {
+    // Look up the pending registration
+    let pendingRegistration = await this.pendingRegistrationRepository.getPendingRegistration(input.token)
+    
+    if (!pendingRegistration) {
+      throw new Error('Invalid or expired registration token')
+    }
+
+    // Update with detected device info if not already set
+    if (!pendingRegistration.detectedDeviceId) {
+      await this.pendingRegistrationRepository.updateDetectedDeviceInfo(
+        input.token,
+        input.deviceId,
+        input.name,
+        input.platform
+      )
+      // Refresh the registration data
+      pendingRegistration = await this.pendingRegistrationRepository.getPendingRegistration(input.token)
+    }
+
+    // Validate device ID matches the expected prefix pattern
+    this.validateDeviceIdMatch(pendingRegistration!.deviceIdPrefix, input.deviceId)
+
+    // Check if device already exists
+    const existingDevice = await this.deviceRepository.getDeviceByDeviceId(input.deviceId)
+    
+    let device: Device
+    if (existingDevice) {
+      // Verify it belongs to the right user
+      const userOwnsDevice = await this.deviceRepository.isUserDevice(pendingRegistration!.userId, input.deviceId)
+      if (!userOwnsDevice) {
+        throw new Error('Device belongs to another user')
+      }
+      device = existingDevice
+    } else {
+      // Create new device
+      device = await this.deviceRepository.upsertDevice({
+        deviceId: input.deviceId,
+        name: input.name,
+        platform: input.platform,
+        userId: pendingRegistration!.userId,
+        verified: true // Auto-verify since user completed web auth
+      })
+    }
+
+    // Generate API key
+    const apiKey = await this.deviceRepository.generateApiKey(device.deviceId)
+
+    // Clean up the pending registration
+    await this.pendingRegistrationRepository.deletePendingRegistration(input.token)
+
+    return {
+      apiKey,
+      deviceId: device.deviceId,
+      device
+    }
+  }
+
+  /**
+   * Find and return a device that matches a pending registration
+   * Used by GET endpoint to check if device is already registered
+   */
+  async findMatchingDevice(token: string): Promise<Device | null> {
+    const pendingRegistration = await this.pendingRegistrationRepository.getPendingRegistration(token)
+    
+    if (!pendingRegistration) {
+      throw new Error('Invalid or expired registration token')
+    }
+
+    // Find device that matches the prefix pattern for this user
+    const devices = await this.deviceRepository.getUserDevices(pendingRegistration.userId)
+    const tokenPrefix = pendingRegistration.deviceIdPrefix
+    const tokenPlatform = tokenPrefix.split('-')[0]
+    const tokenHostnamePart = tokenPrefix.substring(tokenPlatform.length + 1)
+    
+    return devices.find(d => {
+      const deviceParts = d.deviceId.split('-')
+      if (deviceParts.length < 2) return false
+      
+      const devicePlatform = deviceParts[0]
+      const deviceHostnamePart = deviceParts[1]
+      
+      return devicePlatform === tokenPlatform && 
+             deviceHostnamePart.startsWith(tokenHostnamePart)
+    }) || null
+  }
+
+  /**
+   * Complete device registration for an existing device (GET endpoint flow)
+   */
+  async completeExistingDeviceRegistration(token: string): Promise<DeviceRegistrationResult> {
+    const device = await this.findMatchingDevice(token)
+    
+    if (!device) {
+      throw new Error('Device not found. Setup still in progress.')
+    }
+
+    // Verify device if not already verified
+    if (!device.verified) {
+      await this.deviceRepository.verifyDevice(device.deviceId)
+    }
+
+    // Generate API key
+    const apiKey = await this.deviceRepository.generateApiKey(device.deviceId)
+
+    // Clean up the pending registration
+    await this.pendingRegistrationRepository.deletePendingRegistration(token)
+
+    return {
+      apiKey,
+      deviceId: device.deviceId,
+      device
+    }
+  }
+
+  /**
+   * Clean up expired registrations (could be called by a background job)
+   */
+  async cleanupExpiredRegistrations(): Promise<number> {
+    return await this.pendingRegistrationRepository.cleanupExpiredRegistrations()
+  }
+
+  /**
+   * Parse a registration token to extract device info
+   */
+  parseRegistrationToken(token: string): { deviceIdPrefix: string; timestamp: number } | null {
+    return PendingDeviceRegistrationRepository.parseRegistrationToken(token)
+  }
+
+  /**
+   * Parse a device ID to extract device info
+   */
+  parseDeviceId(deviceId: string): { platform: string; hostname: string; timestamp: number } | null {
+    return PendingDeviceRegistrationRepository.parseDeviceId(deviceId)
+  }
+
+  /**
+   * Validate that a device ID matches the expected prefix pattern
+   */
+  private validateDeviceIdMatch(tokenPrefix: string, actualDeviceId: string): void {
+    const tokenPlatform = tokenPrefix.split('-')[0]
+    const devicePlatform = actualDeviceId.split('-')[0]
+    
+    if (tokenPlatform !== devicePlatform) {
+      throw new Error('Device platform does not match registration token')
+    }
+    
+    const tokenHostnamePart = tokenPrefix.substring(tokenPlatform.length + 1)
+    const deviceHostnamePart = actualDeviceId.split('-')[1]
+    
+    if (!deviceHostnamePart?.startsWith(tokenHostnamePart)) {
+      throw new Error('Device hostname does not match registration token')
+    }
+  }
+}
+
+/**
+ * Factory function to create a DeviceRegistrationService with injected dependencies
+ */
+export const createDeviceRegistrationService = () => {
+  const pendingRegistrationRepository = new PendingDeviceRegistrationRepository(db)
+  const deviceRepository = new DeviceRepository(db)
+
+  return new DeviceRegistrationService(pendingRegistrationRepository, deviceRepository)
+}

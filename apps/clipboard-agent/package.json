@@ -1,0 +1,20 @@
+{
+  "name": "clipboard-agent",
+  "version": "1.0.0",
+  "description": "Cross-platform clipboard synchronization agent",
+  "main": "dist/clipboard-agent",
+  "scripts": {
+    "build": "mkdir -p dist && go build -o dist/clipboard-agent cmd/agent/main.go",
+    "build:all": "./scripts/build.sh",
+    "dev": "go run cmd/agent/main.go",
+    "test": "go test ./... -v",
+    "lint": "go fmt ./... && go vet ./...",
+    "fmt": "go fmt ./...",
+    "vet": "go vet ./...",
+    "clean": "rm -rf dist/",
+    "mod-tidy": "go mod tidy"
+  },
+  "keywords": ["clipboard", "sync", "cross-platform", "automation", "productivity"],
+  "license": "UNLICENSED",
+  "private": true
+}
