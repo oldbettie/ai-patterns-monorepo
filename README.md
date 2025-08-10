@@ -2,11 +2,19 @@
 
 A cross-device clipboard that securely synchronizes text and images in real time between all your devices. A lightweight Go desktop agent watches the OS clipboard and syncs items via a Next.js API and WebSocket hub.
 
+## Running
+
 ## Stack
 
 - Go desktop agent (cross-platform; runs on the host OS)
+  build
+  `pnpm run go-dev-build`
+  run
+  `pnpm run go-clipboard-agen`
+
 - Next.js App Router web dashboard (auth, API, WebSocket)
 - PostgreSQL (Drizzle ORM)
+  See **Quick Start** below
 
 ## Quick Start (Docker Compose)
 

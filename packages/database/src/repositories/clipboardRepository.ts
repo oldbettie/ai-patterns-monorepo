@@ -177,6 +177,30 @@ export class ClipboardRepository {
   }
 
   /**
+   * Delete all clipboard items for a user
+   */
+  async deleteAllUserItems(userId: string): Promise<number> {
+    const deletedItems = await this.db
+      .delete(clipboardItems)
+      .where(eq(clipboardItems.userId, userId))
+      .returning({ id: clipboardItems.id })
+    
+    return deletedItems.length
+  }
+
+  /**
+   * Delete all clipboard items for a device
+   */
+  async deleteAllDeviceItems(deviceId: string): Promise<number> {
+    const deletedItems = await this.db
+      .delete(clipboardItems)
+      .where(eq(clipboardItems.deviceId, deviceId))
+      .returning({ id: clipboardItems.id })
+    
+    return deletedItems.length
+  }
+
+  /**
    * Get item count for a user
    */
   async getUserItemCount(userId: string): Promise<number> {

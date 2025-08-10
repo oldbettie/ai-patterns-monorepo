@@ -47,6 +47,10 @@ export class ClipboardService {
     await this.clipboardRepository.deleteItem(itemId)
   }
 
+  async deleteAllUserItems() {
+    return this.clipboardRepository.deleteAllUserItems(this.context.user.id)
+  }
+
   async findByContentHash(contentHash: string) {
     const item = await this.clipboardRepository.findByContentHash(this.context.user.id, contentHash)
     if (!item) return null

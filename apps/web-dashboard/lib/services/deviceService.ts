@@ -95,6 +95,10 @@ export class DeviceService {
     await this.deviceRepository.deleteDevice(deviceId)
   }
 
+  async deleteAllUserDevices() {
+    return this.deviceRepository.deleteAllUserDevices(this.context.user.id)
+  }
+
   // Helper method to get the user's current device IP (would be called from client)
   async getCurrentDeviceInfo(): Promise<{ ip: string | null, userAgent: string | null }> {
     // In a real implementation, this might detect the current IP address

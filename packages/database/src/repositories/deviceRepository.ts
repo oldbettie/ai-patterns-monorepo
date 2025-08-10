@@ -168,6 +168,18 @@ export class DeviceRepository {
   }
 
   /**
+   * Delete all devices for a user
+   */
+  async deleteAllUserDevices(userId: string): Promise<number> {
+    const deletedDevices = await this.db
+      .delete(devices)
+      .where(eq(devices.userId, userId))
+      .returning({ id: devices.id })
+    
+    return deletedDevices.length
+  }
+
+  /**
    * Get device count for a user
    */
   async getUserDeviceCount(userId: string): Promise<number> {
