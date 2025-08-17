@@ -1,13 +1,11 @@
-import { account, session, user, verification } from '@auto-paster/database/src/schemas'
-import { db } from '@auto-paster/database/src/database'
+import { account, session, user, verification } from '@better-stack-monorepo/database/src/schemas'
+import { db } from '@better-stack-monorepo/database/src/database'
 import { env } from '@/lib/env'
 import { EmailService } from '@/lib/resend/email-service'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { Resend } from 'resend'
 
-// TODO: Test this.
-// TODO: Implement front end pages and interactions when these emails are to be sent or accepted/rejected
 const emailService = new EmailService(new Resend(env.RESEND_API_KEY))
 
 export const auth = betterAuth({

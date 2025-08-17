@@ -2,7 +2,25 @@
 
 ## Project Overview
 
+**Web Dashboard Template** - A modern Next.js SaaS template with:
+- **Complete authentication system** with Better Auth (login, signup, password reset, email verification)
+- **Internationalization** support with next-intl (English/Japanese)
+- **Modern UI components** with Tailwind CSS and dark mode
+- **Dashboard structure** ready for customization
+- **Type-safe development** with TypeScript
+- **Database integration** with Drizzle ORM
+
+### Technology Stack
+- **Frontend:** Next.js 15 with App Router
+- **Styling:** Tailwind CSS with dark mode support
+- **Authentication:** Better Auth with session management
+- **Database:** PostgreSQL with Drizzle ORM
+- **Email:** Resend for transactional emails
+- **Internationalization:** next-intl for multi-language support
+- **TypeScript:** Strict type safety throughout
+
 ## Critical File Reading Guidelines
+
 When analyzing large codebases or multiple files that might exceed context limits, use the Gemini CLI with its massive
 context window. Use the gemini MCP to leverage Google Gemini's large context capacity.
 
@@ -55,14 +73,14 @@ grep searching.
 - **Business API Routes** in `app/(routes)/api/core/`
 - **Auth API Routes** in `app/(routes)/api/auth/`
 
-
 ### Key Patterns
-1. **Services** - Business logic (e.g., `AuthService`, `ProductService`)
-2. **Repositories** - Data access abstraction
-3. **Validation** - Zod schemas in `lib/validationSchema/`
-4. **Components** - Reusable UI in `components/`
-5. **Hooks** - Custom React hooks in `components/hooks/`
-5. **Actions** - Always using actions to call API routes to protect the API (`/actions`)
+1. **Authentication** - Complete auth flow with Better Auth
+2. **Services** - Business logic (e.g., `UserService`)
+3. **Repositories** - Data access abstraction
+4. **Validation** - Zod schemas in `lib/validationSchema/`
+5. **Components** - Reusable UI in `components/`
+6. **Hooks** - Custom React hooks in `components/hooks/`
+7. **Actions** - Server actions for API communication (`/actions`)
 
 ## Development Commands
 
@@ -75,15 +93,18 @@ pnpm test:watch    # Run tests in watch mode
 ### Linting
 ```bash
 pnpm lint          # Run ESLint
-pnpm prettier-check # Check code formatting
-pnpm prettier-fix  # Fix formatting issues
+pnpm type-check    # TypeScript type checking
 ```
 
 ### Build
-Never run a build without permission
+```bash
+pnpm build         # Build for production
+```
 
 ### Development
-⚠️ NEVER try to run the dev server yourself
+```bash
+pnpm dev           # Start development server
+```
 
 ## Testing Patterns
 Black box testing with service layer testing mandatory
@@ -92,7 +113,7 @@ Black box testing with service layer testing mandatory
 - **Vitest** with TypeScript support
 - **Mock repositories** for testing services
 - **Test files** end with `.test.ts`
-- **Setup** in `tests/domain/`
+- **Setup** in `tests/setup.ts`
 
 ### Testing Best Practices
 ```typescript
@@ -118,10 +139,10 @@ describe("ServiceName", () => {
 ## Component Patterns
 
 ### UI Components
-- **Radix UI** primitives with custom styling
-- **Tailwind CSS** for styling
-- **Shadcn/ui** component library
+- **Custom UI components** in `components/ui/`
+- **Tailwind CSS** for styling with dark mode support
 - **TypeScript** interfaces for props
+- **Responsive design** with mobile-first approach
 
 ### Form Handling
 - **React Hook Form** with Zod validation
@@ -132,11 +153,11 @@ describe("ServiceName", () => {
 
 ### Route Structure Example
 ```
-app/(routes)/api/core/v<version_id>/
-├── users/
-├── products/
-├── companies/
-└── orders/
+app/(routes)/api/
+├── auth/           # Authentication endpoints
+└── core/v1/        # Business API endpoints
+    ├── users/
+    └── [other-resources]/
 ```
 
 API routes are always wrapped in the following format
@@ -156,33 +177,58 @@ API routes are always wrapped in the following format
 - **RESTful** endpoints
 - **Validation** with Zod schemas
 - **Error handling** with custom error types always returning `{ data: T | null, error: error | null }`
-- **Authentication** middleware for frontend only. We never allow middleware auth on API calls to prevent midflight changes.
+- **Authentication** middleware for protected routes
+
+## Authentication System
+
+### Better Auth Integration
+- **Complete auth flow** - login, signup, password reset, email verification
+- **Session management** with secure cookies
+- **Email verification** with Resend integration
+- **Password reset** with secure tokens
+- **TypeScript integration** with proper typing
+
+### Auth Components
+- **Login/Signup forms** with validation
+- **Password reset flow** with email templates
+- **Email verification** with success/error states
+- **Auth status component** for current user display
+
+## Internationalization
+
+### next-intl Setup
+- **Multi-language support** (English/Japanese included)
+- **Translation files** in `messages/[locale].json`
+- **Type-safe translations** with TypeScript
+- **Server and client component support**
+
+### Adding New Languages
+1. Create new translation file in `messages/[locale].json`
+2. Update `lib/i18n/config.ts` with new locale
+3. Add language option to `components/language-selector.tsx`
 
 ## Database Patterns
 
-## Security Considerations
-
-### Authentication
-- **Better Auth** 
-- **Session management**
-
-### Authorization
-- **Server-only** sensitive operations VERY IMPORTANT
+### Drizzle ORM
+- **Type-safe queries** with Drizzle
+- **Schema definitions** in workspace database package
+- **Migration system** for schema changes
+- **Repository pattern** for data access
 
 ## Common Tasks
 
 ### Adding New Features
-1. Check `lib/featureToggles.ts` for feature flags
-2. Create service in `lib/services/`
-3. Add repository if needed
-4. Create API routes
-5. Build UI components
+1. Create service in `lib/services/`
+2. Add repository if needed
+3. Create API routes in `app/(routes)/api/core/v1/`
+4. Build UI components
+5. Add translations
 6. Add tests
 
 ### Working with Forms
 1. Create Zod schema in `lib/validationSchema/`
 2. Use React Hook Form with `@hookform/resolvers`
-3. Create form components in `components/form/`
+3. Create form components in `components/`
 4. Handle submission with server actions or API calls
 
 ## Performance Considerations
@@ -193,32 +239,35 @@ API routes are always wrapped in the following format
 - **Image optimization** with Next.js Image
 - **Code splitting** with dynamic imports
 
-### Caching Strategy
-- **Tenant-specific** caching
-- **Product catalog** caching
-- **User session** caching
+### Best Practices
+- **Type-safe development** with strict TypeScript
+- **Server-only imports** for sensitive code
+- **Proper error boundaries** for error handling
+- **Responsive design** for all screen sizes
 
 ## Troubleshooting
 
 ### Common Issues
 1. **Build failures** - Check TypeScript errors first
 2. **Test failures** - Verify mock implementations
-4. **Styling** - Ensure Tailwind classes are correct
+3. **Auth issues** - Check Better Auth configuration
+4. **Translation missing** - Verify translation keys exist
 
 ### Debug Tools
 - **Browser dev tools** for client-side debugging
+- **Next.js built-in debugging** for server issues
+- **TypeScript compiler** for type checking
 
 ## Important Notes
 
 - **Never commit** secrets or API keys
 - **Follow** the existing code patterns
-- **Use feature toggles** for new features
-- **Document** complex business logic
-- **Prefer server components** over client components
 - **Use TypeScript** strictly - no `any` types
+- **Test** new features thoroughly
 - **Follow** the repository pattern for data access
-- **Test** with both unit and integration tests
-
+- **Use server components** when possible
+- **Maintain** translation files for i18n
+- **Follow** authentication best practices
 
 # AI MUST USE TOOLS
 
@@ -228,8 +277,8 @@ API routes are always wrapped in the following format
 This project uses a structured tagging system to help AI assistants quickly find relevant code and maintain consistency across the codebase. Always check `ai-tags.md` for current tags before creating new ones.
 
 ## Core Tag Types
-- **@feature:** - Specific feature being implemented (e.g., `@feature:user-profile`)
-- **@domain:** - Business domain (e.g., `@domain:auth`, `@domain:payments`)
+- **@feature:** - Specific feature being implemented (e.g., `@feature:user-auth`)
+- **@domain:** - Business domain (e.g., `@domain:auth`, `@domain:users`)
 - **@backend** / **@api** / **@frontend** - System layer
 - **@reusable** - Components/utilities that can be reused
 - **@shared** - Code shared across multiple domains
@@ -238,21 +287,21 @@ This project uses a structured tagging system to help AI assistants quickly find
 Add tags as comments at the top of files:
 
 ```javascript
-// @feature:user-profile @domain:users @frontend
-// @summary: User profile editing form with validation
+// @feature:user-auth @domain:auth @frontend
+// @summary: User authentication form with validation
 ```
 
-```python
-# @feature:user-auth @domain:auth @api
-# @summary: Login endpoint with JWT token generation
+```typescript
+// @feature:user-management @domain:users @api
+// @summary: User management API endpoints
 ```
 
 ## Finding Related Code
 Use grep to search for tags when looking for related code:
 
 ```bash
-# Find all user profile related code
-grep -r "@feature:user-profile" src/
+# Find all user auth related code
+grep -r "@feature:user-auth" src/
 
 # Find frontend authentication code
 grep -r "@domain:auth.*@frontend" src/
@@ -261,7 +310,7 @@ grep -r "@domain:auth.*@frontend" src/
 grep -r "@reusable" src/
 
 # Find code in specific domain
-grep -r "@domain:payments" src/
+grep -r "@domain:users" src/
 ```
 
 ## Code Generation Guidelines
@@ -291,19 +340,19 @@ When generating new code:
 ## Examples
 
 ```javascript
-// @feature:user-profile @domain:users @frontend
-// @summary: User profile editing form with validation
-export function UserProfileForm() {
+// @feature:user-auth @domain:auth @frontend
+// @summary: User authentication form with validation
+export function LoginForm() {
   // component code here
 }
 ```
 
-```sql
--- @domain:users @backend
--- @summary: User profile data table
-CREATE TABLE user_profiles (
-    -- schema here
-);
+```typescript
+// @domain:users @backend
+// @summary: User service for user management operations
+export class UserService {
+  // service code here
+}
 ```
 
 ## Maintenance

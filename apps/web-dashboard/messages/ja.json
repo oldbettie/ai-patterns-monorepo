@@ -12,8 +12,8 @@
     "back": "戻る",
     "next": "次へ",
     "save": "保存",
-    "name": "氏名",
-    "email": "メールアドレス",
+    "name": "名前",
+    "email": "メール",
     "password": "パスワード",
     "yes": "はい",
     "no": "いいえ"
@@ -24,114 +24,120 @@
     },
     "authStatus": {
       "authenticationStatus": "認証状態",
-      "loggedIn": "ログイン中です",
-      "loggedOut": "ログインしていません",
-      "login": "ログイン",
-      "logout": "ログアウト",
+      "loggedIn": "サインイン済み",
+      "loggedOut": "サインアウト済み",
+      "login": "サインイン",
+      "logout": "サインアウト",
       "signup": "サインアップ",
       "verified": "認証済み"
     }
   },
   "pages": {
     "landing": {
-      "badge": "一度コピーして、どこでも貼り付け",
+      "badge": "テンプレートで高速開発",
       "hero": {
-        "title": "Auto Clipboard Sync",
-        "subtitle": "テキストと画像をデバイス間でリアルタイムかつ安全に同期します。"
+        "title": "SaaSテンプレート",
+        "subtitle": "認証、ダッシュボード、ベストプラクティスが組み込まれた現代的なフルスタックテンプレート"
       },
       "cta": {
-        "getStarted": "はじめる",
-        "signIn": "ログイン"
+        "getStarted": "始める",
+        "signIn": "サインイン"
       },
       "sections": {
         "value": {
-          "eyebrow": "Auto Clipboard Sync の特長",
-          "title": "シームレス、プライベート、そして高速",
-          "subtitle": "1台でコピー、別のデバイスでミリ秒で貼り付け—プライバシーを重視。",
+          "eyebrow": "テンプレートの特徴",
+          "title": "高速、安全、スケーラブル",
+          "subtitle": "迅速な開発のために現代的な技術とベストプラクティスで構築されています。",
           "items": {
             "privacy": {
-              "title": "デフォルトでプライベート",
-              "desc": "暗号化通信、アクセス制御、明確な保持ポリシー。"
+              "title": "デフォルトで安全",
+              "desc": "組み込み認証、セッション管理、セキュリティベストプラクティス。"
             },
             "performance": {
-              "title": "低遅延",
-              "desc": "WebSocket に最適化し、オフラインキューとバックフィルを備えています。"
+              "title": "高性能",
+              "desc": "Next.js、サーバーコンポーネント、現代的なビルドツールで最適化。"
             },
             "family": {
-              "title": "クロスデバイス",
-              "desc": "macOS、Windows、Linux のデスクトップで動作。"
+              "title": "本番対応",
+              "desc": "TypeScript、テスト設定、デプロイ設定が含まれています。"
             }
           }
         },
         "how": {
-          "eyebrow": "仕組み",
-          "title": "エージェント + API + WebSocket",
-          "subtitle": "軽量デスクトップエージェントがクリップボードを監視し、認証済み API とリアルタイムハブで同期します。",
+          "eyebrow": "使い方",
+          "title": "テンプレート + カスタマイズ + デプロイ",
+          "subtitle": "テンプレートから始めて、ニーズに合わせてカスタマイズし、本番環境にデプロイします。",
           "steps": {
-            "1": "デスクトップエージェントをインストール。",
-            "2": "サインインしてデバイスをリンク。",
-            "3": "片方でコピーし、もう片方で貼り付け。"
+            "1": "テンプレートリポジトリをクローンします。",
+            "2": "ユースケースに合わせてカスタマイズします。",
+            "3": "お好みのプラットフォームにデプロイします。"
           }
         }
       },
       "pricing": {
-        "title": "無料で開始。必要に応じてアップグレード。",
-        "subtitle": "個人とチーム向けのシンプルなプラン。",
-        "primary": "無料アカウントを作成",
-        "secondary": "ログイン"
+        "title": "今日から開始",
+        "subtitle": "完全なテンプレートにアクセスしてプロジェクトを開始します。",
+        "primary": "無料アカウント作成",
+        "secondary": "サインイン"
       },
       "footer": {
-        "brand": "Auto Clipboard Sync",
+        "brand": "SaaSテンプレート",
         "login": "ログイン",
         "signup": "サインアップ"
       }
     },
     "dashboard": {
-      "title": "クリップボードマネージャー",
-      "subtitle": "最近のアイテムを確認し、デバイスを管理し、同期を制御します。",
+      "title": "ダッシュボード",
+      "subtitle": "ダッシュボードへようこそ。アカウントを管理し、機能を探索してください。",
       "account": "アカウント",
       "memberSince": "登録日",
       "subscriptionActive": "有効なサブスクリプション",
-      "devices": "デバイス",
-      "addDevice": "デバイスを追加",
-      "deviceName": "名前",
-      "deviceStatus": "状態",
-      "deviceLastSeen": "最終確認",
-      "actions": "操作",
-      "revoke": "取り消し",
-      "history": "最近のアイテム",
-      "noItems": "アイテムはまだありません",
-      "type": "種類",
-      "createdAt": "作成日時",
-      "contentPreview": "プレビュー",
-      "statusOnline": "オンライン",
-      "statusOffline": "オフライン"
+      "quickActions": {
+        "title": "クイックアクション",
+        "settings": "設定",
+        "profile": "プロフィール",
+        "support": "サポート"
+      },
+      "sections": {
+        "analytics": {
+          "title": "分析",
+          "description": "使用統計と洞察を表示します。"
+        },
+        "activity": {
+          "title": "最近のアクティビティ",
+          "description": "最近のアクションと更新を追跡します。"
+        },
+        "settings": {
+          "title": "設定",
+          "description": "設定と構成を管理します。"
+        }
+      }
     },
     "login": {
-      "title": "アカウントにログイン",
-      "loginButton": "ログイン",
+      "title": "アカウントにサインイン",
+      "loginButton": "サインイン",
       "forgotPassword": "パスワードをお忘れですか？",
-      "dontHaveAccount": "アカウントをお持ちではありませんか？",
-      "signUpInstead": "サインアップする",
+      "dontHaveAccount": "アカウントをお持ちでない方",
+      "signUpInstead": "サインアップ",
       "emailPlaceholder": "メールアドレスを入力",
       "passwordPlaceholder": "パスワードを入力"
     },
     "signup": {
-      "title": "アカウント作成",
+      "title": "アカウントを作成",
       "signupButton": "サインアップ",
-      "alreadyHaveAccount": "すでにアカウントをお持ちですか？",
-      "signInInstead": "ログインする",
-      "namePlaceholder": "氏名を入力",
+      "alreadyHaveAccount": "既にアカウントをお持ちですか？",
+      "signInInstead": "サインイン",
+      "namePlaceholder": "名前を入力",
       "emailPlaceholder": "メールアドレスを入力",
       "passwordPlaceholder": "パスワードを作成"
     },
     "forgotPassword": {
-      "title": "パスワードリセット",
+      "title": "パスワードをリセット",
       "description": "メールアドレスを入力すると、パスワードリセット用のリンクをお送りします。",
       "sendResetLink": "リセットリンクを送信",
-      "emailSent": "メールを送信しました！受信トレイで手順を確認してください。",
+      "emailSent": "メールを送信しました！受信箱の指示をご確認ください。",
       "backToLogin": "ログインに戻る",
-      "checkEmail": "メールでリセットリンクを確認してください。見つからない場合は、スパムフォルダーを確認してください。",
+      "checkEmail": "リセットリンクのメールをご確認ください。見つからない場合は、迷惑メールフォルダもご確認ください。",
       "emailLabel": "メールアドレス",
       "emailPlaceholder": "メールアドレスを入力"
     },
@@ -139,50 +145,50 @@
       "title": "パスワードリセット",
       "description": "新しいパスワードを入力してください",
       "newPassword": "新しいパスワード",
-      "confirmPassword": "パスワードの確認",
+      "confirmPassword": "パスワード確認",
       "resetButton": "パスワードリセット",
-      "passwordResetSuccess": "パスワードのリセットが完了しました！",
+      "passwordResetSuccess": "パスワードが正常にリセットされました！",
       "invalidResetLink": "無効なリセットリンクです。新しいパスワードリセットをリクエストしてください。",
       "requestNewResetLink": "新しいリセットリンクをリクエスト",
       "passwordMismatch": "パスワードが一致しません",
       "passwordTooShort": "パスワードは8文字以上である必要があります",
       "resettingPassword": "パスワードをリセット中...",
-      "backToLogin": "ログインに戻る",
+      "backToLogin": "サインインに戻る",
       "newPasswordPlaceholder": "新しいパスワードを入力",
-      "confirmPasswordPlaceholder": "新しいパスワードを確認",
+      "confirmPasswordPlaceholder": "パスワードを確認",
       "passwordRequirement": "パスワードは8文字以上である必要があります",
-      "signInWithNewPassword": "新しいパスワードでログイン",
-      "passwordUpdated": "パスワードが更新されました。新しいパスワードでログインできます。"
+      "signInWithNewPassword": "新しいパスワードでサインイン",
+      "passwordUpdated": "パスワードが更新されました。新しいパスワードでサインインできます。"
     },
     "verifyEmail": {
-      "title": "メール認証",
-      "description": "認証リンクが記載されたメールを送信しました。受信トレイを確認し、リンクをクリックしてメールアドレスを認証してください。",
-      "checkEmail": "メールを確認してください",
-      "emailVerified": "メール認証が完了しました！",
+      "title": "メールを確認",
+      "description": "確認リンクが含まれたメールをお送りしました。受信箱をご確認の上、リンクをクリックしてメールアドレスを確認してください。",
+      "checkEmail": "メールを確認",
+      "emailVerified": "メールが正常に確認されました！",
       "invalidToken": "無効または期限切れのトークンです",
       "resendEmail": "メールを再送信",
-      "checkEmailTitle": "メールを確認してください",
-      "emailSentTo": "認証リンクを送信しました",
-      "clickLinkInstructions": "メール内のリンクをクリックしてアカウントを認証してください。メールが見つからない場合は、スパムフォルダーを確認してください。",
-      "resendVerificationEmail": "認証メールを再送信",
-      "verificationEmailSent": "認証メールを送信しました！受信トレイを確認してください。",
-      "backToLogin": "ログインに戻る",
+      "checkEmailTitle": "メールを確認",
+      "emailSentTo": "確認リンクを送信しました：",
+      "clickLinkInstructions": "メール内のリンクをクリックしてアカウントを確認してください。メールが見つからない場合は、迷惑メールフォルダもご確認ください。",
+      "resendVerificationEmail": "確認メールを再送信",
+      "verificationEmailSent": "確認メールを送信しました！受信箱をご確認ください。",
+      "backToLogin": "サインインに戻る",
       "sending": "送信中...",
       "resendIn": "再送信まで",
-      "verifyingEmail": "メールを認証中...",
-      "pleaseWait": "メールアドレスの認証をお待ちください。",
-      "verificationFailed": "認証に失敗しました",
-      "emailVerificationCompletedButLoginFailed": "メール認証は完了しましたが、自動ログインに失敗しました。手動でログインをお試しください。",
-      "unexpectedErrorDuringVerification": "認証中に予期しないエラーが発生しました",
-      "emailVerifiedSuccessfully": "メール認証が完了しました！",
-      "accountVerifiedRedirect": "アカウントが認証されました。ログインしており、まもなくリダイレクトされます。",
-      "continueToDashboard": "ダッシュボードに進む"
+      "verifyingEmail": "メールを確認中...",
+      "pleaseWait": "メールアドレスを確認中です。しばらくお待ちください。",
+      "verificationFailed": "確認に失敗しました",
+      "emailVerificationCompletedButLoginFailed": "メール確認は完了しましたが、自動ログインに失敗しました。手動でサインインしてください。",
+      "unexpectedErrorDuringVerification": "確認中に予期しないエラーが発生しました",
+      "emailVerifiedSuccessfully": "メールが正常に確認されました！",
+      "accountVerifiedRedirect": "アカウントが確認されました。ログイン済みです。まもなくリダイレクトします。",
+      "continueToDashboard": "ダッシュボードに続行"
     }
   },
   "errors": {
     "somethingWentWrong": "問題が発生しました",
     "tryAgain": "もう一度お試しください",
-    "invalidCredentials": "認証情報が無効です",
+    "invalidCredentials": "無効な認証情報",
     "emailRequired": "メールアドレスが必要です",
     "passwordRequired": "パスワードが必要です",
     "passwordTooShort": "パスワードは8文字以上である必要があります",

@@ -4,7 +4,7 @@
 import "server-only"
 
 import { db, type DB } from "../database"
-import { user, devices, clipboardItems, wsTokens, pendingDeviceRegistrations } from "../schemas"
+import { user } from "../schemas"
 import { eq } from "drizzle-orm"
 
 export class UserRepository {
@@ -16,10 +16,6 @@ export class UserRepository {
    */
   async deleteUser(userId: string): Promise<void> {
     // Due to cascade constraints, deleting the user will automatically delete:
-    // - devices (which cascades to delete clipboardItems and wsTokens)
-    // - clipboardItems
-    // - wsTokens
-    // - pendingDeviceRegistrations
     // - sessions
     // - accounts
     await this.db.delete(user).where(eq(user.id, userId))
@@ -65,32 +61,8 @@ export class UserRepository {
       return null
     }
 
-    const [deviceCount] = await this.db
-      .select({ count: devices.id })
-      .from(devices)
-      .where(eq(devices.userId, userId))
-
-    const [clipboardCount] = await this.db
-      .select({ count: clipboardItems.id })
-      .from(clipboardItems)
-      .where(eq(clipboardItems.userId, userId))
-
-    const [wsTokenCount] = await this.db
-      .select({ count: wsTokens.token })
-      .from(wsTokens)
-      .where(eq(wsTokens.userId, userId))
-
-    const [pendingCount] = await this.db
-      .select({ count: pendingDeviceRegistrations.token })
-      .from(pendingDeviceRegistrations)
-      .where(eq(pendingDeviceRegistrations.userId, userId))
-
     return {
       user: userRecord,
-      deviceCount: deviceCount ? 1 : 0,
-      clipboardItemCount: clipboardCount ? 1 : 0,
-      wsTokenCount: wsTokenCount ? 1 : 0,
-      pendingRegistrationCount: pendingCount ? 1 : 0,
     }
   }
 }

@@ -1,148 +1,159 @@
-# Auto Clipboard Sync - Project Overview & Roadmap
+# Better Stack Template - Overview
 
-## Product Concept
+## Template Concept
 
-A cross-device clipboard that securely synchronizes text and images in real time across all a user's devices. The desktop agent watches the system clipboard and uses an authenticated API + WebSocket hub to persist and broadcast updates. Other devices receive the item and apply it to their local clipboard.
+A production-ready monorepo template for building modern web applications. This template provides:
 
-- **Realtime sync** for text and images
-- **Low-latency** delivery with offline queuing and backfill
-- **Privacy-first** design with optional end-to-end encryption (future)
-- **Device management** and clipboard history via the web dashboard
+- **Complete full-stack setup** with Next.js, PostgreSQL, and authentication
+- **Type-safe development** with TypeScript and Drizzle ORM
+- **Modern tooling** with pnpm workspaces, Tailwind CSS, and Docker
+- **Authentication ready** with Better-auth integration
+- **Development optimized** with hot reloading and code quality tools
 
-## Core Value Proposition
+## Value Proposition
 
-Eliminate the friction of sending snippets, commands, and screenshots between computers. Copy once, paste anywhere—securely and instantly.
+Skip the initial setup and focus on building your product. This template provides a solid foundation with modern best practices, allowing you to start coding features immediately rather than configuring tooling.
 
 ## Technology Stack
 
-- **Go Clipboard Agent:** Cross-platform desktop integration (macOS, Windows, Linux)
-- **Web Dashboard:** Next.js App Router (auth, devices, history, settings)
-- **Realtime Sync:** WebSocket hub with per-user channels and origin-aware broadcasts
-- **Database:** PostgreSQL with Drizzle ORM (typed repositories and migrations)
-- **Shared Packages:** Common types and utilities
-- **Deployment:** Docker for web/dashboard + DB; native binaries for the agent
+- **Frontend:** Next.js 14+ with App Router and TypeScript
+- **Database:** PostgreSQL with Drizzle ORM for type-safe queries
+- **Authentication:** Better-auth with email/password and OAuth support
+- **Styling:** Tailwind CSS with custom component library
+- **Package Management:** pnpm workspaces for monorepo organization
+- **Development:** Docker Compose for consistent local development
 
-## MVP Scope (Weeks 1–4)
+## Template Features
 
-- Clipboard sync for `text/plain` and small images (`image/png`/`image/jpeg`)
-- Go agent with self-echo prevention, hashing/deduplication, and offline queue
-- Next.js APIs: create item, fetch since cursor; WebSocket subscribe
-- Sequencing per user (`seq`), last-writer-wins, and backfill on connect
-- Device management UI and basic history view
-- Authentication and session management
-- Limits and validation (max item size, allowed types)
+### Authentication System
+- User registration and login with Better-auth
+- Email verification and password reset
+- OAuth integration ready (Google, GitHub, etc.)
+- Session management and security
 
-## MVP Timeline (4–6 weeks)
+### Database Layer
+- PostgreSQL with Drizzle ORM
+- Type-safe database queries
+- Migration system for schema changes
+- Repository pattern for data access
 
-### Week 1–2: Agent + Backend Foundations
+### Development Experience
+- Hot reloading for rapid development
+- TypeScript for type safety
+- ESLint and Prettier for code quality
+- Docker Compose for consistent environments
 
-- Clipboard watchers and apply on macOS/Windows/Linux
-- REST client, WebSocket client with reconnect/backoff
-- Next.js project setup with auth and database baseline (Drizzle)
-- Schema: `clipboard_items`, `devices`, `ws_tokens`
+## Getting Started
 
-### Week 3–4: Realtime + History + Policies
+### Quick Setup
+1. **Clone the template** and install dependencies
+2. **Configure environment** variables for database and auth
+3. **Run migrations** to set up the database schema
+4. **Start development** server and begin building
 
-- WebSocket hub with per-user channels, origin-aware broadcast
-- History fetch since cursor, pagination
-- Limits (size/type), validation with Zod, error handling
-- Device presence and last seen UI
+### Customization
+- **Add new database tables** by extending the schema
+- **Create API endpoints** using Next.js App Router
+- **Build UI components** with Tailwind CSS
+- **Implement business logic** in the packages
 
-### Week 5–6: Polish + Stability
+## Architecture Overview
 
-- Robust dedupe and crash-safe offline queue
-- Agent startup-at-login option and tray integration (basic)
-- Performance and load tests (WS fan-out, DB hot paths)
-- Observability and diagnostics
+### Monorepo Structure
+```
+apps/
+├── web-dashboard/    # Main Next.js application
+packages/
+├── common/          # Shared utilities and types
+└── database/        # Database schemas and repositories
+```
 
-## Long-Term Feature Roadmap
+### Key Patterns
+- **Repository Pattern:** Clean data access layer
+- **Type Safety:** End-to-end TypeScript types
+- **Component Library:** Reusable UI components
+- **API Layer:** RESTful endpoints with validation
 
-### Additional Clipboard Types
+## Deployment Options
 
-- Rich text (RTF/HTML), files/attachments (object storage), structured snippets
+### Self-Hosted
+- **Docker Compose:** Single-command deployment
+- **Environment Variables:** Configuration management
+- **Database Migrations:** Automated schema updates
 
-### Mobile & Browser
+### Cloud Platforms
+- **Vercel/Netlify:** Frontend deployment
+- **Railway/Render:** Full-stack deployment
+- **AWS/GCP:** Enterprise-grade hosting
 
-- iOS/Android lightweight agents
-- Browser extension for tab-to-tab sync
+## Customization Guide
 
-### Advanced Privacy & Security
+### Adding New Features
+1. **Database Schema:** Define new tables in `packages/database/src/schemas.ts`
+2. **API Endpoints:** Create routes in `apps/web-dashboard/app/api/`
+3. **UI Components:** Build components in `apps/web-dashboard/components/`
+4. **Business Logic:** Add utilities in `packages/common/src/`
 
-- End-to-end encryption (per-user symmetric key)
-- Per-device approvals and granular permissions
+### Common Modifications
+- **OAuth Providers:** Configure additional auth providers
+- **Email Templates:** Customize registration and reset emails
+- **UI Theme:** Modify Tailwind configuration for branding
+- **Database Fields:** Extend user and other schemas as needed
 
-### Collaboration & Sharing
+## Best Practices
 
-- Share clipboards with trusted contacts or teams
-- Spaces (personal, work) with scoped history
+### Development
+- **Type Safety:** Use TypeScript throughout the stack
+- **Code Quality:** Maintain ESLint and Prettier configurations
+- **Testing:** Add tests for critical business logic
+- **Documentation:** Keep README and docs updated
 
-### Productivity Enhancements
+### Security
+- **Environment Variables:** Never commit secrets
+- **Input Validation:** Validate all user inputs
+- **Authentication:** Use secure session management
+- **Database:** Use parameterized queries
 
-- Snippet pinning and search
-- OCR for images, quick actions (copy as code block, sanitize formatting)
-- Cross-device hotkeys and rules (ignore apps, throttle noisy sources)
+### Performance
+- **Database Indexes:** Add indexes for queried fields
+- **Caching:** Implement appropriate caching strategies
+- **Bundle Size:** Monitor and optimize client-side bundles
+- **Images:** Optimize and serve images efficiently
 
-## Technical Risk Assessment
+## Common Use Cases
 
-**High Priority Risks**
+### SaaS Applications
+- User management and billing
+- Feature flags and permissions
+- Analytics and reporting
+- Multi-tenant architecture
 
-- OS clipboard API variability (Wayland, X11, macOS sandboxing)
-- Clipboard event loops and dedup accuracy
-- Image format conversions and size overhead (base64 vs. binary)
-- WebSocket scaling and ordering guarantees per user
+### Internal Tools
+- Admin dashboards
+- Data visualization
+- Team collaboration
+- Workflow automation
 
-**Medium Priority Risks**
+### E-commerce
+- Product catalogs
+- Shopping carts
+- Payment processing
+- Order management
 
-- Auth/session edge cases for short-lived WS tokens
-- Offline queue corruption and recovery
-- Database hot partitions and sequence contention
+## Support and Maintenance
 
-**Mitigations**
+### Regular Updates
+- **Dependencies:** Keep packages updated
+- **Security:** Monitor for vulnerabilities
+- **Performance:** Profile and optimize regularly
+- **Features:** Add new capabilities as needed
 
-- Normalize content and hash; tag applied origin to prevent echo
-- Debounce watchers; limit item sizes; compress images when possible
-- Monotonic per-user sequencing with simple producer path
-- Backoff with jitter; WS heartbeats and presence tracking
-
-## Market Opportunity
-
-**Target Users**
-
-- Developers, designers, and knowledge workers with multiple devices
-- Remote workers and cross-platform users (macOS/Windows/Linux)
-
-**Competitive Advantages**
-
-- Focus on reliability and low-latency sync
-- Privacy-first with clear roadmap to E2EE
-- Open, extensible architecture with typed APIs and services
-
-## Success Metrics
-
-**Technical Metrics**
-
-- Median end-to-end latency: text <300ms; small images <800ms
-- Delivery success rate >99.95% across active sessions
-- Crash-free sessions >99.9%; agent RAM <25MB typical; idle CPU <2%
-
-**User Metrics**
-
-- Weekly active devices per user
-- 4-week retention and daily paste success rate
-- Time-to-first-sync after login
-
-## Business Considerations (Optional)
-
-**Monetization**
-
-- Free tier: text-only, limited history
-- Pro: images, longer history, E2EE, snippets, teams
-
-**Infrastructure Costs**
-
-- Web/API hosting, DB, and WebSocket bandwidth
-- Optional object storage for large binaries
+### Community
+- **Issues:** Report bugs and feature requests
+- **Contributions:** Submit improvements and fixes
+- **Documentation:** Help improve guides and examples
+- **Discussions:** Share use cases and solutions
 
 ---
 
-This overview aligns with the updated technical spec and the monorepo's Next.js + Go architecture, focusing on low-latency sync, device resilience, and privacy by design.
+This template provides a solid foundation for modern web applications. Focus on building your unique features while leveraging the robust infrastructure already in place.

@@ -2,10 +2,10 @@ services:
   # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
-    container_name: auto-paster-postgres
+    container_name: better-stack-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: auto_paster
+      POSTGRES_DB: better-stack
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
@@ -23,7 +23,7 @@ services:
     build:
       context: .
       dockerfile: docker/web-dashboard.Dockerfile
-    container_name: auto-paster-dashboard
+    container_name: better-stack-dashboard
     restart: unless-stopped
     ports:
       - '3000:3000'
@@ -35,7 +35,7 @@ services:
       - NEXT_PUBLIC_URL=http://localhost:3000
       # Internal URL used by server-side fetches inside Docker
       - INTERNAL_URL=http://dashboard:3000
-      - POSTGRES_URL=postgres://postgres:postgres@postgres:5432/auto_paster?sslmode=disable
+      - POSTGRES_URL=postgres://postgres:postgres@postgres:5432/better-stack?sslmode=disable
     depends_on:
       postgres:
         condition: service_healthy
@@ -49,7 +49,7 @@ services:
   # PostgreSQL Dashboard
   pg-dashboard:
     image: sosedoff/pgweb:latest
-    container_name: auto-paster-pgweb
+    container_name: better-stack-pgweb
     restart: unless-stopped
     ports:
       - '5050:8081'
@@ -57,7 +57,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      DATABASE_URL: 'postgres://postgres:postgres@postgres:5432/auto_paster?sslmode=disable'
+      DATABASE_URL: 'postgres://postgres:postgres@postgres:5432/better-stack?sslmode=disable'
     command: pgweb --bind=0.0.0.0 --listen=8081 --url=$DATABASE_URL
 
 volumes:

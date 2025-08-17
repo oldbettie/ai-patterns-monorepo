@@ -7,11 +7,6 @@ import {
   session, 
   account, 
   verification,
-  devices,
-  clipboardItems,
-  clipboardFiles,
-  wsTokens,
-  pendingDeviceRegistrations,
 } from './schemas'
 
 // User types
@@ -29,23 +24,3 @@ export type NewAccount = InferInsertModel<typeof account>
 // Verification types
 export type Verification = InferSelectModel<typeof verification>
 export type NewVerification = InferInsertModel<typeof verification>
-
-// Device types
-export type Device = InferSelectModel<typeof devices>
-export type NewDevice = InferInsertModel<typeof devices>
-
-// Clipboard Item types
-export type ClipboardItem = InferSelectModel<typeof clipboardItems>
-export type NewClipboardItem = InferInsertModel<typeof clipboardItems>
-
-// Clipboard File types
-export type ClipboardFile = InferSelectModel<typeof clipboardFiles>
-export type NewClipboardFile = InferInsertModel<typeof clipboardFiles>
-
-// WebSocket Token types
-export type WsToken = InferSelectModel<typeof wsTokens>
-export type NewWsToken = InferInsertModel<typeof wsTokens>
-
-// Pending Device Registration types
-export type PendingDeviceRegistration = InferSelectModel<typeof pendingDeviceRegistrations>
-export type NewPendingDeviceRegistration = InferInsertModel<typeof pendingDeviceRegistrations>

@@ -34,10 +34,10 @@
   },
   "pages": {
     "landing": {
-      "badge": "Copy once, paste anywhere",
+      "badge": "Build faster with our template",
       "hero": {
-        "title": "Auto Clipboard Sync",
-        "subtitle": "Secure, realtime clipboard sync for text and images across all your devices."
+        "title": "SaaS Template",
+        "subtitle": "A modern, full-stack template with authentication, dashboard, and best practices built-in."
       },
       "cta": {
         "getStarted": "Get started",
@@ -45,118 +45,71 @@
       },
       "sections": {
         "value": {
-          "eyebrow": "Why Auto Clipboard Sync",
-          "title": "Seamless, private, and fast",
-          "subtitle": "Copy on one device and paste on another in milliseconds—private by design.",
+          "eyebrow": "Why Our Template",
+          "title": "Fast, secure, and scalable",
+          "subtitle": "Built with modern technologies and best practices for rapid development.",
           "items": {
             "privacy": {
-              "title": "Private by default",
-              "desc": "Encrypted transport, access control, and clear retention policies."
+              "title": "Secure by default",
+              "desc": "Built-in authentication, session management, and security best practices."
             },
             "performance": {
-              "title": "Low latency",
-              "desc": "Optimized WebSocket delivery with offline queuing and backfill."
+              "title": "High performance",
+              "desc": "Optimized with Next.js, server components, and modern build tools."
             },
             "family": {
-              "title": "Cross-device",
-              "desc": "Works across macOS, Windows, and Linux desktops."
+              "title": "Production ready",
+              "desc": "TypeScript, testing setup, and deployment configuration included."
             }
           }
         },
         "how": {
           "eyebrow": "How it works",
-          "title": "Agent + API + WebSocket",
-          "subtitle": "A lightweight desktop agent watches the clipboard and syncs via an authenticated API and realtime hub.",
+          "title": "Template + Customize + Deploy",
+          "subtitle": "Start with our template, customize to your needs, and deploy to production.",
           "steps": {
-            "1": "Install the desktop agent.",
-            "2": "Sign in and link your devices.",
-            "3": "Copy on one device, paste on another."
+            "1": "Clone the template repository.",
+            "2": "Customize for your use case.",
+            "3": "Deploy to your preferred platform."
           }
         }
       },
       "pricing": {
-        "title": "Start free. Upgrade when you're ready.",
-        "subtitle": "Simple plans for individuals and teams.",
+        "title": "Start building today",
+        "subtitle": "Get access to the complete template and start your project.",
         "primary": "Create free account",
         "secondary": "Sign in"
       },
       "footer": {
-        "brand": "Auto Clipboard Sync",
+        "brand": "SaaS Template",
         "login": "Login",
         "signup": "Sign Up"
       }
     },
     "dashboard": {
-      "title": "Clipboard Manager",
-      "subtitle": "View your recent items, manage devices, and control sync.",
+      "title": "Dashboard",
+      "subtitle": "Welcome to your dashboard. Manage your account and explore features.",
       "account": "Account",
       "memberSince": "Member since",
       "subscriptionActive": "Active subscription",
-      "devices": "Devices",
-      "addDevice": "Add device",
-      "deviceName": "Name",
-      "deviceStatus": "Status",
-      "deviceLastSeen": "Last seen",
-      "actions": "Actions",
-      "revoke": "Delete",
-      "history": "Recent Items",
-      "noItems": "No items yet",
-      "type": "Type",
-      "createdAt": "Created",
-      "contentPreview": "Preview",
-      "statusOnline": "online",
-      "statusOffline": "offline",
-      "addThisDevice": "Add This Device",
-      "manualAddDevice": "Manual Add",
-      "deviceVerified": "Verified",
-      "deviceUnverified": "Unverified",
-      "deviceReceivesUpdates": "Receiving updates",
-      "deviceUpdatesDisabled": "Updates disabled",
-      "verifyDevice": "Verify",
-      "generateVerification": "Generate Link",
-      "toggleUpdates": "Toggle Updates",
-      "renameDevice": "Rename",
-      "deviceManagement": "Device Management",
-      "noDevices": "No devices added yet",
-      "addFirstDevice": "Add your first device to start syncing",
-      "verificationRequired": "Device verification required",
-      "verificationDescription": "This device needs to be verified before it can receive clipboard updates. Generate a verification link to complete setup.",
-      "ipAddress": "IP Address",
-      "platform": "Platform",
-      "optional": "Optional",
-      "autoDetected": "Auto-detected",
-      "tailscaleName": "Tailscale Name",
-      "addDeviceModal": {
-        "title": "Add New Device",
-        "description": "Choose how you want to add a device to your clipboard sync.",
-        "thisDevice": {
-          "title": "Add This Device",
-          "description": "Register the current browser/device you're using now",
-          "form": {
-            "deviceName": "Device Name",
-            "deviceNamePlaceholder": "e.g., My MacBook",
-            "ipAddress": "IP Address (Optional)",
-            "ipAddressPlaceholder": "e.g., 192.168.1.100",
-            "submit": "Add Device"
-          }
+      "quickActions": {
+        "title": "Quick Actions",
+        "settings": "Settings",
+        "profile": "Profile",
+        "support": "Support"
+      },
+      "sections": {
+        "analytics": {
+          "title": "Analytics",
+          "description": "View your usage statistics and insights."
         },
-        "manual": {
-          "title": "Manual Add",
-          "description": "Add a device by entering its details manually",
-          "form": {
-            "deviceName": "Device Name",
-            "deviceNamePlaceholder": "e.g., Home Desktop",
-            "ipAddress": "IP Address",
-            "ipAddressPlaceholder": "e.g., 192.168.1.100",
-            "tailscaleName": "Tailscale Name",
-            "tailscaleNamePlaceholder": "e.g., home-desktop",
-            "platform": "Platform",
-            "selectPlatform": "Select platform",
-            "linux": "Linux",
-            "darwin": "macOS",
-            "windows": "Windows",
-            "submit": "Add Device"
-          }
+        "activity": {
+          "title": "Recent Activity",
+          "description": "Track your recent actions and updates."
+        },
+        "settings": {
+          "title": "Settings",
+          "description": "Manage your preferences and configuration."
         }
       }
     },

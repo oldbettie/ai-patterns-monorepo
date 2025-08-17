@@ -1,24 +1,24 @@
-# Auto Clipboard Sync
+# Better Stack Monorepo Template
 
-A cross-device clipboard that securely synchronizes text and images in real time between all your devices. A lightweight Go desktop agent watches the OS clipboard and syncs items via a Next.js API and WebSocket hub.
+A production-ready monorepo template for building modern web applications with:
+- **Next.js App Router** with TypeScript
+- **Better-auth** for authentication
+- **Drizzle ORM** with PostgreSQL
+- **Tailwind CSS** for styling
+- **Workspace management** with pnpm
 
-## Running
+Perfect starting point for SaaS applications, dashboards, and full-stack projects.
 
-## Stack
+## Tech Stack
 
-- Go desktop agent (cross-platform; runs on the host OS)
-  build
-  `pnpm run go-dev-build`
-  run
-  `pnpm run go-clipboard-agen`
-
-- Next.js App Router web dashboard (auth, API, WebSocket)
-- PostgreSQL (Drizzle ORM)
-  See **Quick Start** below
+- **Frontend:** Next.js 14+ with App Router and TypeScript
+- **Database:** PostgreSQL with Drizzle ORM
+- **Authentication:** Better-auth (email/password + OAuth)
+- **Styling:** Tailwind CSS with custom components
+- **Package Manager:** pnpm with workspaces
+- **Development:** Docker Compose for local development
 
 ## Quick Start (Docker Compose)
-
-This starts the web dashboard and PostgreSQL. The desktop agent should be run on your host OS (not Docker) to access the system clipboard.
 
 ```bash
 # From repo root
@@ -31,7 +31,7 @@ docker compose up --build
 
 Environment used by the web app in compose:
 
-- `POSTGRES_URL=postgres://postgres:postgres@postgres:5432/auto_paster?sslmode=disable`
+- `POSTGRES_URL=postgres://postgres:postgres@postgres:5432/better-stack?sslmode=disable`
 - `NEXT_PUBLIC_URL=http://localhost:3000`
 
 To stop:
@@ -77,7 +77,7 @@ pnpm db:studio
 Create `.env.local` at the repo root for local dev (Next.js reads via `apps/web-dashboard/lib/env.ts`). Example:
 
 ```env
-POSTGRES_URL=postgres://postgres:postgres@localhost:5432/auto_paster?sslmode=disable
+POSTGRES_URL=postgres://postgres:postgres@localhost:5432/better-stack?sslmode=disable
 BETTER_AUTH_SECRET=replace-with-a-strong-secret-of-32-chars-min
 RESEND_API_KEY=replace-with-your-resend-key
 EMAIL_DOMAIN=example.com
@@ -86,10 +86,25 @@ NEXT_PUBLIC_URL=http://localhost:3000
 
 For Docker Compose, you can create `.env.docker` if needed to override additional values. Compose sets `POSTGRES_URL` and `NEXT_PUBLIC_URL` by default.
 
-## Notes on the Agent
+## Project Structure
 
-- The clipboard agent runs on macOS/Windows/Linux and integrates with the system clipboard. It is not run inside Docker.
-- Build stubs currently live under `apps/proxy-service/` and will be renamed to `clipboard-agent` in a future cleanup.
+```
+better-stack-monorepo/
+├── apps/
+│   └── web-dashboard/         # Next.js application
+├── packages/
+│   ├── common/               # Shared utilities and types
+│   └── database/            # Database schemas and repositories
+└── docker/                  # Docker configurations
+```
+
+### Key Features
+
+- **Modern Stack** - Latest Next.js, TypeScript, and Tailwind CSS
+- **Type Safety** - End-to-end type safety with TypeScript and Drizzle
+- **Authentication** - Ready-to-use auth with Better-auth
+- **Developer Experience** - Hot reloading, linting, and formatting
+- **Production Ready** - Docker setup and deployment configurations
 
 ## License
 

@@ -1,5 +1,5 @@
 {
-  "name": "@auto-paster/database",
+  "name": "@better-stack-monorepo/database",
   "version": "1.0.0",
   "description": "Database schemas and migrations",
 
@@ -13,7 +13,7 @@
     "db:seed-presets": "tsx src/seedPresets.ts"
   },
   "dependencies": {
-    "@auto-paster/common": "workspace:*",
+    "@better-stack-monorepo/common": "workspace:*",
     "drizzle-orm": "^0.44.2",
     "postgres": "^3.4.7"
   },

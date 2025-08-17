@@ -4,58 +4,17 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import { LanguageSelector } from '@/components/language-selector'
 import ThemeToggle from '@/components/theme-toggle'
+import LogoutButton from '@/components/logout-button'
 import type { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://autoclip.example'), // replace with real domain when available
+  metadataBase: new URL('https://better-stack.example'), // replace with real domain when available
   title: {
-    default: 'Auto Clipboard Sync — Copy once, paste anywhere',
-    template: '%s — Auto Clipboard Sync',
+    default: 'Better Stack',
+    template: '%s — Better Stack',
   },
   description:
-    'Cross-device clipboard that securely synchronizes text and images in real time across your devices.',
-  applicationName: 'Auto Clipboard Sync',
-  keywords: [
-    'clipboard sync',
-    'copy paste across devices',
-    'realtime sync',
-    'websocket',
-    'privacy',
-  ],
-  authors: [{ name: 'Auto Clipboard Sync' }],
-  creator: 'Auto Clipboard Sync',
-  publisher: 'Auto Clipboard Sync',
-  alternates: {
-    canonical: '/',
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  openGraph: {
-    title: 'Auto Clipboard Sync — Copy once, paste anywhere',
-    description:
-      'Cross-device clipboard that securely synchronizes text and images in real time across your devices.',
-    url: 'https://autoclip.example/',
-    siteName: 'Auto Clipboard Sync',
-    images: [
-      {
-        url: '/opengraph-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Auto Clipboard Sync',
-      },
-    ],
-    locale: 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Auto Clipboard Sync — Copy once, paste anywhere',
-    description:
-      'Cross-device clipboard that securely synchronizes text and images in real time across your devices.',
-    images: ['/opengraph-image.png'],
-  },
+    'Monorepo template using Next.js, Better Auth, TailwindCSS, and Drizzle.',
 }
 
 export const viewport: Viewport = {
@@ -92,6 +51,7 @@ export default async function RootLayout({
           <div className='relative min-h-screen'>
             <header className='absolute top-4 right-4 z-50'>
               <nav aria-label="Global" className='flex items-center gap-2'>
+                <LogoutButton />
                 <ThemeToggle />
                 <LanguageSelector />
               </nav>
