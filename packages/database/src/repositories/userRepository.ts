@@ -8,7 +8,7 @@ import { user } from "../schemas"
 import { eq } from "drizzle-orm"
 
 export class UserRepository {
-  constructor(private readonly db: DB) {}
+  constructor(private readonly db: DB) { }
 
   /**
    * Delete a user and all associated data
@@ -64,6 +64,31 @@ export class UserRepository {
     return {
       user: userRecord,
     }
+  }
+
+  /**
+   * Update user profile information
+   */
+  async updateUser(
+    userId: string,
+    data: {
+      name?: string
+      email?: string
+      image?: string
+    }
+  ) {
+    const updateData = {
+      ...data,
+      updatedAt: new Date(),
+    }
+
+    const result = await this.db
+      .update(user)
+      .set(updateData)
+      .where(eq(user.id, userId))
+      .returning()
+
+    return result[0] || null
   }
 }
 

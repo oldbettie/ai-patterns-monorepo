@@ -8,13 +8,13 @@ import LogoutButton from '@/components/logout-button'
 import type { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://better-stack.example'), // replace with real domain when available
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'), // replace localhost with real domain when available
   title: {
     default: 'Better Stack',
     template: '%s — Better Stack',
   },
   description:
-    'Monorepo template using Next.js, Better Auth, TailwindCSS, and Drizzle.',
+    'Monorepo template using Next.js, Better Auth, TailwindCSS and PostgreSQL Drizzle.',
 }
 
 export const viewport: Viewport = {
@@ -47,19 +47,19 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
       </head>
       <body className={`${inter.variable} bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100`}>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider messages={messages}> {/* REMOVABLE_FEATURE: Internationalization */}
           <div className='relative min-h-screen'>
             <header className='absolute top-4 right-4 z-50'>
               <nav aria-label="Global" className='flex items-center gap-2'>
                 <LogoutButton />
                 <ThemeToggle />
-                <LanguageSelector />
+                <LanguageSelector /> {/* REMOVABLE_FEATURE: Internationalization */}
               </nav>
             </header>
             <main id="main-content" role="main">{children}</main>
             <footer aria-label="Site footer" />
           </div>
-        </NextIntlClientProvider>
+        </NextIntlClientProvider> {/* REMOVABLE_FEATURE: Internationalization */}
       </body>
     </html>
   )

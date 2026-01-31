@@ -7,9 +7,7 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(['development', 'test', 'production'])
       .default('development'),
-    // Optional internal URL for server-side fetches (useful in Docker)
-    INTERNAL_URL: z.string().url().optional(),
-    BETTER_AUTH_SECRET: z.string().min(32),
+    AUTH_SECRET: z.string().min(32),
     RESEND_API_KEY: z.string().min(1),
     EMAIL_DOMAIN: z.string().min(1),
   },

@@ -8,11 +8,10 @@
     "dev": "pnpm -r dev",
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
-    "web:build": "pnpm --filter web-dashboard build",
-    "web:dev": "pnpm --filter web-dashboard dev",
+    "web:build": "pnpm --filter web-app build",
+    "web:dev": "pnpm --filter web-app dev",
     "db:generate": "cd packages/database && pnpm db:generate",
     "db:migrate": "cd packages/database && pnpm db:migrate",
-    "db:push": "cd packages/database && pnpm db:push",
     "db:studio": "cd packages/database && pnpm db:studio"
   },
   "workspaces": [

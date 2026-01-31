@@ -1,101 +1,121 @@
----
-description: Main project guidelines and patterns for Next.js Better Stack template
-globs: ["**/*"]
-alwaysApply: true
----
+# CLAUDE.md - Instructions for AI Assistant
 
-# Project Guidelines - Next.js Better Stack
+## Project Overview
+
+This is the **Better-Stach** (Next.js Better Stack Monorepo) project.
+It is a modern full-stack web application built with Next.js 16, Better Auth, and Drizzle ORM. 
+INSERT SHORT GUIDING PRINCIPES HERE FOR YOUR PROJECT
+Example:
+We create modern easy to use templates for better DX when creating new software projects efficiently
+
+### Technology Stack
+- **Frontend:** Next.js 16 (App Router), Tailwind CSS v4, React 19, Radix UI/Shadcn
+- **Backend:** Next.js Server Actions, Route Handlers (API)
+- **Database:** Drizzle ORM (PostgreSQL), `packages/database`
+- **Authentication:** Better Auth
+- **Validation:** Zod, React Hook Form
+- **Testing:** Vitest
+
+## Critical File Reading Guidelines
+
+When analyzing large codebases or multiple files that might exceed context limits, use the Gemini CLI & MCP with its massive context window.
+
+### ⚠️ NEVER READ THESE FILES UNLESS ABSOLUTELY REQUIRED:
+- `node_modules/`
+- `pnpm-lock.yaml`
+- `.next/`
+- `dist/`
+- Large log files or build artifacts
+
+### READ THESE FILES FOR CONTEXT:
+- `apps/web-app/package.json`
+- `packages/database/src/schemas.ts` (Database definitions)
+- `.cursor/rules/main-project-guidelines.mdc` (Detailed patterns)
+- `apps/web-app/lib/config/featureToggles.ts` (Routes configuration)
 
 ## Architecture & Patterns
 
-### Code Organization (Domain-Driven Design)
-- **Repository Pattern** for data access (`/lib/repositories`)
-- **Service Layer** for business logic (`lib/services/`)
-- **Server-Only** code marked with `import "server-only"`
-- **Server-Actions** in (`/actions`)
-- **Business API Routes** in `app/(routes)/api/core/`
-- **Auth API Routes** in `app/(routes)/api/auth/`
+### Code Organization
+- **Monorepo Structure:**
+  - `apps/web-app`: Main Next.js application
+  - `packages/database`: Shared database schema, repositories and configurations
+  - `packages/services`: Business logic service layer
+- **Domain-Driven Design:**
+  - `lib/services/`: Business logic (e.g., `companyService.ts`)
+  - `lib/repositories/`: Data access layer (in `packages/database` or `lib`)
+  - `lib/validators/`: Centralized Zod schemas
+- **Server Communication:**
+  - **Server Actions:** Located in `actions/`, must use `secureFetch`.
+  - **API Routes:** Located in `app/(routes)/api/core/` and `app/(routes)/api/auth/`.
+  - **Routes Configuration:** Defined in `lib/config/featureToggles.ts` (ApiRoutes/AppRoutes).
 
-### Key Patterns
-1. **Services** - Business logic (e.g., `AuthService`, `ProductService`)
-2. **Repositories** - Data access abstraction
-3. **Validation** - Zod schemas in `lib/validationSchema/`
-4. **Components** - Reusable UI in `components/`
-5. **Actions** - Always use actions to call API routes to protect the API (`/actions`)
+### Key Patterns (Enforced)
 
-## API Route Structure
+1. **Server Communication**:
+   - **ALWAYS** use `secureFetch` from `lib/serverUtils.ts` for authenticated calls.
+   - **NEVER** use magic strings for URLs. Use `ApiRoutes` and `AppRoutes` from `lib/config/featureToggles.ts`.
+   - **NEVER** call API routes from any client component, ALWAYS use server actions..
+   - **Server Actions** Authenticated user calls must handle API calls via `secureFetch()`.
+   - **Server Actions** NOT Authenticated user calls (`isPublic: true`) must handle API calls via `publicFetch()`.
 
-All API routes use this wrapper pattern:
-```typescript
-// Public route
-export const GET = createRouteHandler({ isPublic: true }, async (req, ctx) => {
-  // No auth required
-})
+2. **Zod Validation**:
+   - All schemas in `lib/validators/`.
+   - Use CRUD naming: `createEventSchema`, `updateEventSchema`.
+   - **NEVER** define schemas inline.
 
-// Authenticated route  
-export const POST = createRouteHandler({ isAuthenticated: true }, async (req, ctx) => {
-  const { user, session } = req
-})
+3. **Loading States**:
+   - Every page must have a `loading.tsx`.
+   - Use `LoadingLink` or `NavigationButton` for navigation.
+   - Use `Skeleton` components for data fetching states.
+
+4. **API Structure**:
+   - Use `createRouteHandler` wrapper for API routes.
+   - Return format: `{ data: T | null, error: string | null }`.
+
+5. **API Structure**:
+   - ALWAYS correctly type params for `createRouteHandler` wrapper in API routes to prevent build errors
+   - ALWAYS `await params`
+   `(req, { params }: { params: Promise<{ companyId: string }> })`.
+
+
+## Development Commands
+
+### Package Management
+```bash
+pnpm install
 ```
 
-### API Conventions
-- RESTful endpoints with consistent error handling
-- Always return: `{ data: T | null, error: error | null }`
-- Validation with Zod schemas
-- No middleware auth on API calls (frontend auth only)
+### Development Server
+```bash
+pnpm dev                # Run all apps
+pnpm --filter web-dashboard dev  # Run specific app
+```
 
-## Technology Stack
+### Database (Drizzle)
+Run these from root of the project:
+```bash
+pnpm db:generate   # Generate migrations
+pnpm db:migrate    # Run migrations
+pnpm db:studio     # Open Drizzle Studio
+```
 
-### Frontend
-- **Next.js App Router** with Server Components by default
-- **Tailwind CSS** for styling
-- **Radix UI** primitives with Shadcn/ui components
-- **React Hook Form** with Zod validation
-- **TypeScript** (strict mode, no `any` types)
+### Testing & Linting
+```bash
+pnpm test          # Run Vitest
+pnpm lint          # Run ESLint
+pnpm type-check    # Run TypeScript check
+```
 
-### Backend
-- **Better Auth** for authentication
-- **Drizzle ORM** for database operations
-- **Server Actions** for form handling
+## MCP Instructions
 
-## Component Patterns
+### Gemini MCP
+Use `gemini -p` when:
+- Analyzing multiple files or large directories.
+- Need project-wide context.
+- Verifying patterns across the codebase.
 
-### Structure
-- Use functional components with hooks
-- Define TypeScript interfaces for props
-- Export as named exports (not default unless it's a page)
-- Server Components by default, add "use client" only when needed
-
-### Forms
-- React Hook Form with `@hookform/resolvers`
-- Zod validation schemas
-- Custom form components in `components/form/`
-
-## Security & Performance
-
-### Security
-- Server-only sensitive operations (mark with `import "server-only"`)
-- Validate all inputs with Zod
-- Use environment variables for secrets
-- Session management with Better Auth
-
-### Performance
-- Server Components by default
-- Next.js Image optimization
-- Code splitting with dynamic imports
-- Proper caching strategies
-
-## Code Quality
-
-### TypeScript
-- Strict mode enabled
-- No `any` types
-- Define interfaces for all props and API responses
-- Use type guards for runtime validation
-
-### General
-- Descriptive naming conventions
-- Small, focused functions
-- Proper error handling with try-catch
-- Remove console.log statements before committing
-
+## Important Notes
+- **Server Components:** Default to Server Components and always use server pages with data requests. Add `'use client'` only when necessary and never call api routes from the client directly.
+- **Server-Only:** Mark server-only code with `import 'server-only'`.
+- **Translations:** Use `next-intl` for all user-facing non dynamic text and ensure all included languages are translated correctly.
+- **Strict TypeScript:** No `any` types.

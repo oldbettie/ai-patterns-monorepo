@@ -18,7 +18,7 @@ export const auth = betterAuth({
       verification,
     },
   }),
-  secret: env.BETTER_AUTH_SECRET,
+  secret: env.AUTH_SECRET,
   baseURL: env.NEXT_PUBLIC_URL,
   emailAndPassword: {
     enabled: true,
