@@ -9,7 +9,14 @@ const withPWA = require('@ducanh2912/next-pwa').default({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['images.ctfassets.net'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.simplifiedpdf.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
   output: 'standalone',
   // Allow dev-box (tailscale hostname) to hit the dev server in development
