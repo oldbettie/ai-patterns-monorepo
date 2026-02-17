@@ -1,18 +1,16 @@
-import { Inter } from 'next/font/google'
+import { Instrument_Serif, Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
-import { LanguageSelector } from '@/components/language-selector'
-import ThemeToggle from '@/components/theme-toggle'
-import LogoutButton from '@/components/logout-button'
-import { EditorActionsProvider, ExportButtonSlot } from '@/lib/context/EditorActionsContext'
+import { EditorActionsProvider } from '@/lib/context/EditorActionsContext'
+import { GlobalHeader } from '@/components/GlobalHeader'
 import type { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'), // replace localhost with real domain when available
   title: {
-    default: 'Quick PDFs',
-    template: '%s — Quick PDFs',
+    default: 'SimplifiedPDF',
+    template: '%s — SimplifiedPDF',
   },
   description:
     'Modern PDF editing and management platform built with Next.js, Better Auth, TailwindCSS and PostgreSQL Drizzle.',
@@ -22,14 +20,21 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+    { media: '(prefers-color-scheme: light)', color: '#FAFAF8' },
+    { media: '(prefers-color-scheme: dark)', color: '#141412' },
   ],
 }
 
-const inter = Inter({
-  variable: '--font-inter',
+const displayFont = Instrument_Serif({
+  weight: '400',
   subsets: ['latin'],
+  variable: '--font-display',
+  display: 'swap',
+})
+
+const bodyFont = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-body',
   display: 'swap',
 })
 
@@ -47,21 +52,14 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-        <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#FAFAF8" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#141412" media="(prefers-color-scheme: dark)" />
       </head>
-      <body className={`${inter.variable} bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100`}>
+      <body className={`${bodyFont.variable} ${displayFont.variable} font-sans bg-background text-foreground antialiased`}>
         <NextIntlClientProvider messages={messages}> {/* REMOVABLE_FEATURE: Internationalization */}
           <EditorActionsProvider>
             <div className='relative min-h-screen'>
-              <header className='absolute top-4 right-4 z-50'>
-                <nav aria-label="Global" className='flex items-center gap-2'>
-                  <LogoutButton />
-                  <ExportButtonSlot />
-                  <ThemeToggle />
-                  <LanguageSelector /> {/* REMOVABLE_FEATURE: Internationalization */}
-                </nav>
-              </header>
+              <GlobalHeader />
               <main id="main-content" role="main">{children}</main>
               <footer aria-label="Site footer" />
             </div>
@@ -71,4 +69,3 @@ export default async function RootLayout({
     </html>
   )
 }
-

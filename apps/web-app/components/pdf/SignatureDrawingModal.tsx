@@ -31,15 +31,15 @@ export function SignatureDrawingModal({ onSave, onClose }: SignatureDrawingModal
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-2xl p-6 w-full max-w-md mx-4">
-        <h2 className="text-lg font-semibold mb-4">{t('draw')}</h2>
-        <div className="border-2 border-neutral-200 dark:border-neutral-700 rounded-lg overflow-hidden mb-4">
+      <div className="bg-background rounded-xl shadow-2xl p-6 w-full max-w-md mx-4 border border-border">
+        <h2 className="text-lg font-semibold mb-4 text-foreground">{t('draw')}</h2>
+        <div className="border-2 border-border rounded-lg overflow-hidden mb-4">
           <SignatureCanvas
             ref={sigRef}
             canvasProps={{
               width: 400,
               height: 200,
-              className: 'bg-white dark:bg-neutral-800 w-full',
+              className: 'bg-card w-full',
             }}
             penColor="#000000"
           />
@@ -47,20 +47,20 @@ export function SignatureDrawingModal({ onSave, onClose }: SignatureDrawingModal
         <div className="flex justify-between">
           <button
             onClick={() => sigRef.current?.clear()}
-            className="px-4 py-2 text-sm rounded-md border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
+            className="px-4 py-2 text-sm rounded-md border border-border hover:bg-accent text-foreground transition-colors"
           >
             {t('clear')}
           </button>
           <div className="flex gap-2">
             <button
               onClick={onClose}
-              className="px-4 py-2 text-sm rounded-md border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
+              className="px-4 py-2 text-sm rounded-md border border-border hover:bg-accent text-foreground transition-colors"
             >
               {t('cancel')}
             </button>
             <button
               onClick={handleSave}
-              className="px-4 py-2 text-sm rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 text-sm rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
             >
               {t('save')}
             </button>

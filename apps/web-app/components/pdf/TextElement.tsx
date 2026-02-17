@@ -93,7 +93,7 @@ export function TextElement({ element, scale, isSelected, onUpdate, onRemove, on
         cursor: isDragging ? 'grabbing' : 'grab',
         userSelect: 'none',
       }}
-      className={isSelected ? 'ring-2 ring-blue-500 rounded' : ''}
+      className={isSelected ? 'ring-2 ring-primary rounded' : ''}
       onMouseDown={handleMouseDown}
       onClick={handleClick}
       onDoubleClick={() => setIsEditing(true)}
@@ -112,7 +112,7 @@ export function TextElement({ element, scale, isSelected, onUpdate, onRemove, on
             fontWeight,
             fontStyle,
             background: 'transparent',
-            border: '1px dashed #3b82f6',
+            border: '1px dashed var(--color-primary)',
             outline: 'none',
             minWidth: 80,
           }}
@@ -129,12 +129,12 @@ export function TextElement({ element, scale, isSelected, onUpdate, onRemove, on
             padding: '0 2px',
             whiteSpace: 'pre',
           }}
-          className="hover:border-blue-400 group"
+          className="hover:border-primary group"
         >
           {element.text}
           <button
             onClick={e => { e.stopPropagation(); onRemove(element.id) }}
-            className="ml-1 opacity-0 group-hover:opacity-100 text-red-500 text-xs leading-none"
+            className="ml-1 opacity-0 group-hover:opacity-100 text-destructive text-xs leading-none"
           >
             ×
           </button>

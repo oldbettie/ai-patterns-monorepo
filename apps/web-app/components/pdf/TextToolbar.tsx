@@ -87,13 +87,13 @@ export function TextToolbar({
   }
 
   return (
-    <div className="flex items-center gap-3 p-2 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-700">
+    <div className="flex items-center gap-3 p-2 bg-background border-b border-border">
       <div className="flex items-center gap-1">
-        <label className="text-xs text-neutral-500">{t('fontFamily')}</label>
+        <label className="text-xs text-muted-foreground">{t('fontFamily')}</label>
         <select
           value={base}
           onChange={e => handleBaseChange(e.target.value)}
-          className="text-sm rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-1.5 py-0.5"
+          className="text-sm rounded border border-input bg-background px-1.5 py-0.5 text-foreground"
         >
           {BASE_FONTS.map(f => (
             <option key={f.value} value={f.value}>{f.label}</option>
@@ -109,8 +109,8 @@ export function TextToolbar({
           disabled={!canToggleStyle}
           className={`w-7 h-7 flex items-center justify-center rounded text-sm font-bold transition-colors ${
             bold
-              ? 'bg-neutral-800 dark:bg-neutral-200 text-white dark:text-neutral-900'
-              : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
+              ? 'bg-primary text-primary-foreground'
+              : 'bg-accent text-accent-foreground hover:bg-accent/80'
           } disabled:opacity-30 disabled:cursor-not-allowed`}
           aria-label="Bold"
           title="Bold"
@@ -123,8 +123,8 @@ export function TextToolbar({
           disabled={!canToggleStyle}
           className={`w-7 h-7 flex items-center justify-center rounded text-sm italic transition-colors ${
             italic
-              ? 'bg-neutral-800 dark:bg-neutral-200 text-white dark:text-neutral-900'
-              : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
+              ? 'bg-primary text-primary-foreground'
+              : 'bg-accent text-accent-foreground hover:bg-accent/80'
           } disabled:opacity-30 disabled:cursor-not-allowed`}
           aria-label="Italic"
           title="Italic"
@@ -134,11 +134,11 @@ export function TextToolbar({
       </div>
 
       <div className="flex items-center gap-1">
-        <label className="text-xs text-neutral-500">{t('fontSize')}</label>
+        <label className="text-xs text-muted-foreground">{t('fontSize')}</label>
         <select
           value={fontSize}
           onChange={e => onFontSizeChange(Number(e.target.value))}
-          className="text-sm rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 px-1.5 py-0.5"
+          className="text-sm rounded border border-input bg-background px-1.5 py-0.5 text-foreground"
         >
           {SIZE_OPTIONS.map(s => (
             <option key={s} value={s}>{s}</option>
@@ -147,12 +147,12 @@ export function TextToolbar({
       </div>
 
       <div className="flex items-center gap-1">
-        <label className="text-xs text-neutral-500">{t('color')}</label>
+        <label className="text-xs text-muted-foreground">{t('color')}</label>
         <input
           type="color"
           value={color}
           onChange={e => onColorChange(e.target.value)}
-          className="w-8 h-7 rounded border border-neutral-200 dark:border-neutral-700 cursor-pointer"
+          className="w-8 h-7 rounded border border-input cursor-pointer bg-transparent"
         />
       </div>
     </div>

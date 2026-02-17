@@ -18,17 +18,17 @@ export function PageNavigator({ currentPage, totalPages, onPageChange }: PageNav
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 0}
-        className="px-3 py-1.5 rounded-md bg-neutral-100 dark:bg-neutral-800 disabled:opacity-40 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors text-sm"
+        className="px-3 py-1.5 rounded-md bg-accent disabled:opacity-40 hover:bg-accent/80 transition-colors text-sm text-foreground"
       >
         ←
       </button>
-      <span className="text-sm text-neutral-600 dark:text-neutral-400">
+      <span className="text-sm text-muted-foreground">
         {t('page', { current: currentPage + 1, total: totalPages })}
       </span>
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage >= totalPages - 1}
-        className="px-3 py-1.5 rounded-md bg-neutral-100 dark:bg-neutral-800 disabled:opacity-40 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors text-sm"
+        className="px-3 py-1.5 rounded-md bg-accent disabled:opacity-40 hover:bg-accent/80 transition-colors text-sm text-foreground"
       >
         →
       </button>

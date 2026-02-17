@@ -19,7 +19,7 @@ export const AppRoutes = {
   verifyEmailSuccess: '/auth/verify-email/success',
   
   // Authenticated routes
-  dashboard: '/dashboard',
+  dashboard: '/editor',
   donate: '/donate',
   donateSuccess: '/donate/success',
   

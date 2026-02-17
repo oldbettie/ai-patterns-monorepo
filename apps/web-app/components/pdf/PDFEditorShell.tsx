@@ -213,21 +213,21 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
   const activeSignatureElements = editor.signatureElements.filter(el => el.pageIndex === editor.activePage)
 
   return (
-    <div className="flex flex-col h-screen bg-neutral-50 dark:bg-neutral-950">
+    <div className="flex flex-col h-screen bg-background">
       {/* Header with filename and navigation */}
       <PDFEditorHeader documentName={documentName} />
 
       {/* Top toolbar */}
-      <div className="flex items-center gap-2 px-4 h-12 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 pr-36">
+      <div className="flex items-center gap-2 px-4 h-12 bg-background border-b border-border pr-36">
         <button
           onClick={handleAddText}
-          className="px-3 py-1.5 text-sm rounded-md bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+          className="px-3 py-1.5 text-sm rounded-md bg-accent hover:bg-accent/80 transition-colors text-foreground"
         >
           {t('addText')}
         </button>
         <button
           onClick={handleAddSignature}
-          className="px-3 py-1.5 text-sm rounded-md bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+          className="px-3 py-1.5 text-sm rounded-md bg-accent hover:bg-accent/80 transition-colors text-foreground"
         >
           {t('addSignature')}
         </button>
@@ -236,21 +236,21 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
         <div className="flex items-center gap-1 ml-2">
           <button
             onClick={() => setScale(prev => Math.max(MIN_SCALE, prev - 0.1))}
-            className="w-7 h-7 flex items-center justify-center rounded text-sm bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+            className="w-7 h-7 flex items-center justify-center rounded text-sm bg-accent hover:bg-accent/80 transition-colors text-foreground"
             aria-label="Zoom out"
           >
             −
           </button>
           <button
             onClick={() => setScale(1)}
-            className="min-w-[3.5rem] text-center text-xs tabular-nums px-1.5 py-1 rounded bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+            className="min-w-[3.5rem] text-center text-xs tabular-nums px-1.5 py-1 rounded bg-accent hover:bg-accent/80 transition-colors text-foreground"
             aria-label="Reset zoom"
           >
             {Math.round(scale * 100)}%
           </button>
           <button
             onClick={() => setScale(prev => Math.min(MAX_SCALE, prev + 0.1))}
-            className="w-7 h-7 flex items-center justify-center rounded text-sm bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+            className="w-7 h-7 flex items-center justify-center rounded text-sm bg-accent hover:bg-accent/80 transition-colors text-foreground"
             aria-label="Zoom in"
           >
             +
@@ -322,7 +322,7 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
       </div>
 
       {/* Page navigator */}
-      <div className="flex items-center justify-center h-12 bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800">
+      <div className="flex items-center justify-center h-12 bg-background border-t border-border">
         <PageNavigator
           currentPage={editor.activePage}
           totalPages={editor.totalPages}

@@ -15,12 +15,12 @@ export function PDFEditorHeader({ documentName }: PDFEditorHeaderProps) {
   const t = useTranslations('pages.editor.header')
 
   return (
-    <div className="flex items-center justify-between gap-4 px-4 h-14 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
+    <div className="flex items-center justify-between gap-4 px-4 h-14 bg-background border-b border-border">
       {/* Left: Navigation buttons */}
       <div className="flex items-center gap-2">
         <Link
           href={AppRoutes.dashboard}
-          className="flex items-center gap-2 px-3 py-1.5 text-sm rounded-md bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+          className="flex items-center gap-2 px-3 py-1.5 text-sm rounded-md bg-accent hover:bg-accent/80 transition-colors text-foreground"
           aria-label={t('backToDocuments')}
         >
           <ArrowLeft className="w-4 h-4" />
@@ -29,7 +29,7 @@ export function PDFEditorHeader({ documentName }: PDFEditorHeaderProps) {
 
         <Link
           href={AppRoutes.home}
-          className="flex items-center gap-2 px-3 py-1.5 text-sm rounded-md bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+          className="flex items-center gap-2 px-3 py-1.5 text-sm rounded-md bg-accent hover:bg-accent/80 transition-colors text-foreground"
           aria-label={t('home')}
         >
           <Home className="w-4 h-4" />
@@ -39,7 +39,7 @@ export function PDFEditorHeader({ documentName }: PDFEditorHeaderProps) {
 
       {/* Center: Document name */}
       <div className="flex-1 text-center">
-        <h1 className="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">
+        <h1 className="text-sm font-medium text-foreground truncate">
           {documentName}
         </h1>
       </div>
