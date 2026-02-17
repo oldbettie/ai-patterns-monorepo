@@ -60,7 +60,7 @@ export default async function RootLayout({
         <meta name="theme-color" content="#141412" media="(prefers-color-scheme: dark)" />
       </head>
       <body className={`${bodyFont.variable} ${displayFont.variable} font-sans bg-background text-foreground antialiased`}>
-        <NextIntlClientProvider messages={messages}> {/* REMOVABLE_FEATURE: Internationalization */}
+        <NextIntlClientProvider messages={messages}>
           <EditorActionsProvider>
             <div className='flex flex-col min-h-screen relative'>
               <AnnouncementBanner />
@@ -71,7 +71,7 @@ export default async function RootLayout({
               </div>
             </div>
           </EditorActionsProvider>
-        </NextIntlClientProvider> {/* REMOVABLE_FEATURE: Internationalization */}
+        </NextIntlClientProvider>
       </body>
     </html>
   )
