@@ -8,13 +8,16 @@ import { AnnouncementBanner } from '@/components/landing/AnnouncementBanner'
 import type { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'), // replace localhost with real domain when available
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'https://simplifiedpdf.com'),
+  verification: {
+    google: 'MqoJOkIY5M9o2d-HAXo76DvJFHoOVXw1B6dMeXYJPSw', // from Step 1
+  },
   title: {
     default: 'SimplifiedPDF',
     template: '%s — SimplifiedPDF',
   },
   description:
-    'Modern PDF editing and management platform built with Next.js, Better Auth, TailwindCSS and PostgreSQL Drizzle.',
+    'Modern , simple and free PDF editing software for everyone, browser based and local first',
 }
 
 export const viewport: Viewport = {
