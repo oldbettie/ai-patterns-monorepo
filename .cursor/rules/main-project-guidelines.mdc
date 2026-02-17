@@ -1,3 +1,7 @@
+---
+alwaysApply: true
+---
+
 # CLAUDE.md - Instructions for AI Assistant
 
 ## Project Overview
@@ -42,7 +46,7 @@ When analyzing large codebases or multiple files that might exceed context limit
   - `packages/services`: Business logic service layer
 - **Domain-Driven Design:**
   - `lib/services/`: Business logic (e.g., `companyService.ts`)
-  - `lib/repositories/`: Data access layer (in `packages/database` or `lib`)
+  - `packages/database/src/repositories/`: Data repositories layer
   - `lib/validators/`: Centralized Zod schemas
 - **Server Communication:**
   - **Server Actions:** Located in `actions/`, must use `secureFetch`.
