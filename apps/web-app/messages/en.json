@@ -34,10 +34,11 @@
   },
   "pages": {
     "landing": {
-      "badge": "Build faster with our template",
+      "badge": "Built for AI-assisted development",
       "hero": {
-        "title": "SaaS Template",
-        "subtitle": "A modern, full-stack template with authentication, dashboard, and best practices built-in."
+        "title": "AI-Friendly Next.js Template",
+        "subtitle": "Production-ready monorepo with consistent patterns, type safety, and architecture designed for AI agent collaboration.",
+        "learnMore": "Learn about our patterns"
       },
       "cta": {
         "getStarted": "Get started",
@@ -49,17 +50,17 @@
           "title": "Fast, secure, and scalable",
           "subtitle": "Built with modern technologies and best practices for rapid development.",
           "items": {
-            "privacy": {
-              "title": "Secure by default",
-              "desc": "Built-in authentication, session management, and security best practices."
+            "patterns": {
+              "title": "Pattern-Driven Architecture",
+              "desc": "Service/Repository pattern, typed APIs, and consistent conventions AI agents understand instantly."
             },
-            "performance": {
-              "title": "High performance",
-              "desc": "Optimized with Next.js, server components, and modern build tools."
+            "typeSafety": {
+              "title": "End-to-End Type Safety",
+              "desc": "TypeScript strict mode, Zod validation, and Drizzle ORM ensure zero runtime surprises."
             },
-            "family": {
-              "title": "Production ready",
-              "desc": "TypeScript, testing setup, and deployment configuration included."
+            "maintainable": {
+              "title": "Easy to Maintain & Extend",
+              "desc": "Clear layers, testable services, and documented patterns make refactoring trivial."
             }
           }
         },
@@ -68,9 +69,9 @@
           "title": "Template + Customize + Deploy",
           "subtitle": "Start with our template, customize to your needs, and deploy to production.",
           "steps": {
-            "1": "Clone the template repository.",
-            "2": "Customize for your use case.",
-            "3": "Deploy to your preferred platform."
+            "1": "Clone the template with battle-tested patterns built-in",
+            "2": "Extend services following clear, documented conventions",
+            "3": "Deploy with confidence knowing your architecture is solid"
           }
         }
       },
@@ -83,7 +84,55 @@
       "footer": {
         "brand": "SaaS Template",
         "login": "Login",
-        "signup": "Sign Up"
+        "signup": "Sign Up",
+        "whyLink": "Why patterns matter"
+      }
+    },
+    "why": {
+      "hero": {
+        "eyebrow": "Architecture & Patterns",
+        "title": "Why Patterns Matter for AI Development",
+        "subtitle": "Consistent, predictable code isn't just easier to maintain—it's essential for effective AI collaboration."
+      },
+      "intro": {
+        "title": "The Challenge",
+        "body": "Inconsistent codebases confuse AI agents. Without clear patterns, AI struggles to understand context, make correct assumptions, and generate maintainable code."
+      },
+      "patterns": {
+        "serviceRepo": {
+          "title": "Service/Repository Pattern",
+          "description": "Separate business logic from data access. Services contain rules and validation, repositories handle database operations.",
+          "why": "Clear boundaries help AI understand where to make changes. Testing becomes trivial with mock repositories."
+        },
+        "apiRoutes": {
+          "title": "Type-Safe API Routes",
+          "description": "All API routes use the createRouteHandler wrapper for consistent authentication and error handling.",
+          "why": "AI can confidently add new endpoints following the established pattern. No guesswork about auth or response format."
+        },
+        "secureFetch": {
+          "title": "Secure Server Communication",
+          "description": "Server actions use secureFetch to call APIs with automatic session forwarding. Never expose APIs directly to clients.",
+          "why": "Security by default. AI knows exactly how to make authenticated requests without manual header management."
+        },
+        "validation": {
+          "title": "Centralized Validation",
+          "description": "Zod schemas co-located with services provide runtime type safety and validation.",
+          "why": "Type inference from schemas keeps validation and types in sync. AI can safely modify schemas knowing types update automatically."
+        },
+        "database": {
+          "title": "Type-Safe Database Layer",
+          "description": "Drizzle ORM with repository pattern abstracts data access and provides full type safety.",
+          "why": "AI can query databases confidently with IntelliSense. Schema changes propagate through the type system."
+        },
+        "testing": {
+          "title": "Black-Box Service Testing",
+          "description": "Test services in isolation using mock repositories to verify business logic.",
+          "why": "AI can confidently add new tests following the established pattern. Services remain testable without database dependencies."
+        }
+      },
+      "navigation": {
+        "backHome": "Back to home",
+        "getStarted": "Get started now"
       }
     },
     "dashboard": {

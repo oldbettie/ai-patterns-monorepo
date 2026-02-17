@@ -43,6 +43,9 @@ export default async function Home() {
             <Button href='/login' variant='secondary'>
               {t('cta.signIn')}
             </Button>
+            <Button href='/why' variant='ghost'>
+              {t('hero.learnMore')}
+            </Button>
           </div>
 
           {/* Placeholder product preview */}
@@ -62,9 +65,9 @@ export default async function Home() {
           />
           <div className='mt-10 grid grid-cols-1 gap-6 md:grid-cols-3'>
             {[
-              { title: t('sections.value.items.privacy.title'), desc: t('sections.value.items.privacy.desc') },
-              { title: t('sections.value.items.performance.title'), desc: t('sections.value.items.performance.desc') },
-              { title: t('sections.value.items.family.title'), desc: t('sections.value.items.family.desc') },
+              { title: t('sections.value.items.patterns.title'), desc: t('sections.value.items.patterns.desc') },
+              { title: t('sections.value.items.typeSafety.title'), desc: t('sections.value.items.typeSafety.desc') },
+              { title: t('sections.value.items.maintainable.title'), desc: t('sections.value.items.maintainable.desc') },
             ].map((f, i) => (
               <div
                 key={i}
@@ -125,6 +128,9 @@ export default async function Home() {
         <Container className='flex flex-col items-center justify-between gap-4 text-sm text-neutral-600 md:flex-row dark:text-neutral-500'>
           <span>&copy; {new Date().getFullYear()} {t('footer.brand')}</span>
           <div className='flex items-center gap-4'>
+            <Link href='/why' className='text-blue-600 hover:text-blue-600/90 dark:text-blue-400 dark:hover:text-blue-300'>
+              {t('footer.whyLink')}
+            </Link>
             <Link href='/login' className='text-blue-600 hover:text-blue-600/90 dark:text-blue-400 dark:hover:text-blue-300'>
               {t('footer.login')}
             </Link>
