@@ -1,6 +1,8 @@
 import { Suspense } from 'react'
 import VerificationSuccessClient from './verification-success-client'
 import { getTranslations } from 'next-intl/server'
+import { redirect } from 'next/navigation'
+import { AppRoutes, FeatureToggles } from '@/lib/config/featureToggles'
 
 interface PageProps {
   searchParams: Promise<{ token?: string }>
@@ -9,6 +11,10 @@ interface PageProps {
 export default async function VerificationSuccessPage({
   searchParams,
 }: PageProps) {
+  // Redirect if signup is disabled
+  if (!FeatureToggles.enableSignup) {
+    redirect(AppRoutes.home)
+  }
   const params = await searchParams
   const token = params.token || ''
   const t = await getTranslations('pages.verifyEmail')

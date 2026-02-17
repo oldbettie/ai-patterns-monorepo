@@ -3,53 +3,100 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 240 10% 3.9%;
+  /* 
+     Palette from Homepage:
+     Bg: #FAFAF8 -> 60 11% 98%
+     Text Primary: #1A1A18 -> 60 5% 10%
+     Text Secondary: #6B6B65 -> 60 3% 41%
+     Accent: #1B6B3A -> 143 60% 26%
+     Accent Light: #E8F5EE -> 145 37% 93%
+     Border: #E8E8E4 -> 60 5% 90%
+     Danger: #C9322C -> 4 62% 48%
+  */
+
+  --background: 60 11% 98%;
+  --foreground: 60 5% 10%;
+  
   --card: 0 0% 100%;
-  --card-foreground: 240 10% 3.9%;
+  --card-foreground: 60 5% 10%;
+  
   --popover: 0 0% 100%;
-  --popover-foreground: 240 10% 3.9%;
-  --primary: 240 5.9% 10%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 240 4.8% 95.9%;
-  --secondary-foreground: 240 5.9% 10%;
-  --muted: 240 4.8% 95.9%;
-  --muted-foreground: 240 3.8% 46.1%;
-  --accent: 240 4.8% 95.9%;
-  --accent-foreground: 240 5.9% 10%;
-  --destructive: 0 84.2% 60.2%;
+  --popover-foreground: 60 5% 10%;
+  
+  --primary: 143 60% 26%;
+  --primary-foreground: 0 0% 100%;
+  
+  --secondary: 145 37% 93%;
+  --secondary-foreground: 143 60% 26%;
+  
+  --muted: 60 5% 96%;
+  --muted-foreground: 60 3% 41%;
+  
+  --accent: 145 37% 93%;
+  --accent-foreground: 143 60% 26%;
+  
+  --destructive: 4 62% 48%;
   --destructive-foreground: 0 0% 98%;
-  --border: 240 5.9% 90%;
-  --input: 240 5.9% 90%;
-  --ring: 240 10% 3.9%;
-  --chart-1: 12 76% 61%;
+  
+  --border: 60 5% 90%;
+  --input: 60 5% 90%;
+  --ring: 143 60% 26%;
+  
+  --chart-1: 143 60% 26%;
   --chart-2: 173 58% 39%;
   --chart-3: 197 37% 24%;
   --chart-4: 43 74% 66%;
   --chart-5: 27 87% 67%;
+  
   --radius: 0.5rem;
+
+  /* Landing Page specific colors (keeping these for reference/backward compat if needed) */
+  --color-landing-background: #FAFAF8;
+  --color-landing-text-primary: #1A1A18;
+  --color-landing-text-secondary: #6B6B65;
+  --color-landing-accent: #1B6B3A;
+  --color-landing-accent-light: #E8F5EE;
+  --color-landing-dark-section: #141412;
+  --color-landing-dark-text: #F0EFE9;
+  --color-landing-danger: #C9322C;
 }
 
 .dark {
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 0 0% 98%;
-  --primary-foreground: 240 5.9% 10%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --accent: 240 3.7% 15.9%;
-  --accent-foreground: 0 0% 98%;
+  /* 
+     Dark Palette (derived from Privacy Section #141412):
+     Bg: #141412 -> 60 5% 7%
+     Text Primary: #F0EFE9 -> 60 11% 94%
+     Text Secondary: Lighter grey ~#A1A1AA -> 210 5% 65%
+  */
+  
+  --background: 60 5% 7%;
+  --foreground: 60 11% 94%;
+  
+  --card: 60 5% 10%;
+  --card-foreground: 60 11% 94%;
+  
+  --popover: 60 5% 7%;
+  --popover-foreground: 60 11% 94%;
+  
+  --primary: 143 50% 45%; /* Lighter green for dark mode visibility */
+  --primary-foreground: 0 0% 100%;
+  
+  --secondary: 60 3% 15%;
+  --secondary-foreground: 60 11% 94%;
+  
+  --muted: 60 3% 15%;
+  --muted-foreground: 60 3% 60%;
+  
+  --accent: 60 3% 15%;
+  --accent-foreground: 60 11% 94%;
+  
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 240 4.9% 83.9%;
+  
+  --border: 60 3% 20%;
+  --input: 60 3% 20%;
+  --ring: 143 50% 45%;
+  
   --chart-1: 220 70% 50%;
   --chart-2: 160 60% 45%;
   --chart-3: 30 80% 55%;
@@ -58,6 +105,9 @@
 }
 
 @theme {
+  --font-display: var(--font-display), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-body: var(--font-body), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
@@ -127,7 +177,11 @@ html {
 }
 
 body {
-  @apply bg-background text-foreground antialiased;
+  @apply bg-background text-foreground antialiased font-body;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-display tracking-tight;
 }
 
 /* Layout helper */

@@ -1,12 +1,18 @@
 import { Suspense } from 'react'
 import VerifyEmailClient from './verify-email-client'
 import { getTranslations } from 'next-intl/server'
+import { redirect } from 'next/navigation'
+import { AppRoutes, FeatureToggles } from '@/lib/config/featureToggles'
 
 interface PageProps {
   searchParams: Promise<{ email?: string }>
 }
 
 export default async function VerifyEmailPage({ searchParams }: PageProps) {
+  // Redirect if signup is disabled
+  if (!FeatureToggles.enableSignup) {
+    redirect(AppRoutes.home)
+  }
   const params = await searchParams
   const email = params.email || ''
   const t = await getTranslations('pages.verifyEmail')

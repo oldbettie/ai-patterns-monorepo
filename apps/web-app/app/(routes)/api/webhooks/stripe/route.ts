@@ -7,12 +7,16 @@ export const dynamic = 'force-dynamic'
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { createDonationRepository } from '@quick-pdfs/database/src/repositories/donationRepository'
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '', {
-  apiVersion: '2026-01-28.clover',
-})
+import { FeatureToggles } from '@/lib/config/featureToggles'
 
 export async function POST(req: NextRequest) {
+  // Return early if Stripe is disabled
+  if (!FeatureToggles.enableStripe) {
+    return NextResponse.json({ error: 'Stripe webhooks are disabled' }, { status: 403 })
+  }
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: '2026-01-28.clover',
+  })
   const body = await req.text()
   const signature = req.headers.get('stripe-signature') ?? ''
 

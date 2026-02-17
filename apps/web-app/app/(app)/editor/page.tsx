@@ -2,8 +2,17 @@ import { auth } from '@/lib/auth/auth'
 import { headers } from 'next/headers'
 import { DashboardClient } from '@/components/dashboard-client'
 import type { User } from '@/components/dashboard/types'
+import { getTranslations } from 'next-intl/server'
 
-export default async function DashboardPage() {
+export async function generateMetadata() {
+  const t = await getTranslations('pages.dashboard')
+  return {
+    title: t('title'),
+    description: t('subtitle')
+  }
+}
+
+export default async function EditorDashboardPage() {
   const session = await auth.api.getSession({ headers: await headers() })
 
   const user: User | null = session

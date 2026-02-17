@@ -1,7 +1,14 @@
 import ForgotPasswordClient from './forgot-password-client'
 import { useTranslations } from 'next-intl'
+import { redirect } from 'next/navigation'
+import { AppRoutes, FeatureToggles } from '@/lib/config/featureToggles'
 
 export default function ForgotPasswordPage() {
+  // Redirect if login is disabled
+  if (!FeatureToggles.enableLogin) {
+    redirect(AppRoutes.home)
+  }
+
   const t = useTranslations('pages.forgotPassword')
 
   return (

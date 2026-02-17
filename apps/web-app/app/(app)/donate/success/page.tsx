@@ -3,7 +3,8 @@
 
 import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
-import { AppRoutes } from '@/lib/config/featureToggles'
+import { redirect } from 'next/navigation'
+import { AppRoutes, FeatureToggles } from '@/lib/config/featureToggles'
 
 export async function generateMetadata() {
   const t = await getTranslations('pages.donate.success')
@@ -11,6 +12,10 @@ export async function generateMetadata() {
 }
 
 export default async function DonateSuccessPage() {
+  // Redirect if donations are disabled
+  if (!FeatureToggles.enableDonations) {
+    redirect(AppRoutes.home)
+  }
   const t = await getTranslations('pages.donate')
 
   return (

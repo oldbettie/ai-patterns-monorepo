@@ -80,8 +80,8 @@ export function FileUploadZone() {
         onDrop={handleDrop}
         className={`flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-xl p-8 cursor-pointer transition-colors ${
           isDragOver
-            ? 'border-blue-400 bg-blue-50 dark:bg-blue-900/20'
-            : 'border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600'
+            ? 'border-primary/50 bg-accent/20'
+            : 'border-border hover:border-primary/30 bg-card hover:bg-accent/10'
         }`}
       >
         <input
@@ -91,15 +91,15 @@ export function FileUploadZone() {
           className="sr-only"
           disabled={isProcessing}
         />
-        <div className="text-neutral-400 dark:text-neutral-500">
+        <div className="text-muted-foreground">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 16v-8m0 0l-3 3m3-3l3 3M20 16.5A3.5 3.5 0 0016.5 13H15a5 5 0 10-9.9 1A4 4 0 005 21h14.5" />
           </svg>
         </div>
-        <div className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+        <div className="text-sm font-medium text-foreground">
           {isProcessing ? t('upload.label') : t('upload.dragDrop')}
         </div>
-        <div className="text-xs text-neutral-400">{t('upload.accept')}</div>
+        <div className="text-xs text-muted-foreground">{t('upload.accept')}</div>
       </label>
     </div>
   )

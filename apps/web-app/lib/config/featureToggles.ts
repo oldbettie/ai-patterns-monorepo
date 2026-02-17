@@ -1,5 +1,64 @@
-// @domain:config @feature:routes
-// @summary: Centralized route configuration for AppRoutes and ApiRoutes
+// @domain:config @feature:feature-toggles @shared
+// @summary: Environment-specific feature toggle configuration
+
+import { env } from '@/lib/env'
+
+type FeatureToggleConfig = {
+  enableLogin: boolean
+  enableSignup: boolean
+  enableStripe: boolean
+  enableDonations: boolean
+  enableDonateBanner: boolean
+}
+
+export const isProd = env.NEXT_PUBLIC_STAGE === 'prod'
+
+const ProdFeatureToggles: FeatureToggleConfig = {
+  enableLogin: false,
+  enableSignup: false,
+  enableStripe: false,
+  enableDonations: false,
+  enableDonateBanner: false,
+}
+
+const StagingFeatureToggles: FeatureToggleConfig = {
+  enableLogin: true,
+  enableSignup: true,
+  enableStripe: true,
+  enableDonations: true,
+  enableDonateBanner: true,
+}
+
+const DevFeatureToggles: FeatureToggleConfig = {
+  enableLogin: true,
+  enableSignup: true,
+  enableStripe: true,
+  enableDonations: true,
+  enableDonateBanner: true,
+}
+
+const LocalFeatureToggles: FeatureToggleConfig = {
+  enableLogin: true,
+  enableSignup: true,
+  enableStripe: true,
+  enableDonations: true,
+  enableDonateBanner: true,
+}
+
+export const FeatureToggles: FeatureToggleConfig = (() => {
+  if (isProd) {
+    return ProdFeatureToggles
+  } else if (env.NEXT_PUBLIC_STAGE === 'staging') {
+    return StagingFeatureToggles
+  } else if (env.NEXT_PUBLIC_STAGE === 'dev') {
+    return DevFeatureToggles
+  } else {
+    console.log(
+      'Using local feature config. Check featureToggles.ts to adjust feature toggle values'
+    )
+    return LocalFeatureToggles
+  }
+})()
 
 /**
  * Application routes for frontend navigation
@@ -11,18 +70,18 @@ export const AppRoutes = {
   why: '/why',
   login: '/login',
   signup: '/signup',
-  
+
   // Auth routes
   forgotPassword: '/auth/forgot-password',
   resetPassword: '/auth/reset-password',
   verifyEmail: '/auth/verify-email',
   verifyEmailSuccess: '/auth/verify-email/success',
-  
+
   // Authenticated routes
-  dashboard: '/dashboard',
+  dashboard: '/editor',
   donate: '/donate',
   donateSuccess: '/donate/success',
-  
+
   // Editor routes
   editor: '/editor',
 } as const
@@ -34,11 +93,11 @@ export const AppRoutes = {
 export const ApiRoutes = {
   // Auth API
   auth: '/api/auth',
-  
+
   // Core API v1
   users: '/api/core/v1/users',
   donations: '/api/core/v1/donations',
-  
+
   // Webhooks
   stripeWebhook: '/api/webhooks/stripe',
 } as const

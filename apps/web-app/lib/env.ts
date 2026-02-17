@@ -19,9 +19,11 @@ export const env = createEnv({
       .url()
       .default('http://dev-box:3000'),
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1).optional(),
+    NEXT_PUBLIC_STAGE: z.enum(['local', 'dev', 'staging', 'prod']).default('local'),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_STAGE: process.env.NEXT_PUBLIC_STAGE,
   },
 })

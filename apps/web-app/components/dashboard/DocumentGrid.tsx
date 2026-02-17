@@ -27,7 +27,7 @@ export function DocumentGrid() {
 
   if (documents.length === 0) {
     return (
-      <p className="text-sm text-neutral-500 text-center py-8">{t('subtitle')}</p>
+      <p className="text-sm text-muted-foreground text-center py-8">{t('subtitle')}</p>
     )
   }
 
