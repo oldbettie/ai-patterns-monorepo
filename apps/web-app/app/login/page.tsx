@@ -4,6 +4,7 @@ import { authClient } from '@/lib/auth'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -37,7 +38,7 @@ export default function LoginPage() {
           try {
             await authClient.sendVerificationEmail({
               email,
-              callbackURL: `${window.location.origin}/auth/verify-email/success`,
+              callbackURL: `${window.location.origin}${AppRoutes.verifyEmailSuccess}`,
             })
 
             setError(verifyEmailT('description'))
@@ -51,7 +52,7 @@ export default function LoginPage() {
 
         setError(errorMessage)
       } else {
-        router.push('/')
+        router.push(AppRoutes.home)
       }
     } catch (err) {
       console.error(err)
@@ -130,7 +131,7 @@ export default function LoginPage() {
 
           <div className='flex items-center justify-between'>
             <a
-              href='/auth/forgot-password'
+              href={AppRoutes.forgotPassword}
               className='text-sm font-medium text-blue-600 hover:text-blue-600/90 dark:text-blue-400 dark:hover:text-blue-300'
             >
               {pageT('forgotPassword')}
@@ -139,7 +140,7 @@ export default function LoginPage() {
 
           <div className='text-center'>
             <a
-              href='/signup'
+              href={AppRoutes.signup}
               className='font-medium text-blue-600 hover:text-blue-600/90 dark:text-blue-400 dark:hover:text-blue-300'
             >
               {pageT('dontHaveAccount')} {pageT('signUpInstead')}

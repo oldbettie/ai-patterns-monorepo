@@ -2,11 +2,12 @@
 // @summary: TypeScript types derived from database schemas
 
 import type { InferSelectModel, InferInsertModel } from 'drizzle-orm'
-import { 
-  user, 
-  session, 
-  account, 
+import {
+  user,
+  session,
+  account,
   verification,
+  donations,
 } from './schemas'
 
 // User types
@@ -24,3 +25,8 @@ export type NewAccount = InferInsertModel<typeof account>
 // Verification types
 export type Verification = InferSelectModel<typeof verification>
 export type NewVerification = InferInsertModel<typeof verification>
+
+// Donation types
+export type Donation = InferSelectModel<typeof donations>
+export type NewDonation = InferInsertModel<typeof donations>
+export type DonationStatus = 'pending' | 'completed' | 'failed'

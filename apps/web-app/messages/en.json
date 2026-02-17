@@ -160,6 +160,73 @@
           "title": "Settings",
           "description": "Manage your preferences and configuration."
         }
+      },
+      "documents": {
+        "title": "My Documents",
+        "subtitle": "Your PDFs are stored locally on this device",
+        "edit": "Edit",
+        "download": "Download",
+        "delete": "Delete",
+        "pages": "{count} pages",
+        "lastEdited": "Last edited {date}"
+      },
+      "upload": {
+        "label": "Processing...",
+        "dragDrop": "Drag and drop or click to select",
+        "accept": "PDF files only"
+      },
+      "storage": {
+        "used": "{used} used",
+        "warning": "Storage almost full"
+      },
+      "donateBanner": {
+        "title": "Enjoying Quick PDFs?",
+        "subtitle": "Sign in and make a small donation to remove ads and support development.",
+        "cta": "Support the project",
+        "signInCta": "Sign in to donate"
+      }
+    },
+    "editor": {
+      "title": "Edit PDF",
+      "addText": "Add Text",
+      "addSignature": "Add Signature",
+      "download": "Download",
+      "page": "Page {current} of {total}",
+      "header": {
+        "backToDocuments": "My Documents",
+        "home": "Quick PDFs"
+      },
+      "text": {
+        "placeholder": "Type here...",
+        "fontFamily": "Font",
+        "fontSize": "Size",
+        "color": "Color"
+      },
+      "signature": {
+        "draw": "Draw Signature",
+        "clear": "Clear",
+        "save": "Save",
+        "cancel": "Cancel",
+        "edit": "Edit signature",
+        "deleteFromStorage": "Delete signature"
+      },
+      "export": {
+        "generating": "Generating PDF...",
+        "success": "PDF downloaded"
+      }
+    },
+    "donate": {
+      "title": "Support Quick PDFs",
+      "subtitle": "Your donation keeps this tool free and private",
+      "alreadyDonor": "You are already a supporter. Thank you!",
+      "amount": "Donation amount",
+      "donate": "Donate",
+      "processing": "Processing...",
+      "offlineMessage": "An internet connection is required to donate.",
+      "success": {
+        "title": "Thank you!",
+        "message": "You now have an ad-free experience.",
+        "backToDashboard": "Back to Dashboard"
       }
     },
     "login": {

@@ -3,6 +3,7 @@
 import { useSession, authClient } from '@/lib/auth'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 export default function AuthStatus() {
   const { data: session, isPending } = useSession()
@@ -29,13 +30,13 @@ export default function AuthStatus() {
         <p className='text-gray-600 mb-4'>{componentT('loggedOut')}</p>
         <div className='flex space-x-3'>
           <Link
-            href='/login'
+            href={AppRoutes.login}
             className='px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors'
           >
             {componentT('login')}
           </Link>
           <Link
-            href='/signup'
+            href={AppRoutes.signup}
             className='px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors'
           >
             {componentT('signup')}

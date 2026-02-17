@@ -1,6 +1,7 @@
 "use client"
 
 import Link from 'next/link'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 interface SectionHeaderProps {
   title: string
@@ -18,7 +19,7 @@ export function SectionHeader({ title, subtitle }: SectionHeaderProps) {
       </div>
       <div className="flex items-center gap-2">
         <Link
-          href="/"
+          href={AppRoutes.home}
           className="rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 dark:hover:bg-neutral-800"
         >
           Home

@@ -4,6 +4,7 @@ import { authClient } from '@/lib/auth'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 export default function ForgotPasswordClient() {
   const t = useTranslations('pages.forgotPassword')
@@ -24,7 +25,7 @@ export default function ForgotPasswordClient() {
       // Use Better Auth's forget password functionality
       const result = await authClient.forgetPassword({
         email,
-        redirectTo: `${window.location.origin}/auth/reset-password`,
+        redirectTo: `${window.location.origin}${AppRoutes.resetPassword}`,
       })
 
       if (result.error) {
@@ -71,7 +72,7 @@ export default function ForgotPasswordClient() {
 
           <div className='text-center'>
             <button
-              onClick={() => router.push('/login')}
+              onClick={() => router.push(AppRoutes.login)}
               className='font-medium text-blue-600 hover:text-blue-600/90 dark:text-blue-400 dark:hover:text-blue-300'
             >
               {t('backToLogin')}
@@ -119,7 +120,7 @@ export default function ForgotPasswordClient() {
           <div className='text-center'>
             <button
               type='button'
-              onClick={() => router.push('/login')}
+              onClick={() => router.push(AppRoutes.login)}
               className='font-medium text-blue-600 hover:text-blue-600/90 dark:text-blue-400 dark:hover:text-blue-300'
             >
               {t('backToLogin')}

@@ -6,6 +6,7 @@ import Container from '@/components/ui/Container'
 import SectionHeading from '@/components/ui/SectionHeading'
 import Button from '@/components/ui/Button'
 import CodeBlock from '@/components/ui/CodeBlock'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 export const metadata = {
   title: 'Why Patterns Matter',
@@ -467,8 +468,8 @@ export class UserRepository {
                 Start with proven patterns and let AI help you scale faster.
               </p>
               <div className='mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center'>
-                <Button href='/signup'>{t('navigation.getStarted')}</Button>
-                <Button href='/' variant='secondary'>
+                <Button href={AppRoutes.signup}>{t('navigation.getStarted')}</Button>
+                <Button href={AppRoutes.home} variant='secondary'>
                   {t('navigation.backHome')}
                 </Button>
               </div>

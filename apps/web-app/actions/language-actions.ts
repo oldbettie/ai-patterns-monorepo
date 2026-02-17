@@ -3,6 +3,7 @@
 import { type Locale, LOCALE_COOKIE_NAME, locales } from '@/lib/i18n/constants'
 import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 export async function setLanguageAction(locale: Locale) {
   // fallback to english if its not supported
@@ -27,6 +28,6 @@ export async function setLanguageAction(locale: Locale) {
     redirect(url.pathname + url.search)
   } else {
     // Fallback to homepage if no referer
-    redirect('/')
+    redirect(AppRoutes.home)
   }
 }

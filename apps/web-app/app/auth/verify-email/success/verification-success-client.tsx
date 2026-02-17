@@ -4,6 +4,7 @@ import { authClient } from '@/lib/auth'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 interface VerificationSuccessClientProps {
   token: string
@@ -26,7 +27,7 @@ export default function VerificationSuccessClient({
 
         if (session.data?.user) {
           setSuccess(true)
-          router.push('/')
+          router.push(AppRoutes.home)
         } else {
           setError(t('emailVerificationCompletedButLoginFailed'))
         }
@@ -97,7 +98,7 @@ export default function VerificationSuccessClient({
         <p className='mt-2 text-center text-sm text-neutral-600 dark:text-neutral-300'>{error}</p>
         <div className='mt-6'>
           <button
-            onClick={() => router.push('/login')}
+            onClick={() => router.push(AppRoutes.login)}
             className='group relative flex w-full justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500'
           >
             {t('backToLogin')}
@@ -133,7 +134,7 @@ export default function VerificationSuccessClient({
         </p>
         <div className='mt-6'>
           <button
-            onClick={() => router.push('/')}
+            onClick={() => router.push(AppRoutes.home)}
             className='group relative flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-600/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500'
           >
             {t('continueToDashboard')}

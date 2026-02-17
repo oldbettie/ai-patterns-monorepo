@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { authClient } from '@/lib/auth'
 import { useTranslations } from 'next-intl'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 interface VerifyEmailClientProps {
   email: string
@@ -41,7 +42,7 @@ export default function VerifyEmailClient({ email }: VerifyEmailClientProps) {
       // Use Better Auth's send verification email functionality
       const result = await authClient.sendVerificationEmail({
         email,
-        callbackURL: `${window.location.origin}/auth/verify-email/success`,
+        callbackURL: `${window.location.origin}${AppRoutes.verifyEmailSuccess}`,
       })
 
       if (result.error) {
@@ -94,7 +95,7 @@ export default function VerifyEmailClient({ email }: VerifyEmailClientProps) {
 
       <div className='text-center'>
         <button
-          onClick={() => router.push('/login')}
+          onClick={() => router.push(AppRoutes.login)}
           className='font-medium text-indigo-600 hover:text-indigo-500'
         >
           {t('backToLogin')}

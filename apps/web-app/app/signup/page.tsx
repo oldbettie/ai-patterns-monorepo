@@ -4,6 +4,7 @@ import { authClient } from '@/lib/auth'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 export default function SignupPage() {
   const [name, setName] = useState('')
@@ -32,7 +33,7 @@ export default function SignupPage() {
         setError(result.error.message || errorsT('somethingWentWrong'))
       } else {
         // Redirect to email verification page since email verification is required
-        router.push(`/auth/verify-email?email=${encodeURIComponent(email)}`)
+        router.push(`${AppRoutes.verifyEmail}?email=${encodeURIComponent(email)}`)
       }
     } catch (err) {
       console.error(err)
@@ -131,7 +132,7 @@ export default function SignupPage() {
 
           <div className='text-center'>
             <a
-              href='/login'
+              href={AppRoutes.login}
               className='font-medium text-blue-600 hover:text-blue-600/90 dark:text-blue-400 dark:hover:text-blue-300'
             >
               {pageT('alreadyHaveAccount')} {pageT('signInInstead')}

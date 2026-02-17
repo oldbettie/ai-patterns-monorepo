@@ -160,6 +160,73 @@
           "title": "設定",
           "description": "設定と構成を管理します。"
         }
+      },
+      "documents": {
+        "title": "マイドキュメント",
+        "subtitle": "PDFはこのデバイスにローカルで保存されています",
+        "edit": "編集",
+        "download": "ダウンロード",
+        "delete": "削除",
+        "pages": "{count} ページ",
+        "lastEdited": "最終編集日: {date}"
+      },
+      "upload": {
+        "label": "処理中...",
+        "dragDrop": "ドラッグ＆ドロップまたはクリックして選択",
+        "accept": "PDFファイルのみ"
+      },
+      "storage": {
+        "used": "{used} 使用中",
+        "warning": "ストレージがほぼいっぱいです"
+      },
+      "donateBanner": {
+        "title": "Quick PDFsを楽しんでいますか？",
+        "subtitle": "サインインして少額の寄付をすることで、広告を削除し開発をサポートできます。",
+        "cta": "プロジェクトをサポート",
+        "signInCta": "サインインして寄付"
+      }
+    },
+    "editor": {
+      "title": "PDFを編集",
+      "addText": "テキストを追加",
+      "addSignature": "署名を追加",
+      "download": "ダウンロード",
+      "page": "ページ {current} / {total}",
+      "header": {
+        "backToDocuments": "マイドキュメント",
+        "home": "Quick PDFs"
+      },
+      "text": {
+        "placeholder": "ここに入力...",
+        "fontFamily": "フォント",
+        "fontSize": "サイズ",
+        "color": "色"
+      },
+      "signature": {
+        "draw": "署名を描く",
+        "clear": "クリア",
+        "save": "保存",
+        "cancel": "キャンセル",
+        "edit": "署名を編集",
+        "deleteFromStorage": "署名を削除"
+      },
+      "export": {
+        "generating": "PDF生成中...",
+        "success": "PDFをダウンロードしました"
+      }
+    },
+    "donate": {
+      "title": "Quick PDFsを支援する",
+      "subtitle": "あなたの寄付がこのツールを無料でプライベートに保ちます",
+      "alreadyDonor": "あなたはすでにサポーターです。ありがとうございます！",
+      "amount": "寄付金額",
+      "donate": "寄付する",
+      "processing": "処理中...",
+      "offlineMessage": "寄付にはインターネット接続が必要です。",
+      "success": {
+        "title": "ありがとうございます！",
+        "message": "広告なしの体験をお楽しみください。",
+        "backToDashboard": "ダッシュボードに戻る"
       }
     },
     "login": {
