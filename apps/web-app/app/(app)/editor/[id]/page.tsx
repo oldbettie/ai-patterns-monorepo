@@ -2,7 +2,7 @@
 // @summary: PDF editor page — public, loads document from IndexedDB client-side
 
 import { getTranslations } from 'next-intl/server'
-import { PDFEditorShell } from '@/components/pdf/PDFEditorShell'
+import { PDFEditorWrapper } from '@/components/pdf/PDFEditorWrapper'
 
 export async function generateMetadata() {
   const t = await getTranslations('pages.editor')
@@ -15,5 +15,5 @@ export default async function EditorPage({
   params: Promise<{ id: string }>
 }) {
   const { id } = await params
-  return <PDFEditorShell documentId={id} />
+  return <PDFEditorWrapper documentId={id} />
 }

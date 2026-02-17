@@ -20,7 +20,11 @@ interface PDFViewerProps {
 export function PDFViewer({ pdfBytes, pageIndex, scale = 1, onPageLoad }: PDFViewerProps) {
   // Give react-pdf its own copy so pdf.js can transfer/detach the ArrayBuffer
   // to its worker without emptying the Uint8Array held in editor state.
-  const file = useMemo(() => ({ data: pdfBytes.slice() }), [pdfBytes])
+  // Use the buffer as the dependency to avoid unnecessary reloads
+  const file = useMemo(() => {
+    return { data: pdfBytes.slice() }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pdfBytes.buffer])
 
   return (
     <Document file={file} loading={null} error={null}>
