@@ -1,7 +1,7 @@
 import "server-only"
 
-import { UserRepository } from "@better-stack-monorepo/database/src/repositories/userRepository"
-import { db } from "@better-stack-monorepo/database/src/database"
+import { UserRepository } from "@quick-pdfs/database/src/repositories/userRepository"
+import { db } from "@quick-pdfs/database/src/database"
 import { ServiceContext } from "@/lib/types"
 import { z } from "zod"
 

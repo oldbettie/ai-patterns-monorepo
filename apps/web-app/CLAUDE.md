@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-**Web Dashboard Template** - A modern Next.js SaaS template with:
+**Quick PDFs** - A modern PDF editing and management platform with:
 - **Complete authentication system** with Better Auth (login, signup, password reset, email verification)
 - **Internationalization** support with next-intl (English/Japanese)
 - **Modern UI components** with Tailwind CSS and dark mode

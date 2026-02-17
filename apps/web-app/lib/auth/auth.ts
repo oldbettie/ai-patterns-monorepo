@@ -1,5 +1,5 @@
-import { account, session, user, verification } from '@better-stack-monorepo/database/src/schemas'
-import { db } from '@better-stack-monorepo/database/src/database'
+import { account, session, user, verification } from '@quick-pdfs/database/src/schemas'
+import { db } from '@quick-pdfs/database/src/database'
 import { env } from '@/lib/env'
 import { EmailService } from '@/lib/resend/email-service'
 import { betterAuth } from 'better-auth'

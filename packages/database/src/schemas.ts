@@ -1,5 +1,5 @@
 // @feature:database-schemas @domain:database @shared
-// @summary: Database schema definitions for Better Stack template
+// @summary: Database schema definitions for Quick PDFs platform
 
 import { boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 

@@ -8,7 +8,7 @@ const nextConfig = {
   output: 'standalone',
   // Allow dev-box (tailscale hostname) to hit the dev server in development
   allowedDevOrigins: ['dev-box', '*.dev-box'],
-  transpilePackages: ['@better-stack-monorepo/database']
+  transpilePackages: ['@quick-pdfs/database']
 }
 
 module.exports = withNextIntl(nextConfig)

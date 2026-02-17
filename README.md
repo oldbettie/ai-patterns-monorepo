@@ -1,6 +1,6 @@
-# Better Stack Monorepo Template
+# Quick PDFs Platform
 
-A production-ready monorepo template for building modern web applications with:
+A modern full-stack PDF editing and management platform built with:
 - **Next.js App Router** with TypeScript
 - **Better-auth** for authentication
 - **Drizzle ORM** with PostgreSQL
@@ -8,7 +8,7 @@ A production-ready monorepo template for building modern web applications with:
 - **Workspace management** with pnpm
 - **I18n Translations** OPTIONAL 
 
-Perfect starting point for SaaS applications, dashboards, and full-stack projects.
+Perfect starting point for PDF management applications, document processing platforms, and full-stack projects.
 This stack is optimised for AI workflows. Generally speaking when these patterns are followed then code review becomes much simpler and refactoring later becomes trivial.
 Most template repos contain loads of crap that most people wont use and will just slow them down. The core concept here has 2 parts.
 
@@ -134,7 +134,7 @@ pnpm run dev
 
 Environment used by the web app in compose:
 
-- `POSTGRES_URL=postgres://postgres:postgres@postgres:5432/better-stack?sslmode=disable`
+- `POSTGRES_URL=postgres://postgres:postgres@postgres:5432/quick-pdfs?sslmode=disable`
 - `NEXT_PUBLIC_URL=http://localhost:3000`
 
 To stop:
@@ -183,7 +183,7 @@ NEXT_PUBLIC_URL=http://localhost:3000
 AUTH_SECRET=replace-with-a-strong-secret-of-32-chars-min
 RESEND_API_KEY=replace-with-your-resend-key
 EMAIL_DOMAIN=example.com
-POSTGRES_URL=postgres://postgres:postgres@localhost:5432/better-stack?sslmode=disable
+POSTGRES_URL=postgres://postgres:postgres@localhost:5432/quick-pdfs?sslmode=disable
 ```
 
 For Docker Compose, you can create `.env.docker` if needed to override additional values. Compose sets `POSTGRES_URL` and `NEXT_PUBLIC_URL` by default.
@@ -191,7 +191,7 @@ For Docker Compose, you can create `.env.docker` if needed to override additiona
 ## Project Structure
 
 ```
-better-stack-monorepo/
+quick-pdfs/
 ├── apps/
 │   └── web-app/         # Next.js application
 ├── packages/

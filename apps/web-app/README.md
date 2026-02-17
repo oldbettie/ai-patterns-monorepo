@@ -1,8 +1,8 @@
-# Postgres + Drizzle Next.js Starter
+# Quick PDFs - Web Application
 
-Simple Next.js template that uses a Postgres database and Drizzle as the ORM.
+Modern PDF editing and management platform built with Next.js 16.
 
-This will be my baseline template for the following stack
+This will be the baseline for the following stack
 - Next.js
 - BetterAuth
 - Postgres/Drizzle

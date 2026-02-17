@@ -2,10 +2,10 @@ services:
   # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
-    container_name: better-stack-postgres
+    container_name: quick-pdfs-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: better-stack
+      POSTGRES_DB: quick-pdfs
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
@@ -21,7 +21,7 @@ services:
   # PostgreSQL Dashboard
   pg-dashboard:
     image: sosedoff/pgweb:latest
-    container_name: better-stack-pgweb
+    container_name: quick-pdfs-pgweb
     restart: unless-stopped
     ports:
       - '5050:8081'
@@ -29,7 +29,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      DATABASE_URL: 'postgres://postgres:postgres@postgres:5432/better-stack?sslmode=disable'
+      DATABASE_URL: 'postgres://postgres:postgres@postgres:5432/quick-pdfs?sslmode=disable'
     command: pgweb --bind=0.0.0.0 --listen=8081 --url=$DATABASE_URL
 
 volumes:

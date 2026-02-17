@@ -6,11 +6,10 @@ alwaysApply: true
 
 ## Project Overview
 
-This is the **Better-Stach** (Next.js Better Stack Monorepo) project.
+This is the **Quick PDFs** (PDF Editing & Management Platform) project.
 It is a modern full-stack web application built with Next.js 16, Better Auth, and Drizzle ORM. 
-INSERT SHORT GUIDING PRINCIPES HERE FOR YOUR PROJECT
-Example:
-We create modern easy to use templates for better DX when creating new software projects efficiently
+
+We create a modern, easy-to-use platform for PDF editing and management with excellent DX when creating new features efficiently.
 
 ### Technology Stack
 - **Frontend:** Next.js 16 (App Router), Tailwind CSS v4, React 19, Radix UI/Shadcn

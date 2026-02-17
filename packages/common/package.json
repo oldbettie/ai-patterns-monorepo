@@ -1,5 +1,5 @@
 {
-  "name": "@better-stack-monorepo/common",
+  "name": "@quick-pdfs/common",
   "version": "0.1.0",
   "description": "Common types, configurations",
   "main": "src/types.ts",

@@ -10,11 +10,11 @@ import type { Metadata, Viewport } from 'next'
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'), // replace localhost with real domain when available
   title: {
-    default: 'Better Stack',
-    template: '%s — Better Stack',
+    default: 'Quick PDFs',
+    template: '%s — Quick PDFs',
   },
   description:
-    'Monorepo template using Next.js, Better Auth, TailwindCSS and PostgreSQL Drizzle.',
+    'Modern PDF editing and management platform built with Next.js, Better Auth, TailwindCSS and PostgreSQL Drizzle.',
 }
 
 export const viewport: Viewport = {

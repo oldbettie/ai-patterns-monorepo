@@ -480,7 +480,7 @@ export class UserRepository {
       {/* Footer Navigation */}
       <footer className='pb-10 pt-6'>
         <Container className='flex flex-col items-center justify-center gap-4 text-sm text-neutral-600 md:flex-row dark:text-neutral-500'>
-          <span>&copy; {new Date().getFullYear()} Better-Stack Template</span>
+          <span>&copy; {new Date().getFullYear()} Quick PDFs</span>
         </Container>
       </footer>
     </main>
