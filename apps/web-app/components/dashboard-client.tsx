@@ -9,7 +9,7 @@ import { SectionHeader } from './dashboard/SectionHeader'
 import { FileUploadZone } from './dashboard/FileUploadZone'
 import { DocumentGrid } from './dashboard/DocumentGrid'
 import type { User } from './dashboard/types'
-import { AppRoutes } from '@/lib/config/featureToggles'
+import { AppRoutes, FeatureToggles } from '@/lib/config/featureToggles'
 
 interface DashboardClientProps {
   user: User | null
@@ -30,7 +30,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
         <DocumentGrid />
       </section>
 
-      <DonateBanner user={user} />
+      {FeatureToggles.enableDonateBanner && <DonateBanner user={user} />}
     </main>
   )
 }

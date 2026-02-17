@@ -3,7 +3,7 @@
 import { useSession, authClient } from '@/lib/auth'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
-import { AppRoutes } from '@/lib/config/featureToggles'
+import { AppRoutes, FeatureToggles } from '@/lib/config/featureToggles'
 
 export default function AuthStatus() {
   const { data: session, isPending } = useSession()
@@ -22,6 +22,11 @@ export default function AuthStatus() {
   }
 
   if (!session) {
+    // Don't show auth status if auth features are disabled
+    if (!FeatureToggles.enableLogin && !FeatureToggles.enableSignup) {
+      return null
+    }
+
     return (
       <div className='bg-white rounded-lg shadow-md p-6 max-w-md mx-auto'>
         <h3 className='text-lg font-semibold text-gray-800 mb-4'>
@@ -29,18 +34,22 @@ export default function AuthStatus() {
         </h3>
         <p className='text-gray-600 mb-4'>{componentT('loggedOut')}</p>
         <div className='flex space-x-3'>
-          <Link
-            href={AppRoutes.login}
-            className='px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors'
-          >
-            {componentT('login')}
-          </Link>
-          <Link
-            href={AppRoutes.signup}
-            className='px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors'
-          >
-            {componentT('signup')}
-          </Link>
+          {FeatureToggles.enableLogin && (
+            <Link
+              href={AppRoutes.login}
+              className='px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors'
+            >
+              {componentT('login')}
+            </Link>
+          )}
+          {FeatureToggles.enableSignup && (
+            <Link
+              href={AppRoutes.signup}
+              className='px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors'
+            >
+              {componentT('signup')}
+            </Link>
+          )}
         </div>
       </div>
     )

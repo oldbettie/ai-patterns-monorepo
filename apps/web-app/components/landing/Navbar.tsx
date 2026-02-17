@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { AppRoutes } from '@/lib/config/featureToggles'
 import { cn } from '@/lib/utils'
-import { AnnouncementBanner } from './AnnouncementBanner'
 import ThemeToggle from '@/components/theme-toggle'
 
 export function Navbar() {
@@ -27,12 +26,11 @@ export function Navbar() {
   ]
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex flex-col font-sans">
-      <AnnouncementBanner />
+    <div className="sticky top-0 left-0 right-0 z-40 flex flex-col font-sans">
       <nav 
         className={cn(
           "w-full transition-all duration-300",
-          isScrolled ? "bg-background/90 backdrop-blur-md shadow-sm py-3 border-b border-border" : "bg-transparent py-5"
+          isScrolled ? "bg-background/95 backdrop-blur-md shadow-sm py-3 border-b border-border" : "bg-transparent py-5"
         )}
       >
         <div className="container mx-auto px-6 flex items-center justify-between">

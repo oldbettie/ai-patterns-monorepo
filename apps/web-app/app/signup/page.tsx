@@ -2,18 +2,25 @@
 
 import { authClient } from '@/lib/auth'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { AppRoutes } from '@/lib/config/featureToggles'
+import { AppRoutes, FeatureToggles } from '@/lib/config/featureToggles'
 import Link from 'next/link'
 
 export default function SignupPage() {
+  const router = useRouter()
+  
+  // Redirect if signup is disabled
+  useEffect(() => {
+    if (!FeatureToggles.enableSignup) {
+      router.push(AppRoutes.home)
+    }
+  }, [router])
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const router = useRouter()
   const pageT = useTranslations('pages.signup')
   const commonT = useTranslations('common')
   const errorsT = useTranslations('errors')

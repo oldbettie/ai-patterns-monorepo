@@ -4,7 +4,7 @@ import { Check } from 'lucide-react'
 
 export function Hero() {
   return (
-    <section className="pt-32 pb-16 md:pt-48 md:pb-32 px-6">
+    <section className="pt-12 pb-16 md:pt-20 md:pb-32 px-6">
       <div className="container mx-auto max-w-4xl text-center">
         <h1 className="font-display text-5xl md:text-7xl text-foreground leading-[1.1] mb-6">
           The Free PDF Editor <br className="hidden md:block" />

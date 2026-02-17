@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import { EditorActionsProvider } from '@/lib/context/EditorActionsContext'
 import { GlobalHeader } from '@/components/GlobalHeader'
+import { AnnouncementBanner } from '@/components/landing/AnnouncementBanner'
 import type { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
@@ -58,10 +59,13 @@ export default async function RootLayout({
       <body className={`${bodyFont.variable} ${displayFont.variable} font-sans bg-background text-foreground antialiased`}>
         <NextIntlClientProvider messages={messages}> {/* REMOVABLE_FEATURE: Internationalization */}
           <EditorActionsProvider>
-            <div className='relative min-h-screen'>
-              <GlobalHeader />
-              <main id="main-content" role="main">{children}</main>
-              <footer aria-label="Site footer" />
+            <div className='flex flex-col min-h-screen relative'>
+              <AnnouncementBanner />
+              <div className='flex-1 relative flex flex-col'>
+                <GlobalHeader />
+                <main id="main-content" role="main" className="flex-1">{children}</main>
+                <footer aria-label="Site footer" />
+              </div>
             </div>
           </EditorActionsProvider>
         </NextIntlClientProvider> {/* REMOVABLE_FEATURE: Internationalization */}

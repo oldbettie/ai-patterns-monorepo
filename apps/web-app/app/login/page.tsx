@@ -2,17 +2,24 @@
 
 import { authClient } from '@/lib/auth'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { AppRoutes } from '@/lib/config/featureToggles'
+import { AppRoutes, FeatureToggles } from '@/lib/config/featureToggles'
 import Link from 'next/link'
 
 export default function LoginPage() {
+  const router = useRouter()
+  
+  // Redirect if login is disabled
+  useEffect(() => {
+    if (!FeatureToggles.enableLogin) {
+      router.push(AppRoutes.home)
+    }
+  }, [router])
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const router = useRouter()
   const pageT = useTranslations('pages.login')
   const commonT = useTranslations('common')
   const errorsT = useTranslations('errors')

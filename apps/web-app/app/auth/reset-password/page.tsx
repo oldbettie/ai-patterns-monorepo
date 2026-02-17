@@ -1,12 +1,18 @@
 import { Suspense } from 'react'
 import ResetPasswordClient from './reset-password-client'
 import { getTranslations } from 'next-intl/server'
+import { redirect } from 'next/navigation'
+import { AppRoutes, FeatureToggles } from '@/lib/config/featureToggles'
 
 interface PageProps {
   searchParams: Promise<{ token?: string }>
 }
 
 export default async function ResetPasswordPage({ searchParams }: PageProps) {
+  // Redirect if login is disabled
+  if (!FeatureToggles.enableLogin) {
+    redirect(AppRoutes.home)
+  }
   const params = await searchParams
   const token = params.token || ''
   const t = await getTranslations('pages.resetPassword')
