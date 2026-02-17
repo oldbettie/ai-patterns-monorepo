@@ -139,3 +139,25 @@ redirect(AppRoutes.events(eventId))
 3.  **Feature Toggles**: No magic route strings; use `AppRoutes`/`ApiRoutes`.
 4.  **Server Actions**: The only way for Client Components to talk to the backend.
 5.  **Translations**: All static text must be internationalized.
+6.  **Sitemap**: Always update `apps/web-app/app/sitemap.ts` when adding a new public page (see rule below).
+
+## 6. SEO — Sitemap Rule
+
+**ALWAYS** update `apps/web-app/app/sitemap.ts` when adding a new public-facing page.
+
+- **Include** any page publicly accessible without authentication (marketing, feature, blog pages, etc.)
+- **Exclude** auth-gated pages (`/dashboard`, `/editor`) and API/auth routes
+- Set an appropriate `changeFrequency` and `priority`:
+  - Homepage: `weekly`, priority `1`
+  - Key marketing/feature pages: `monthly`, priority `0.7–0.8`
+  - Static/infrequently-changed pages (login, about, legal): `yearly`, priority `0.3–0.5`
+
+```ts
+// Example entry to add in sitemap.ts
+{
+  url: `${baseUrl}/new-page`,
+  lastModified: new Date(),
+  changeFrequency: 'monthly',
+  priority: 0.7,
+},
+```

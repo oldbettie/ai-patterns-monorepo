@@ -119,3 +119,24 @@ Use `gemini -p` when:
 - **Server-Only:** Mark server-only code with `import 'server-only'`.
 - **Translations:** Use `next-intl` for all user-facing non dynamic text and ensure all included languages are translated correctly.
 - **Strict TypeScript:** No `any` types.
+
+## SEO — Sitemap Rule
+
+**ALWAYS** update `apps/web-app/app/sitemap.ts` when adding a new public-facing page.
+
+- **Include** any page that is publicly accessible without authentication (marketing pages, feature pages, blog, etc.)
+- **Exclude** auth-gated pages (`/dashboard`, `/editor`) and API/auth routes
+- Set an appropriate `changeFrequency` and `priority`:
+  - Homepage: `weekly`, priority `1`
+  - Key marketing/feature pages: `monthly`, priority `0.7–0.8`
+  - Static/infrequently-changed pages (login, about, legal): `yearly`, priority `0.3–0.5`
+
+```ts
+// Example entry to add in sitemap.ts
+{
+  url: `${baseUrl}/new-page`,
+  lastModified: new Date(),
+  changeFrequency: 'monthly',
+  priority: 0.7,
+},
+```
