@@ -29,7 +29,59 @@ export interface PaginatedResponse<T> {
 // Generic filter/search types
 export interface SearchParams {
   query?: string
-  filters?: Record<string, any>
+  filters?: Record<string, string | number | boolean>
   sortBy?: string
   sortOrder?: 'asc' | 'desc'
 }
+
+// PDF Editor types
+export interface TextElement {
+  id: string
+  pageIndex: number
+  x: number
+  y: number
+  text: string
+  fontFamily: string
+  fontSize: number
+  color: string
+}
+
+export interface SignatureData {
+  id: string
+  pageIndex: number
+  x: number
+  y: number
+  width: number
+  height: number
+  signatureId: string
+}
+
+export interface StoredSignature {
+  id: string
+  name: string
+  imageData: string
+  createdAt: number
+}
+
+export interface PDFDocument {
+  id: string
+  name: string
+  originalFile: Blob
+  modifiedFile: Blob | null
+  thumbnail: string | null
+  pageCount: number
+  fileSize: number
+  textElements: TextElement[]
+  signatureData: SignatureData[]
+  createdAt: number
+  updatedAt: number
+}
+
+export interface AppState {
+  id: 'singleton'
+  hasSeenWelcome: boolean
+  donorStatus: boolean
+  donorStatusSyncedAt: number | null
+}
+
+export type DonorStatus = { isDonor: boolean; expiresAt: string | null }

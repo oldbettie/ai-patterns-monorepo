@@ -27,13 +27,13 @@ export type ButtonProps = AnchorProps | NativeButtonProps
 
 function baseClasses(variant: ButtonVariant) {
   const base =
-    'inline-flex items-center justify-center rounded-lg px-5 py-3 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2'
+    'inline-flex items-center justify-center rounded-md px-5 py-3 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50'
   const styles =
     variant === 'primary'
-      ? 'bg-blue-600 text-white hover:bg-blue-600/90 focus-visible:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-400'
+      ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow'
       : variant === 'secondary'
-        ? 'bg-white text-neutral-900 hover:bg-neutral-50 border border-neutral-300 shadow-sm focus-visible:ring-neutral-300 dark:bg-neutral-900 dark:text-neutral-100 dark:hover:bg-neutral-800 dark:border-neutral-800'
-        : 'bg-transparent text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
+        ? 'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm'
+        : 'hover:bg-accent hover:text-accent-foreground'
   return `${base} ${styles}`
 }
 

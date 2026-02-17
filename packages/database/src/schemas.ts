@@ -1,7 +1,7 @@
 // @feature:database-schemas @domain:database @shared
 // @summary: Database schema definitions for Quick PDFs platform
 
-import { boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
+import { boolean, integer, pgEnum, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
 // Better Auth Tables
 export const user = pgTable('user', {
@@ -50,6 +50,29 @@ export const verification = pgTable('verification', {
   identifier: text('identifier').notNull(),
   value: text('value').notNull(),
   expiresAt: timestamp('expiresAt').notNull(),
+  createdAt: timestamp('createdAt').notNull().defaultNow(),
+  updatedAt: timestamp('updatedAt').notNull().defaultNow(),
+})
+
+// Donations
+export const donationStatusEnum = pgEnum('donation_status', [
+  'pending',
+  'completed',
+  'failed',
+])
+
+export const donations = pgTable('donations', {
+  id: text('id').primaryKey(),
+  userId: text('userId')
+    .notNull()
+    .references(() => user.id, { onDelete: 'cascade' }),
+  amount: integer('amount').notNull(),
+  currency: text('currency').notNull().default('usd'),
+  status: donationStatusEnum('status').notNull().default('pending'),
+  stripePaymentId: text('stripePaymentId'),
+  stripeClientSecret: text('stripeClientSecret'),
+  donatedAt: timestamp('donatedAt').notNull().defaultNow(),
+  expiresAt: timestamp('expiresAt'),
   createdAt: timestamp('createdAt').notNull().defaultNow(),
   updatedAt: timestamp('updatedAt').notNull().defaultNow(),
 })

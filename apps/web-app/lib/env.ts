@@ -10,14 +10,18 @@ export const env = createEnv({
     AUTH_SECRET: z.string().min(32),
     RESEND_API_KEY: z.string().min(1),
     EMAIL_DOMAIN: z.string().min(1),
+    STRIPE_SECRET_KEY: z.string().min(1).optional(),
+    STRIPE_WEBHOOK_SECRET: z.string().min(1).optional(),
   },
   client: {
     NEXT_PUBLIC_URL: z
       .string()
       .url()
-      .default('http://localhost:3000'),
+      .default('http://dev-box:3000'),
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().min(1).optional(),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
   },
 })

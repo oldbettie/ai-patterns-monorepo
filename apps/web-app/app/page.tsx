@@ -19,23 +19,23 @@ export default async function Home() {
   const t = await getTranslations('pages.landing')
 
   return (
-    <main className='relative min-h-screen overflow-x-hidden'>
-      {/* Background layers using Tailwind color utilities */}
+    <main className='relative min-h-screen overflow-x-hidden bg-background text-foreground'>
+      {/* Background layers */}
       <div
         aria-hidden
-        className='pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(1000px_500px_at_50%_-200px,rgba(0,0,0,0.03),transparent)] dark:bg-[radial-gradient(1200px_600px_at_50%_-100px,rgba(255,255,255,0.06),transparent_60%)]'
+        className='pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(1000px_500px_at_50%_-200px,var(--color-neutral-200),transparent)] opacity-20 dark:opacity-10'
       />
 
       {/* Hero */}
       <section className='pt-28 pb-16 md:pt-36 md:pb-24'>
         <Container className='text-center' aria-label='Hero'>
-          <div className='inline-flex items-center rounded-full border border-neutral-300 bg-white px-3 py-1 text-xs text-neutral-600 shadow-sm backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/70 dark:text-neutral-300'>
+          <div className='inline-flex items-center rounded-full border border-border bg-background/50 px-3 py-1 text-xs text-muted-foreground shadow-sm backdrop-blur'>
             {t('badge')}
           </div>
-          <h1 className='mt-5 text-neutral-900 text-4xl font-semibold tracking-tight md:text-6xl dark:text-neutral-50'>
+          <h1 className='mt-5 text-4xl font-semibold tracking-tight md:text-6xl'>
             {t('hero.title')}
           </h1>
-          <p className='mx-auto mt-4 max-w-2xl text-neutral-700 md:text-lg dark:text-neutral-300'>
+          <p className='mx-auto mt-4 max-w-2xl text-muted-foreground md:text-lg'>
             {t('hero.subtitle')}
           </p>
           <div className='mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center'>
@@ -49,8 +49,8 @@ export default async function Home() {
           </div>
 
           {/* Placeholder product preview */}
-          <div className='mt-12 rounded-2xl border border-neutral-300 bg-white p-2 shadow-sm backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/80'>
-            <div className='aspect-[16/9] w-full rounded-xl bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-900' />
+          <div className='mt-12 rounded-2xl border border-border bg-card p-2 shadow-sm backdrop-blur'>
+            <div className='aspect-[16/9] w-full rounded-xl bg-muted/50' />
           </div>
         </Container>
       </section>
@@ -71,10 +71,10 @@ export default async function Home() {
             ].map((f, i) => (
               <div
                 key={i}
-                className='rounded-xl border border-neutral-300 bg-white p-6 shadow-sm backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/80'
+                className='rounded-xl border border-border bg-card p-6 shadow-sm'
               >
-                <h3 className='text-base font-semibold text-neutral-900 dark:text-neutral-100'>{f.title}</h3>
-                <p className='mt-2 text-neutral-600 text-sm leading-relaxed dark:text-neutral-300'>{f.desc}</p>
+                <h3 className='text-base font-semibold'>{f.title}</h3>
+                <p className='mt-2 text-muted-foreground text-sm leading-relaxed'>{f.desc}</p>
               </div>
             ))}
           </div>
@@ -94,10 +94,10 @@ export default async function Home() {
               (step, i) => (
                 <div
                   key={i}
-                  className='rounded-xl border border-neutral-300 bg-white p-6 shadow-sm backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/80'
+                  className='rounded-xl border border-border bg-card p-6 shadow-sm'
                 >
-                  <div className='text-xs text-neutral-600 dark:text-neutral-400'>0{i + 1}</div>
-                  <p className='mt-2 text-neutral-800 dark:text-neutral-300'>{step}</p>
+                  <div className='text-xs text-muted-foreground'>0{i + 1}</div>
+                  <p className='mt-2 text-foreground'>{step}</p>
                 </div>
               ),
             )}
@@ -108,10 +108,10 @@ export default async function Home() {
       {/* Pricing CTA */}
       <section className='py-16 md:py-24' aria-label='Pricing'>
         <Container>
-          <div className='rounded-2xl border border-neutral-300 bg-white p-8 shadow-sm backdrop-blur md:p-12 dark:border-neutral-800 dark:bg-neutral-900/80'>
+          <div className='rounded-2xl border border-border bg-card p-8 shadow-sm md:p-12'>
             <div className='mx-auto max-w-2xl text-center'>
-              <h3 className='text-2xl font-semibold text-neutral-900 dark:text-neutral-100'>{t('pricing.title')}</h3>
-              <p className='mt-2 text-neutral-600 dark:text-neutral-300'>{t('pricing.subtitle')}</p>
+              <h3 className='text-2xl font-semibold'>{t('pricing.title')}</h3>
+              <p className='mt-2 text-muted-foreground'>{t('pricing.subtitle')}</p>
               <div className='mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center'>
                 <Button href='/signup'>{t('pricing.primary')}</Button>
                 <Button href='/login' variant='secondary'>
@@ -125,16 +125,16 @@ export default async function Home() {
 
       {/* Footer */}
       <footer className='pb-10 pt-6' role='contentinfo'>
-        <Container className='flex flex-col items-center justify-between gap-4 text-sm text-neutral-600 md:flex-row dark:text-neutral-500'>
+        <Container className='flex flex-col items-center justify-between gap-4 text-sm text-muted-foreground md:flex-row'>
           <span>&copy; {new Date().getFullYear()} {t('footer.brand')}</span>
           <div className='flex items-center gap-4'>
-            <Link href='/why' className='text-blue-600 hover:text-blue-600/90 dark:text-blue-400 dark:hover:text-blue-300'>
+            <Link href='/why' className='text-primary hover:underline underline-offset-4'>
               {t('footer.whyLink')}
             </Link>
-            <Link href='/login' className='text-blue-600 hover:text-blue-600/90 dark:text-blue-400 dark:hover:text-blue-300'>
+            <Link href='/login' className='text-primary hover:underline underline-offset-4'>
               {t('footer.login')}
             </Link>
-            <Link href='/signup' className='text-blue-600 hover:text-blue-600/90 dark:text-blue-400 dark:hover:text-blue-300'>
+            <Link href='/signup' className='text-primary hover:underline underline-offset-4'>
               {t('footer.signup')}
             </Link>
           </div>

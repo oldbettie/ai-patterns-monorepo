@@ -32,6 +32,17 @@ export function LanguageSelector() {
   const getLanguageLabel = (locale: Locale): string => {
     switch (locale) {
       case 'en':
+        return 'Eng'
+      case 'ja':
+        return '日本語'
+      default:
+        return locale
+    }
+  }
+
+  const getFullLanguageLabel = (locale: Locale): string => {
+    switch (locale) {
+      case 'en':
         return commonT('english')
       case 'ja':
         return commonT('japanese')
@@ -45,12 +56,9 @@ export function LanguageSelector() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         disabled={isPending}
-        className='flex items-center space-x-2 px-3 py-2 text-sm border rounded-md hover:bg-gray-50 disabled:opacity-50'
+        className='flex items-center space-x-1.5 px-3 py-2 text-sm border rounded-md hover:bg-gray-50 dark:hover:bg-neutral-800 dark:border-neutral-700 disabled:opacity-50'
       >
-        <span>{componentT('language')}</span>
-        <span className='text-gray-600'>
-          ({getLanguageLabel(currentLocale)})
-        </span>
+        <span>{getLanguageLabel(currentLocale)}</span>
         <svg
           className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
           fill='none'
@@ -67,17 +75,17 @@ export function LanguageSelector() {
       </button>
 
       {isOpen && (
-        <div className='absolute top-full mt-1 w-full bg-white border rounded-md shadow-lg z-50'>
+        <div className='absolute top-full mt-1 w-full min-w-[120px] bg-white dark:bg-neutral-800 border dark:border-neutral-700 rounded-md shadow-lg z-50'>
           {locales.map(locale => (
             <button
               key={locale}
               onClick={() => handleLanguageChange(locale)}
               disabled={isPending}
-              className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 disabled:opacity-50 ${
-                locale === currentLocale ? 'bg-blue-50 text-blue-600' : ''
+              className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-neutral-700 disabled:opacity-50 ${
+                locale === currentLocale ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''
               }`}
             >
-              {getLanguageLabel(locale)}
+              {getFullLanguageLabel(locale)}
             </button>
           ))}
         </div>
