@@ -6,6 +6,7 @@ import Container from '../components/ui/Container'
 import Button from '../components/ui/Button'
 import SectionHeading from '../components/ui/SectionHeading'
 import { getTranslations } from 'next-intl/server'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 export default async function Home() {
   // Check if user is already authenticated
@@ -13,7 +14,7 @@ export default async function Home() {
   
   // If authenticated, redirect to dashboard
   if (session) {
-    redirect('/dashboard')
+    redirect(AppRoutes.dashboard)
   }
 
   const t = await getTranslations('pages.landing')
@@ -39,11 +40,11 @@ export default async function Home() {
             {t('hero.subtitle')}
           </p>
           <div className='mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center'>
-            <Button href='/signup'>{t('cta.getStarted')}</Button>
-            <Button href='/login' variant='secondary'>
+            <Button href={AppRoutes.signup}>{t('cta.getStarted')}</Button>
+            <Button href={AppRoutes.login} variant='secondary'>
               {t('cta.signIn')}
             </Button>
-            <Button href='/why' variant='ghost'>
+            <Button href={AppRoutes.why} variant='ghost'>
               {t('hero.learnMore')}
             </Button>
           </div>
@@ -113,8 +114,8 @@ export default async function Home() {
               <h3 className='text-2xl font-semibold'>{t('pricing.title')}</h3>
               <p className='mt-2 text-muted-foreground'>{t('pricing.subtitle')}</p>
               <div className='mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center'>
-                <Button href='/signup'>{t('pricing.primary')}</Button>
-                <Button href='/login' variant='secondary'>
+                <Button href={AppRoutes.signup}>{t('pricing.primary')}</Button>
+                <Button href={AppRoutes.login} variant='secondary'>
                   {t('pricing.secondary')}
                 </Button>
               </div>
@@ -128,13 +129,13 @@ export default async function Home() {
         <Container className='flex flex-col items-center justify-between gap-4 text-sm text-muted-foreground md:flex-row'>
           <span>&copy; {new Date().getFullYear()} {t('footer.brand')}</span>
           <div className='flex items-center gap-4'>
-            <Link href='/why' className='text-primary hover:underline underline-offset-4'>
+            <Link href={AppRoutes.why} className='text-primary hover:underline underline-offset-4'>
               {t('footer.whyLink')}
             </Link>
-            <Link href='/login' className='text-primary hover:underline underline-offset-4'>
+            <Link href={AppRoutes.login} className='text-primary hover:underline underline-offset-4'>
               {t('footer.login')}
             </Link>
-            <Link href='/signup' className='text-primary hover:underline underline-offset-4'>
+            <Link href={AppRoutes.signup} className='text-primary hover:underline underline-offset-4'>
               {t('footer.signup')}
             </Link>
           </div>

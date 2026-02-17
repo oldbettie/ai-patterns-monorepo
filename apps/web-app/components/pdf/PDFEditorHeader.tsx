@@ -5,6 +5,7 @@
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { ArrowLeft, Home } from 'lucide-react'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 interface PDFEditorHeaderProps {
   documentName: string
@@ -18,7 +19,7 @@ export function PDFEditorHeader({ documentName }: PDFEditorHeaderProps) {
       {/* Left: Navigation buttons */}
       <div className="flex items-center gap-2">
         <Link
-          href="/dashboard"
+          href={AppRoutes.dashboard}
           className="flex items-center gap-2 px-3 py-1.5 text-sm rounded-md bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
           aria-label={t('backToDocuments')}
         >
@@ -27,7 +28,7 @@ export function PDFEditorHeader({ documentName }: PDFEditorHeaderProps) {
         </Link>
 
         <Link
-          href="/"
+          href={AppRoutes.home}
           className="flex items-center gap-2 px-3 py-1.5 text-sm rounded-md bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
           aria-label={t('home')}
         >

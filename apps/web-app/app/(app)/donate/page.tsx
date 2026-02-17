@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import { getDonorStatusAction } from '@/actions/donation-actions'
 import { DonateClient } from '@/components/donate/DonateClient'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 export async function generateMetadata() {
   const t = await getTranslations('pages.donate')
@@ -15,7 +16,7 @@ export async function generateMetadata() {
 
 export default async function DonatePage() {
   const session = await auth.api.getSession({ headers: await headers() })
-  if (!session) redirect('/login')
+  if (!session) redirect(AppRoutes.login)
 
   const statusResponse = await getDonorStatusAction()
   const isDonor = statusResponse.data?.isDonor ?? false

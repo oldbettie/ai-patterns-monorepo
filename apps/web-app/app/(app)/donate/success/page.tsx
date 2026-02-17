@@ -3,6 +3,7 @@
 
 import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 export async function generateMetadata() {
   const t = await getTranslations('pages.donate.success')
@@ -26,7 +27,7 @@ export default async function DonateSuccessPage() {
         {t('success.message')}
       </p>
       <Link
-        href="/dashboard"
+        href={AppRoutes.dashboard}
         className="inline-flex items-center px-5 py-2.5 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors"
       >
         {t('success.backToDashboard')}

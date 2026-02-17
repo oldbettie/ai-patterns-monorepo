@@ -19,7 +19,8 @@ function hexToRgb(hex: HexColor): { r: number; g: number; b: number } {
  */
 export async function loadPDFBytes(file: Blob): Promise<Uint8Array> {
   const buffer = await file.arrayBuffer()
-  return new Uint8Array(buffer)
+  // Create a copy to ensure we own the buffer and it's not detached elsewhere
+  return new Uint8Array(buffer).slice(0)
 }
 
 /**
@@ -47,8 +48,19 @@ export async function getPageDimensions(
  */
 const FONT_MAP: Record<string, StandardFonts> = {
   'Helvetica': StandardFonts.Helvetica,
+  'Helvetica-Bold': StandardFonts.HelveticaBold,
+  'Helvetica-Oblique': StandardFonts.HelveticaOblique,
+  'Helvetica-BoldOblique': StandardFonts.HelveticaBoldOblique,
   'Times-Roman': StandardFonts.TimesRoman,
+  'Times-Bold': StandardFonts.TimesRomanBold,
+  'Times-Italic': StandardFonts.TimesRomanItalic,
+  'Times-BoldItalic': StandardFonts.TimesRomanBoldItalic,
   'Courier': StandardFonts.Courier,
+  'Courier-Bold': StandardFonts.CourierBold,
+  'Courier-Oblique': StandardFonts.CourierOblique,
+  'Courier-BoldOblique': StandardFonts.CourierBoldOblique,
+  'Symbol': StandardFonts.Symbol,
+  'ZapfDingbats': StandardFonts.ZapfDingbats,
 }
 
 export async function exportPDF(
@@ -57,7 +69,18 @@ export async function exportPDF(
   signatureElements: SignatureData[],
   signatureImages: Map<string, string>
 ): Promise<Uint8Array> {
-  const pdfDoc = await PDFDocument.load(originalBytes)
+  if (!originalBytes || originalBytes.length === 0) {
+    throw new Error('Invalid PDF bytes: Empty or null')
+  }
+
+  let pdfDoc: PDFDocument
+  try {
+    pdfDoc = await PDFDocument.load(originalBytes)
+  } catch (error) {
+    console.error('Failed to load PDF bytes during export. Length:', originalBytes.length, 'First 20 bytes:', originalBytes.subarray(0, 20))
+    throw error
+  }
+
   const pages = pdfDoc.getPages()
 
   // Pre-embed fonts once

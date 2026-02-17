@@ -50,6 +50,9 @@ export function ExportButtonSlot() {
     setExporting(true)
     try {
       await exportFn()
+    } catch (error) {
+      console.error('Export failed:', error)
+      alert('Failed to export PDF: ' + (error instanceof Error ? error.message : String(error)))
     } finally {
       setExporting(false)
     }

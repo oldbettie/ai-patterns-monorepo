@@ -14,11 +14,41 @@ interface TextElementProps {
   onSelect: () => void
 }
 
+// Parse font family to extract base font and style information for CSS
+function parseFontForCSS(fontFamily: string): {
+  baseFontFamily: string
+  fontWeight: 'normal' | 'bold'
+  fontStyle: 'normal' | 'italic'
+} {
+  const isBold = fontFamily.includes('Bold')
+  const isItalic = fontFamily.includes('Oblique') || fontFamily.includes('Italic')
+  
+  // Map PDF font names to CSS font families
+  let baseFontFamily = 'Helvetica, Arial, sans-serif'
+  if (fontFamily.startsWith('Times')) {
+    baseFontFamily = '"Times New Roman", Times, serif'
+  } else if (fontFamily.startsWith('Courier')) {
+    baseFontFamily = '"Courier New", Courier, monospace'
+  } else if (fontFamily.startsWith('Symbol')) {
+    baseFontFamily = 'Symbol'
+  } else if (fontFamily.startsWith('ZapfDingbats')) {
+    baseFontFamily = '"Zapf Dingbats"'
+  }
+  
+  return {
+    baseFontFamily,
+    fontWeight: isBold ? 'bold' : 'normal',
+    fontStyle: isItalic ? 'italic' : 'normal',
+  }
+}
+
 export function TextElement({ element, scale, isSelected, onUpdate, onRemove, onSelect }: TextElementProps) {
   const [isDragging, setIsDragging] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
   const hasDragged = useRef(false)
+
+  const { baseFontFamily, fontWeight, fontStyle } = parseFontForCSS(element.fontFamily)
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isEditing) return
@@ -78,7 +108,9 @@ export function TextElement({ element, scale, isSelected, onUpdate, onRemove, on
           style={{
             fontSize: element.fontSize * scale,
             color: element.color,
-            fontFamily: element.fontFamily,
+            fontFamily: baseFontFamily,
+            fontWeight,
+            fontStyle,
             background: 'transparent',
             border: '1px dashed #3b82f6',
             outline: 'none',
@@ -90,7 +122,9 @@ export function TextElement({ element, scale, isSelected, onUpdate, onRemove, on
           style={{
             fontSize: element.fontSize * scale,
             color: element.color,
-            fontFamily: element.fontFamily,
+            fontFamily: baseFontFamily,
+            fontWeight,
+            fontStyle,
             border: '1px dashed transparent',
             padding: '0 2px',
             whiteSpace: 'pre',

@@ -41,3 +41,6 @@ tsconfig.tsbuildinfo
 # Build output
 dist/
 *.d.ts.map
+
+# PDF.js worker (copied from node_modules during build)
+apps/web-app/public/pdf-worker/

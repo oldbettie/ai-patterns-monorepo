@@ -30,6 +30,9 @@ export function ExportButton({
     try {
       const bytes = await exportPDF(pdfBytes, textElements, signatureElements, signatureImages)
       downloadPDF(bytes, filename)
+    } catch (error) {
+      console.error('Export failed:', error)
+      alert('Failed to export PDF: ' + (error instanceof Error ? error.message : String(error)))
     } finally {
       setExporting(false)
     }

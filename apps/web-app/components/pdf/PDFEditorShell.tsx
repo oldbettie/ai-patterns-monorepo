@@ -157,19 +157,41 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
   // Load signature images for placed signatures not yet in cache
   useEffect(() => {
     const loadImages = async () => {
-      const newImages = new Map(signatureImages)
-      let changed = false
-      for (const sig of editor.signatureElements) {
-        if (!newImages.has(sig.signatureId)) {
-          const stored = await getSignature(sig.signatureId)
-          if (stored) { newImages.set(sig.signatureId, stored.imageData); changed = true }
+      // First, check which IDs are missing using functional update
+      let missingIds: string[] = []
+      
+      setSignatureImages(prevImages => {
+        missingIds = editor.signatureElements
+          .map(sig => sig.signatureId)
+          .filter(id => !prevImages.has(id))
+        return prevImages // No change yet
+      })
+      
+      if (missingIds.length === 0) return
+      
+      // Load missing signatures
+      const results = await Promise.all(
+        missingIds.map(async id => {
+          const stored = await getSignature(id)
+          return stored ? { id, imageData: stored.imageData } : null
+        })
+      )
+      
+      // Update with loaded images using functional update
+      setSignatureImages(currentImages => {
+        const newImages = new Map(currentImages)
+        let changed = false
+        for (const result of results) {
+          if (result && !newImages.has(result.id)) {
+            newImages.set(result.id, result.imageData)
+            changed = true
+          }
         }
-      }
-      if (changed) setSignatureImages(newImages)
+        return changed ? newImages : currentImages
+      })
     }
     loadImages()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editor.signatureElements])
+  }, [editor.signatureElements, getSignature])
 
   if (editor.isLoading) {
     return (

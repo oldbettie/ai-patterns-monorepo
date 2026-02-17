@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { authClient } from '@/lib/auth'
 import { useTranslations } from 'next-intl'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 interface ResetPasswordClientProps {
   token: string
@@ -65,7 +66,7 @@ export default function ResetPasswordClient({
         setError(result.error.message || 'Failed to reset password')
       } else {
         setSuccess(true)
-        router.push('/login')
+        router.push(AppRoutes.login)
       }
     } catch (err) {
       setError(commonT('error'))
@@ -82,7 +83,7 @@ export default function ResetPasswordClient({
         </div>
         <div className='mt-6 text-center'>
           <button
-            onClick={() => router.push('/auth/forgot-password')}
+            onClick={() => router.push(AppRoutes.forgotPassword)}
             className='font-medium text-blue-600 hover:text-blue-600/90 dark:text-blue-400 dark:hover:text-blue-300'
           >
             {t('requestNewResetLink')}
@@ -116,7 +117,7 @@ export default function ResetPasswordClient({
         <p className='mt-2 text-sm text-neutral-600 dark:text-neutral-300'>{t('passwordUpdated')}</p>
         <div className='mt-6'>
           <button
-            onClick={() => router.push('/login')}
+            onClick={() => router.push(AppRoutes.login)}
             className='group relative flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-600/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500'
           >
             {t('signInWithNewPassword')}
@@ -194,7 +195,7 @@ export default function ResetPasswordClient({
       <div className='text-center'>
         <button
           type='button'
-          onClick={() => router.push('/login')}
+          onClick={() => router.push(AppRoutes.login)}
           className='font-medium text-blue-600 hover:text-blue-600/90 dark:text-blue-400 dark:hover:text-blue-300'
         >
           {t('backToLogin')}

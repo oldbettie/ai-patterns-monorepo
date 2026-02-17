@@ -9,6 +9,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { useOnlineStatus } from '@/components/hooks/useOnlineStatus'
 import { createDonationIntentAction } from '@/actions/donation-actions'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '')
 
@@ -35,7 +36,7 @@ function CheckoutForm({ clientSecret }: CheckoutFormProps) {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/donate/success`,
+        return_url: `${window.location.origin}${AppRoutes.donateSuccess}`,
       },
     })
 

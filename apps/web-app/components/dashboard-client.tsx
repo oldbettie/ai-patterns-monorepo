@@ -9,6 +9,7 @@ import { SectionHeader } from './dashboard/SectionHeader'
 import { FileUploadZone } from './dashboard/FileUploadZone'
 import { DocumentGrid } from './dashboard/DocumentGrid'
 import type { User } from './dashboard/types'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 interface DashboardClientProps {
   user: User | null
@@ -45,14 +46,14 @@ function DonateBanner({ user }: { user: User | null }) {
       </div>
       {user ? (
         <Link
-          href="/donate"
+          href={AppRoutes.donate}
           className="shrink-0 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors"
         >
           {t('cta')}
         </Link>
       ) : (
         <Link
-          href="/login"
+          href={AppRoutes.login}
           className="shrink-0 px-4 py-2 rounded-lg border border-neutral-300 dark:border-neutral-600 text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
         >
           {t('signInCta')}
