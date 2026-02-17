@@ -20,7 +20,7 @@ export function Footer() {
               </Link>
             </div>
           </div>
-          
+
           <div>
             <h4 className="font-medium text-white dark:text-foreground mb-4">Product</h4>
             <ul className="space-y-3 text-[#F0EFE9]/60 dark:text-muted-foreground text-sm">
@@ -35,8 +35,8 @@ export function Footer() {
             <h4 className="font-medium text-white dark:text-foreground mb-4">Support</h4>
             <ul className="space-y-3 text-[#F0EFE9]/60 dark:text-muted-foreground text-sm">
               <li><Link href="#faq" className="hover:text-white dark:hover:text-foreground transition-colors">FAQ</Link></li>
-              <li><Link href="#privacy" className="hover:text-white dark:hover:text-foreground transition-colors">Privacy Policy</Link></li>
-              <li><a href="mailto:hello@simplifiedpdf.com" className="hover:text-white dark:hover:text-foreground transition-colors">Contact</a></li>
+              <li><a href="/terms-and-conditions.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white dark:hover:text-foreground transition-colors">Privacy Policy</a></li>
+              <li><a href="mailto:jayleaton@gmail.com" className="hover:text-white dark:hover:text-foreground transition-colors">Contact</a></li>
             </ul>
           </div>
         </div>
@@ -46,8 +46,8 @@ export function Footer() {
             © 2025 SimplifiedPDF · Made with ☕ · No documents harmed in the making of this editor
           </div>
           <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-white dark:hover:text-foreground transition-colors">Privacy</Link>
-            <Link href="/terms" className="hover:text-white dark:hover:text-foreground transition-colors">Terms</Link>
+            <a href="/terms-and-conditions.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white dark:hover:text-foreground transition-colors">Privacy</a>
+            <a href="/terms-and-conditions.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white dark:hover:text-foreground transition-colors">Terms</a>
           </div>
         </div>
       </div>
