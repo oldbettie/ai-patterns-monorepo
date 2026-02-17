@@ -36,7 +36,7 @@ export function Footer() {
             <ul className="space-y-3 text-[#F0EFE9]/60 dark:text-muted-foreground text-sm">
               <li><Link href="#faq" className="hover:text-white dark:hover:text-foreground transition-colors">FAQ</Link></li>
               <li><a href="/terms-and-conditions.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white dark:hover:text-foreground transition-colors">Privacy Policy</a></li>
-              <li><a href="mailto:jayleaton@gmail.com" className="hover:text-white dark:hover:text-foreground transition-colors">Contact</a></li>
+              <li><a href="mailto:jayleaton@doriracers.com" className="hover:text-white dark:hover:text-foreground transition-colors">Contact</a></li>
             </ul>
           </div>
         </div>
