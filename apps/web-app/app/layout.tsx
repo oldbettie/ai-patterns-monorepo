@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import { EditorActionsProvider } from '@/lib/context/EditorActionsContext'
 import { GlobalHeader } from '@/components/GlobalHeader'
+import { PDFWorkerSetup } from '@/components/pdf/PDFWorkerSetup'
 import { AnnouncementBanner } from '@/components/landing/AnnouncementBanner'
 import type { Metadata, Viewport } from 'next'
 
@@ -61,6 +62,7 @@ export default async function RootLayout({
       </head>
       <body className={`${bodyFont.variable} ${displayFont.variable} font-sans bg-background text-foreground antialiased`}>
         <NextIntlClientProvider messages={messages}>
+          <PDFWorkerSetup />
           <EditorActionsProvider>
             <div className='flex flex-col min-h-screen relative'>
               <AnnouncementBanner />

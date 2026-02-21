@@ -5,7 +5,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { MousePointer2, Type, PenLine } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { Document, Page, pdfjs } from 'react-pdf'
+import { Document, Page } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
 import { usePDFEditor } from '@/components/hooks/usePDFEditor'
@@ -19,8 +19,6 @@ import { PDFEditorHeader } from '@/components/pdf/PDFEditorHeader'
 import { PDFPageThumbnails } from '@/components/pdf/PDFPageThumbnails'
 import { loadPDFBytes, getPDFPageCount, exportPDF, downloadPDF } from '@/lib/pdf/pdfEditor'
 import type { StoredSignature } from '@quick-pdfs/common'
-
-pdfjs.GlobalWorkerOptions.workerSrc = '/pdf-worker/pdf.worker.min.mjs'
 
 const MIN_SCALE = 0.25
 const MAX_SCALE = 3

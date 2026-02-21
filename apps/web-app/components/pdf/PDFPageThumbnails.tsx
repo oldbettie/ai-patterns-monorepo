@@ -3,11 +3,9 @@
 // @summary: Left sidebar showing thumbnail previews of all PDF pages with active page highlight
 
 import { useEffect, useRef, useState } from 'react'
-import { Document, Page, pdfjs } from 'react-pdf'
+import { Document, Page } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
-
-pdfjs.GlobalWorkerOptions.workerSrc = '/pdf-worker/pdf.worker.min.mjs'
 
 interface PDFPageThumbnailsProps {
   pdfBytes: Uint8Array
