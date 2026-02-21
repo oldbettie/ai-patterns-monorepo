@@ -26,7 +26,8 @@ export function Footer() {
             <ul className="space-y-3 text-[#F0EFE9]/60 dark:text-muted-foreground text-sm">
               <li><Link href="#how-it-works" className="hover:text-white dark:hover:text-foreground transition-colors">How It Works</Link></li>
               <li><Link href="#features" className="hover:text-white dark:hover:text-foreground transition-colors">Features</Link></li>
-              <li><Link href="#pricing" className="hover:text-white dark:hover:text-foreground transition-colors">Pricing (Free)</Link></li>
+              <li><Link href={AppRoutes.signPdf} className="hover:text-white dark:hover:text-foreground transition-colors">Sign PDF</Link></li>
+              <li><Link href={AppRoutes.editPdf} className="hover:text-white dark:hover:text-foreground transition-colors">Edit PDF</Link></li>
               <li><Link href={AppRoutes.editor} className="hover:text-white dark:hover:text-foreground transition-colors">Editor</Link></li>
             </ul>
           </div>
@@ -35,7 +36,7 @@ export function Footer() {
             <h4 className="font-medium text-white dark:text-foreground mb-4">Support</h4>
             <ul className="space-y-3 text-[#F0EFE9]/60 dark:text-muted-foreground text-sm">
               <li><Link href="#faq" className="hover:text-white dark:hover:text-foreground transition-colors">FAQ</Link></li>
-              <li><a href="/terms-and-conditions.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white dark:hover:text-foreground transition-colors">Privacy Policy</a></li>
+              <li><Link href={AppRoutes.privacy} className="hover:text-white dark:hover:text-foreground transition-colors">Privacy Policy</Link></li>
               <li><a href="mailto:jayleaton@doriracers.com" className="hover:text-white dark:hover:text-foreground transition-colors">Contact</a></li>
             </ul>
           </div>
@@ -46,7 +47,7 @@ export function Footer() {
             © 2025 SimplifiedPDF · Made with ☕ · No documents harmed in the making of this editor
           </div>
           <div className="flex gap-6">
-            <a href="/terms-and-conditions.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white dark:hover:text-foreground transition-colors">Privacy</a>
+            <Link href={AppRoutes.privacy} className="hover:text-white dark:hover:text-foreground transition-colors">Privacy</Link>
             <a href="/terms-and-conditions.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white dark:hover:text-foreground transition-colors">Terms</a>
           </div>
         </div>

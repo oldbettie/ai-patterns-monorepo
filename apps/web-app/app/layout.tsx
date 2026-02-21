@@ -1,4 +1,4 @@
-import { Instrument_Serif, Plus_Jakarta_Sans } from 'next/font/google'
+import { Space_Grotesk, Inter } from 'next/font/google'
 import './globals.css'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: '%s — SimplifiedPDF',
   },
   description:
-    'Modern , simple and free PDF editing software for everyone, browser based and local first',
+    'Free PDF editor with no signup, no subscription, and no watermarks. Edit PDFs, add text, and sign documents right in your browser. Your files never leave your device.',
 }
 
 export const viewport: Viewport = {
@@ -30,14 +30,14 @@ export const viewport: Viewport = {
   ],
 }
 
-const displayFont = Instrument_Serif({
-  weight: '400',
+const displayFont = Space_Grotesk({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-display',
   display: 'swap',
 })
 
-const bodyFont = Plus_Jakarta_Sans({
+const bodyFont = Inter({
   subsets: ['latin'],
   variable: '--font-body',
   display: 'swap',

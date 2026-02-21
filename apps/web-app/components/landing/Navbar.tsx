@@ -2,11 +2,14 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { AppRoutes } from '@/lib/config/featureToggles'
 import { cn } from '@/lib/utils'
 import ThemeToggle from '@/components/theme-toggle'
 
 export function Navbar() {
+  const pathname = usePathname()
+  const isHomepage = pathname === '/'
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -18,12 +21,18 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const navLinks = [
-    { name: 'How It Works', href: '#how-it-works' },
-    { name: 'Features', href: '#features' },
-    { name: 'Privacy', href: '#privacy' },
-    { name: 'FAQ', href: '#faq' },
-  ]
+  const navLinks = isHomepage
+    ? [
+        { name: 'How It Works', href: '#how-it-works' },
+        { name: 'Features', href: '#features' },
+        { name: 'Privacy', href: '#privacy' },
+        { name: 'FAQ', href: '#faq' },
+      ]
+    : [
+        { name: 'Sign PDF', href: AppRoutes.signPdf },
+        { name: 'Edit PDF', href: AppRoutes.editPdf },
+        { name: 'FAQ', href: AppRoutes.home + '#faq' },
+      ]
 
   return (
     <div className="sticky top-0 left-0 right-0 z-40 flex flex-col font-sans">

@@ -8,7 +8,7 @@ export function Hero() {
       <div className="container mx-auto max-w-4xl text-center">
         <h1 className="font-display text-5xl md:text-7xl text-foreground leading-[1.1] mb-6">
           The PDF Editor <br className="hidden md:block" />
-          <span className="italic">That's Actually Free</span>
+          <span className="text-primary">That's Actually Free</span>
         </h1>
 
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">

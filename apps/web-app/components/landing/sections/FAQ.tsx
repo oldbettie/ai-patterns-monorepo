@@ -40,6 +40,22 @@ export function FAQ() {
     {
       q: "How does SimplifiedPDF make money if it's free?",
       a: "SimplifiedPDF is sustained by optional donations from users who find it useful and want to support it. That's it. Donors get an ad-free experience. There are no hidden revenue streams that compromise your privacy or your downloads."
+    },
+    {
+      q: "Can I use SimplifiedPDF instead of Adobe Acrobat?",
+      a: "Yes, for most everyday tasks. SimplifiedPDF lets you add text, fill forms, draw signatures, and download your edited PDF for free — all without a subscription or software install. Adobe Acrobat Pro offers more advanced features like OCR and PDF creation from scratch, but for signing and editing existing PDFs, SimplifiedPDF covers the essentials at no cost."
+    },
+    {
+      q: "Can I edit a PDF form with SimplifiedPDF?",
+      a: "Yes. SimplifiedPDF lets you click on any part of a PDF and add text, making it ideal for filling in forms, applications, and official documents. Just open your PDF, click the field you want to fill, type your answer, and download."
+    },
+    {
+      q: "Does SimplifiedPDF work on iPhone and Android?",
+      a: "Yes. SimplifiedPDF runs in any modern mobile browser, including Safari on iPhone and Chrome on Android. You can add text and sign PDFs directly from your phone. You can also install it to your home screen for quick access, just like an app."
+    },
+    {
+      q: "Is SimplifiedPDF legal for signing contracts?",
+      a: "Electronic signatures created in SimplifiedPDF are a form of e-signature, which is legally recognised in most countries under laws like the US ESIGN Act and the EU eIDAS Regulation for standard business agreements, rental contracts, NDAs, and similar documents. For high-stakes legal matters or regulated industries that require qualified electronic signatures, consult a legal professional about your specific requirements."
     }
   ]
 

@@ -1,4 +1,6 @@
+import Link from 'next/link'
 import { Check, X } from 'lucide-react'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 export function Comparison() {
   const rows = [
@@ -68,10 +70,15 @@ export function Comparison() {
         </div>
 
         <p className="mt-8 text-center text-muted-foreground max-w-3xl mx-auto">
-          We built SimplifiedPDF because we got tired of the same bait-and-switch. You search for "free PDF editor", 
-          you find one, you do the work, you click download — and suddenly it's $12 a month. That's not free. 
+          We built SimplifiedPDF because we got tired of the same bait-and-switch. You search for "free PDF editor",
+          you find one, you do the work, you click download — and suddenly it's $12 a month. That's not free.
           That's a demo with extra steps. SimplifiedPDF will always let you download your files for free.
         </p>
+        <div className="mt-6 text-center">
+          <Link href={AppRoutes.alternativesAdobeAcrobat} className="text-primary hover:underline text-sm font-medium">
+            See full comparison vs. Adobe Acrobat →
+          </Link>
+        </div>
       </div>
     </section>
   )

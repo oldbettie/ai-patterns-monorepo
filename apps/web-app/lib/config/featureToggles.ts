@@ -84,6 +84,13 @@ export const AppRoutes = {
 
   // Editor routes
   editor: '/editor',
+
+  // SEO landing pages
+  signPdf: '/sign-pdf',
+  editPdf: '/edit-pdf',
+  privacy: '/privacy',
+  alternativesAdobeAcrobat: '/alternatives/adobe-acrobat',
+  alternativesSmallpdf: '/alternatives/smallpdf',
 } as const
 
 /**

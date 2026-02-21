@@ -1,4 +1,6 @@
+import Link from 'next/link'
 import { Type, PenLine, FolderOpen, WifiOff, ShieldCheck, Download } from 'lucide-react'
+import { AppRoutes } from '@/lib/config/featureToggles'
 
 export function Features() {
   const features = [
@@ -10,7 +12,9 @@ export function Features() {
     {
       icon: PenLine,
       title: "Sign Documents",
-      desc: "Draw your signature with your mouse or finger. Save it for reuse across documents. Add, move, resize, or remove signatures at any time."
+      desc: "Draw your signature with your mouse or finger. Save it for reuse across documents. Add, move, resize, or remove signatures at any time.",
+      link: AppRoutes.signPdf,
+      linkText: "Learn about signing PDFs →"
     },
     {
       icon: FolderOpen,
@@ -63,6 +67,11 @@ export function Features() {
               <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                 {feature.desc}
               </p>
+              {'link' in feature && feature.link && (
+                <Link href={feature.link} className="mt-4 inline-block text-sm text-primary hover:underline">
+                  {feature.linkText}
+                </Link>
+              )}
             </div>
           ))}
         </div>
