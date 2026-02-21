@@ -11,6 +11,8 @@ interface TextToolbarProps {
   onFontFamilyChange: (value: string) => void
   onFontSizeChange: (value: number) => void
   onColorChange: (value: string) => void
+  onAddText: () => void
+  pendingPlacement: boolean
 }
 
 const BASE_FONTS = [
@@ -69,8 +71,11 @@ export function TextToolbar({
   onFontFamilyChange,
   onFontSizeChange,
   onColorChange,
+  onAddText,
+  pendingPlacement,
 }: TextToolbarProps) {
   const t = useTranslations('pages.editor.text')
+  const tEditor = useTranslations('pages.editor')
   const { base, bold, italic } = parseFontFamily(fontFamily)
   const canToggleStyle = base !== 'Symbol' && base !== 'ZapfDingbats'
 
@@ -88,6 +93,18 @@ export function TextToolbar({
 
   return (
     <div className="flex items-center gap-3 p-2 bg-background border-b border-border">
+      <button
+        type="button"
+        onClick={onAddText}
+        className={`px-3 py-1 text-sm rounded-md transition-colors ${
+          pendingPlacement
+            ? 'bg-primary text-primary-foreground'
+            : 'bg-accent hover:bg-accent/80 text-foreground'
+        }`}
+      >
+        {pendingPlacement ? tEditor('clickToPlace') : tEditor('addText')}
+      </button>
+      <div className="w-px h-5 bg-border" />
       <div className="flex items-center gap-1">
         <label className="text-xs text-muted-foreground">{t('fontFamily')}</label>
         <select

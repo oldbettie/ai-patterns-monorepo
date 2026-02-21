@@ -62,6 +62,7 @@
     "editor": {
       "title": "Edit PDF",
       "addText": "Add Text",
+      "clickToPlace": "Click on PDF to place",
       "addSignature": "Add Signature",
       "download": "Download",
       "page": "Page {current} of {total}",
@@ -81,7 +82,9 @@
         "save": "Save",
         "cancel": "Cancel",
         "edit": "Edit signature",
-        "deleteFromStorage": "Delete signature"
+        "deleteFromStorage": "Delete signature",
+        "clickToPlace": "Click on the PDF to place",
+        "saved": "Saved signature"
       },
       "export": {
         "generating": "Generating PDF...",

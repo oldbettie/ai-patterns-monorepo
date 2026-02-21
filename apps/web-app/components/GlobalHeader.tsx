@@ -15,7 +15,7 @@ export function GlobalHeader() {
   }
 
   return (
-    <header className='absolute top-4 right-4 z-50'>
+    <header className='absolute top-2 right-4 z-50'>
       <nav aria-label="Global" className='flex items-center gap-2'>
         <LogoutButton />
         <ExportButtonSlot />

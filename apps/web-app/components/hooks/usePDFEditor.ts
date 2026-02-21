@@ -106,6 +106,13 @@ export function usePDFEditor() {
     }))
   }, [])
 
+  const removeSignatureElementsBySignatureId = useCallback((signatureId: string) => {
+    setState(prev => ({
+      ...prev,
+      signatureElements: prev.signatureElements.filter(el => el.signatureId !== signatureId),
+    }))
+  }, [])
+
   return {
     ...state,
     setPdfBytes,
@@ -117,5 +124,6 @@ export function usePDFEditor() {
     addSignatureElement,
     updateSignatureElement,
     removeSignatureElement,
+    removeSignatureElementsBySignatureId,
   }
 }

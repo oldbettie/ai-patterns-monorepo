@@ -14,9 +14,10 @@ interface SignatureElementProps {
   onRemove: (id: string) => void
   onEdit: (id: string) => void
   onDelete: (id: string, signatureId: string) => void
+  onSelect?: () => void
 }
 
-export function SignatureElement({ element, imageData, scale, onUpdate, onRemove, onEdit, onDelete }: SignatureElementProps) {
+export function SignatureElement({ element, imageData, scale, onUpdate, onRemove, onEdit, onDelete, onSelect }: SignatureElementProps) {
   const [isDragging, setIsDragging] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
   const t = useTranslations('pages.editor.signature')
@@ -58,6 +59,7 @@ export function SignatureElement({ element, imageData, scale, onUpdate, onRemove
         height: element.height * scale,
       }}
       onMouseDown={handleMouseDown}
+      onClick={e => { e.stopPropagation(); onSelect?.() }}
       className="group"
     >
       <img

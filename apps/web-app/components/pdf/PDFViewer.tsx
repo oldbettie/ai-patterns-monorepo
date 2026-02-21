@@ -3,12 +3,9 @@
 // @summary: React PDF viewer component using react-pdf with worker configuration
 
 import { useMemo } from 'react'
-import { Document, Page, pdfjs } from 'react-pdf'
+import { Document, Page } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
-
-// Configure pdfjs worker to use self-hosted file from public directory
-pdfjs.GlobalWorkerOptions.workerSrc = '/pdf-worker/pdf.worker.min.mjs'
 
 interface PDFViewerProps {
   pdfBytes: Uint8Array

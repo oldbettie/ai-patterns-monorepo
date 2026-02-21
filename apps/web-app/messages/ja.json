@@ -62,6 +62,7 @@
     "editor": {
       "title": "PDFを編集",
       "addText": "テキストを追加",
+      "clickToPlace": "PDFをクリックして配置",
       "addSignature": "署名を追加",
       "download": "ダウンロード",
       "page": "ページ {current} / {total}",
@@ -81,7 +82,9 @@
         "save": "保存",
         "cancel": "キャンセル",
         "edit": "署名を編集",
-        "deleteFromStorage": "署名を削除"
+        "deleteFromStorage": "署名を削除",
+        "clickToPlace": "PDFをクリックして配置",
+        "saved": "保存済み署名"
       },
       "export": {
         "generating": "PDF生成中...",

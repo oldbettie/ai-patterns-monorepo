@@ -39,7 +39,7 @@ export function PDFEditorHeader({ documentName }: PDFEditorHeaderProps) {
 
       {/* Center: Document name */}
       <div className="flex-1 text-center">
-        <h1 className="text-sm font-medium text-foreground truncate">
+        <h1 className="text-foreground truncate">
           {documentName}
         </h1>
       </div>
