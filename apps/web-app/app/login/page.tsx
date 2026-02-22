@@ -25,6 +25,8 @@ export default function LoginPage() {
   const errorsT = useTranslations('errors')
   const verifyEmailT = useTranslations('pages.verifyEmail')
 
+  if (!FeatureToggles.enableLogin) return null
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)

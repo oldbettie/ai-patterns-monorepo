@@ -5,9 +5,10 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { authClient, useUser } from '@/lib/auth'
 import { useTranslations } from 'next-intl'
-import { AppRoutes } from '@/lib/config/featureToggles'
+import { AppRoutes, FeatureToggles } from '@/lib/config/featureToggles'
 
 export function UserAccountButton() {
   const [isOpen, setIsOpen] = useState(false)
@@ -15,6 +16,7 @@ export function UserAccountButton() {
   const { isAuthenticated } = useUser()
   const componentT = useTranslations('components.authStatus')
   const containerRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -32,6 +34,7 @@ export function UserAccountButton() {
     setIsLoggingOut(true)
     try {
       await authClient.signOut()
+      router.push(AppRoutes.home)
     } catch (error) {
       console.error('Logout failed:', error)
     } finally {
@@ -40,6 +43,7 @@ export function UserAccountButton() {
   }
 
   if (!isAuthenticated) {
+    if (!FeatureToggles.enableLogin) return null
     return (
       <Link
         href={AppRoutes.login}
@@ -83,6 +87,15 @@ export function UserAccountButton() {
           >
             {componentT('profile')}
           </Link>
+          {FeatureToggles.enableDonations && (
+            <Link
+              href={AppRoutes.donate}
+              onClick={() => setIsOpen(false)}
+              className='block w-full text-left px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-neutral-700'
+            >
+              {componentT('donate')}
+            </Link>
+          )}
           <button
             onClick={handleSignOut}
             disabled={isLoggingOut}

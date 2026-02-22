@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import { DashboardClient } from '@/components/dashboard-client'
 import type { User } from '@/components/dashboard/types'
 import { getTranslations } from 'next-intl/server'
+import { getDonorStatusAction } from '@/actions/donation-actions'
 
 export async function generateMetadata() {
   const t = await getTranslations('pages.dashboard')
@@ -24,5 +25,9 @@ export default async function EditorDashboardPage() {
       }
     : null
 
-  return <DashboardClient user={user} />
+  const isDonor = session
+    ? (await getDonorStatusAction()).data?.isDonor ?? false
+    : false
+
+  return <DashboardClient user={user} isDonor={isDonor} />
 }

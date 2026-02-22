@@ -3,9 +3,10 @@
 
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
+import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 import { auth } from '@/lib/auth/auth'
-import { AppRoutes } from '@/lib/config/featureToggles'
+import { AppRoutes, FeatureToggles } from '@/lib/config/featureToggles'
 import { createDonationRepository } from '@quick-pdfs/database/src/repositories/donationRepository'
 import type { DonationTier } from '@quick-pdfs/database/src/types'
 
@@ -32,10 +33,14 @@ function getTierColors(tier: DonationTier | null) {
 }
 
 export default async function ProfilePage() {
+  if (!FeatureToggles.enableLogin) {
+    redirect(AppRoutes.home)
+  }
+
   const session = await auth.api.getSession({ headers: await headers() })
 
   if (!session) {
-    redirect(AppRoutes.login)
+    redirect(AppRoutes.home)
   }
 
   const { user } = session
@@ -98,6 +103,17 @@ export default async function ProfilePage() {
             </p>
           )}
         </div>
+
+        {FeatureToggles.enableDonations && !isDonor && (
+          <div className='mt-4 pt-4 border-t border-neutral-200 dark:border-neutral-800'>
+            <Link
+              href={AppRoutes.donate}
+              className='block w-full text-center rounded-md bg-neutral-900 dark:bg-neutral-100 px-4 py-2 text-sm font-medium text-white dark:text-neutral-900 hover:bg-neutral-700 dark:hover:bg-neutral-200'
+            >
+              {t('donate')}
+            </Link>
+          </div>
+        )}
       </div>
     </main>
   )
