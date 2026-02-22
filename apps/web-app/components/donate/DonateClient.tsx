@@ -1,65 +1,17 @@
 'use client'
 // @feature:donations @domain:donations @frontend
-// @summary: Client-side donation form with Stripe Elements integration
+// @summary: Client-side donation form with Polar hosted checkout
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { loadStripe } from '@stripe/stripe-js'
-import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import { authClient } from '@/lib/auth/client'
 import { useOnlineStatus } from '@/components/hooks/useOnlineStatus'
-import { createDonationIntentAction } from '@/actions/donation-actions'
-import { AppRoutes } from '@/lib/config/featureToggles'
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? '')
-
-const PRESET_AMOUNTS = [500, 1000, 2000] // cents
-
-interface CheckoutFormProps {
-  clientSecret: string
-}
-
-function CheckoutForm({ clientSecret }: CheckoutFormProps) {
-  const t = useTranslations('pages.donate')
-  const stripe = useStripe()
-  const elements = useElements()
-  const router = useRouter()
-  const [processing, setProcessing] = useState(false)
-  const [errorMsg, setErrorMsg] = useState<string | null>(null)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!stripe || !elements) return
-    setProcessing(true)
-    setErrorMsg(null)
-
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: `${window.location.origin}${AppRoutes.donateSuccess}`,
-      },
-    })
-
-    if (error) {
-      setErrorMsg(error.message ?? 'Payment failed')
-      setProcessing(false)
-    }
-  }
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <PaymentElement />
-      {errorMsg && <p className="text-sm text-red-500">{errorMsg}</p>}
-      <button
-        type="submit"
-        disabled={!stripe || processing}
-        className="w-full py-2.5 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
-      >
-        {processing ? t('processing') : t('donate')}
-      </button>
-    </form>
-  )
-}
+const PRESET_AMOUNTS = [
+  { amount: 500, slug: 'donate-supporter' },
+  { amount: 1000, slug: 'donate-plus' },
+  { amount: 2500, slug: 'donate-pro' },
+]
 
 interface DonateClientProps {
   isDonor: boolean
@@ -68,17 +20,21 @@ interface DonateClientProps {
 export function DonateClient({ isDonor }: DonateClientProps) {
   const t = useTranslations('pages.donate')
   const isOnline = useOnlineStatus()
-  const [selectedAmount, setSelectedAmount] = useState(PRESET_AMOUNTS[1])
-  const [clientSecret, setClientSecret] = useState<string | null>(null)
+  const [selectedSlug, setSelectedSlug] = useState(PRESET_AMOUNTS[1].slug)
   const [loading, setLoading] = useState(false)
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
-  const handleProceed = async () => {
+  const handleDonate = async () => {
     setLoading(true)
-    const result = await createDonationIntentAction(selectedAmount)
-    if (result.data?.clientSecret) {
-      setClientSecret(result.data.clientSecret)
+    setErrorMsg(null)
+    try {
+      await authClient.checkout({ slug: selectedSlug })
+      // authClient.checkout() redirects to Polar hosted checkout — no return on success
+    } catch (err) {
+      console.error('Checkout error:', err)
+      setErrorMsg(err instanceof Error ? err.message : 'Failed to start checkout')
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   if (!isOnline) {
@@ -102,37 +58,30 @@ export function DonateClient({ isDonor }: DonateClientProps) {
         </div>
       ) : (
         <div className="rounded-xl border border-neutral-200 dark:border-neutral-700 p-6 space-y-5">
-          {!clientSecret ? (
-            <>
-              <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300">{t('amount')}</p>
-              <div className="flex gap-3">
-                {PRESET_AMOUNTS.map(amount => (
-                  <button
-                    key={amount}
-                    onClick={() => setSelectedAmount(amount)}
-                    className={`flex-1 py-2 rounded-md text-sm font-medium border transition-colors ${
-                      selectedAmount === amount
-                        ? 'bg-blue-600 text-white border-blue-600'
-                        : 'border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800'
-                    }`}
-                  >
-                    ${(amount / 100).toFixed(0)}
-                  </button>
-                ))}
-              </div>
+          <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300">{t('amount')}</p>
+          <div className="flex gap-3">
+            {PRESET_AMOUNTS.map(({ amount, slug }) => (
               <button
-                onClick={handleProceed}
-                disabled={loading}
-                className="w-full py-2.5 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                key={slug}
+                onClick={() => setSelectedSlug(slug)}
+                className={`flex-1 py-2 rounded-md text-sm font-medium border transition-colors ${
+                  selectedSlug === slug
+                    ? 'bg-blue-600 text-white border-blue-600'
+                    : 'border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800'
+                }`}
               >
-                {loading ? t('processing') : t('donate')}
+                ${(amount / 100).toFixed(0)}
               </button>
-            </>
-          ) : (
-            <Elements stripe={stripePromise} options={{ clientSecret }}>
-              <CheckoutForm clientSecret={clientSecret} />
-            </Elements>
-          )}
+            ))}
+          </div>
+          {errorMsg && <p className="text-sm text-red-500">{errorMsg}</p>}
+          <button
+            onClick={handleDonate}
+            disabled={loading}
+            className="w-full py-2.5 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
+          >
+            {loading ? t('processing') : t('donate')}
+          </button>
         </div>
       )}
     </div>

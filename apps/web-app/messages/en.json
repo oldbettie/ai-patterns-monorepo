@@ -29,6 +29,7 @@
       "login": "Sign In",
       "logout": "Sign Out",
       "signup": "Sign Up",
+      "profile": "Profile",
       "verified": "Verified"
     }
   },
@@ -90,6 +91,15 @@
         "generating": "Generating PDF...",
         "success": "PDF downloaded"
       }
+    },
+    "profile": {
+      "title": "Profile",
+      "membership": "Membership",
+      "supporter": "Supporter",
+      "supporterPlus": "Supporter Plus",
+      "supporterPro": "Supporter Pro",
+      "free": "Free",
+      "expires": "Expires {date}"
     },
     "donate": {
       "title": "Support Quick PDFs",

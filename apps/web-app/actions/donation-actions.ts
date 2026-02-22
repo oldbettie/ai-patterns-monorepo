@@ -14,20 +14,3 @@ export async function getDonorStatusAction(): Promise<ApiResponse<DonorStatus>> 
   }
   return secureFetch<ApiResponse<DonorStatus>>('/api/core/v1/donations')
 }
-
-export async function createDonationIntentAction(
-  amount: number,
-  currency = 'usd'
-): Promise<ApiResponse<{ clientSecret: string; donationId: string }>> {
-  if (!FeatureToggles.enableDonations || !FeatureToggles.enableStripe) {
-    return { data: null, error: 'Donations are currently disabled' }
-  }
-  return secureFetch<ApiResponse<{ clientSecret: string; donationId: string }>>(
-    '/api/core/v1/donations',
-    {
-      method: 'POST',
-      body: JSON.stringify({ amount, currency }),
-      headers: { 'Content-Type': 'application/json' },
-    }
-  )
-}

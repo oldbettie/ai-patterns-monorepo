@@ -6,28 +6,14 @@ import { DonationService } from '@/lib/services/donationService'
 import type { Donation } from '@quick-pdfs/database/src/types'
 import type { ServiceContext } from '@/lib/types'
 
-// Mock Stripe
-vi.mock('stripe', () => {
-  return {
-    default: vi.fn().mockImplementation(() => ({
-      paymentIntents: {
-        create: vi.fn().mockResolvedValue({
-          id: 'pi_test',
-          client_secret: 'cs_test',
-        }),
-      },
-    })),
-  }
-})
-
 const makeDonation = (overrides: Partial<Donation> = {}): Donation => ({
   id: 'donation-1',
   userId: 'user-1',
   amount: 1000,
   currency: 'usd',
   status: 'completed',
-  stripePaymentId: 'pi_test',
-  stripeClientSecret: 'cs_test',
+  polarOrderId: 'order_test',
+  tier: 'supporter',
   donatedAt: new Date(),
   expiresAt: null,
   createdAt: new Date(),
@@ -38,7 +24,7 @@ const makeDonation = (overrides: Partial<Donation> = {}): Donation => ({
 const createMockRepository = () => ({
   create: vi.fn().mockResolvedValue(makeDonation()),
   findByUserId: vi.fn().mockResolvedValue([makeDonation()]),
-  findByStripePaymentId: vi.fn().mockResolvedValue(makeDonation()),
+  findByPolarOrderId: vi.fn().mockResolvedValue(makeDonation()),
   updateStatus: vi.fn().mockResolvedValue(undefined),
 })
 
@@ -58,15 +44,6 @@ describe('DonationService', () => {
     service = new DonationService(mockRepo as never, context)
   })
 
-  describe('createPaymentIntent', () => {
-    it('creates a Stripe payment intent and stores the donation', async () => {
-      const result = await service.createPaymentIntent({ amount: 1000, currency: 'usd' })
-      expect(result.clientSecret).toBe('cs_test')
-      expect(result.donationId).toBeDefined()
-      expect(mockRepo.create).toHaveBeenCalledOnce()
-    })
-  })
-
   describe('getDonorStatus', () => {
     it('returns isDonor: true when completed donations exist', async () => {
       const status = await service.getDonorStatus()
@@ -78,18 +55,12 @@ describe('DonationService', () => {
       const status = await service.getDonorStatus()
       expect(status.isDonor).toBe(false)
     })
-  })
 
-  describe('markDonationCompleted', () => {
-    it('updates donation status to completed', async () => {
-      await service.markDonationCompleted('pi_test')
-      expect(mockRepo.updateStatus).toHaveBeenCalledWith('donation-1', 'completed')
-    })
-
-    it('does nothing if donation not found', async () => {
-      mockRepo.findByStripePaymentId.mockResolvedValue(undefined)
-      await service.markDonationCompleted('pi_unknown')
-      expect(mockRepo.updateStatus).not.toHaveBeenCalled()
+    it('returns isDonor: false when no donations exist', async () => {
+      mockRepo.findByUserId.mockResolvedValue([])
+      const status = await service.getDonorStatus()
+      expect(status.isDonor).toBe(false)
+      expect(status.expiresAt).toBeNull()
     })
   })
 })

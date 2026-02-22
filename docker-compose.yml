@@ -5,7 +5,7 @@ services:
     container_name: quick-pdfs-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: quick-pdfs
+      POSTGRES_DB: nextdb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
@@ -29,7 +29,7 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      DATABASE_URL: 'postgres://postgres:postgres@postgres:5432/quick-pdfs?sslmode=disable'
+      DATABASE_URL: 'postgres://postgres:postgres@postgres:5432/nextdb?sslmode=disable'
     command: pgweb --bind=0.0.0.0 --listen=8081 --url=$DATABASE_URL
 
 volumes:

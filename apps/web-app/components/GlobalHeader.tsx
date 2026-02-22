@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import ThemeToggle from '@/components/theme-toggle'
-import LogoutButton from '@/components/logout-button'
+import { UserAccountButton } from '@/components/UserAccountButton'
 import { LanguageSelector } from '@/components/language-selector'
 import { ExportButtonSlot } from '@/lib/context/EditorActionsContext'
 import { Navbar } from '@/components/landing/Navbar'
@@ -26,8 +26,8 @@ export function GlobalHeader() {
   return (
     <header className='absolute top-2 right-4 z-50'>
       <nav aria-label="Global" className='flex items-center gap-2'>
-        <LogoutButton />
         <ExportButtonSlot />
+        <UserAccountButton />
         <ThemeToggle />
         <LanguageSelector />
       </nav>

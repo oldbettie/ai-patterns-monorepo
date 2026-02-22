@@ -20,11 +20,11 @@ export class DonationRepository {
     return this.db.select().from(donations).where(eq(donations.userId, userId))
   }
 
-  async findByStripePaymentId(stripePaymentId: string): Promise<Donation | undefined> {
+  async findByPolarOrderId(polarOrderId: string): Promise<Donation | undefined> {
     const result = await this.db
       .select()
       .from(donations)
-      .where(eq(donations.stripePaymentId, stripePaymentId))
+      .where(eq(donations.polarOrderId, polarOrderId))
       .limit(1)
     return result[0]
   }

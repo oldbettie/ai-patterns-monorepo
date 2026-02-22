@@ -29,6 +29,7 @@
       "login": "サインイン",
       "logout": "サインアウト",
       "signup": "サインアップ",
+      "profile": "プロフィール",
       "verified": "認証済み"
     }
   },
@@ -90,6 +91,15 @@
         "generating": "PDF生成中...",
         "success": "PDFをダウンロードしました"
       }
+    },
+    "profile": {
+      "title": "プロフィール",
+      "membership": "メンバーシップ",
+      "supporter": "サポーター",
+      "supporterPlus": "サポータープラス",
+      "supporterPro": "サポータープロ",
+      "free": "無料",
+      "expires": "有効期限: {date}"
     },
     "donate": {
       "title": "Quick PDFsを支援する",
