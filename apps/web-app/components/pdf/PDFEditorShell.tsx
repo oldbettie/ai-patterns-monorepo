@@ -15,7 +15,6 @@ import { TextElement } from '@/components/pdf/TextElement'
 import { SignatureElement } from '@/components/pdf/SignatureElement'
 import { TextToolbar } from '@/components/pdf/TextToolbar'
 import { SignatureDrawingModal } from '@/components/pdf/SignatureDrawingModal'
-import { PDFEditorHeader } from '@/components/pdf/PDFEditorHeader'
 import { PDFPageThumbnails } from '@/components/pdf/PDFPageThumbnails'
 import { loadPDFBytes, getPDFPageCount, exportPDF, downloadPDF } from '@/lib/pdf/pdfEditor'
 import type { StoredSignature } from '@quick-pdfs/common'
@@ -34,7 +33,7 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
   const t = useTranslations('pages.editor')
   const { getDocument, saveSignature, getSignature, getAllSignatures, deleteSignature } = useIndexedDB()
   const editor = usePDFEditor()
-  const { setExportFn, clearExportFn } = useEditorActions()
+  const { setExportFn, clearExportFn, setEditorTitle, clearEditorTitle } = useEditorActions()
   const scrollRef = useRef<HTMLDivElement>(null)
   const pageRefs = useRef<(HTMLDivElement | null)[]>([])
 
@@ -70,11 +69,13 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
       const doc = await getDocument(documentId)
       if (!doc) { editor.setLoading(false); return }
       setDocumentName(doc.name)
+      setEditorTitle(doc.name)
       const bytes = await loadPDFBytes(doc.originalFile)
       const pageCount = await getPDFPageCount(bytes)
       editor.setPdfBytes(bytes, pageCount)
     }
     loadDocument()
+    return () => clearEditorTitle()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [documentId])
 
@@ -269,9 +270,6 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
 
   return (
     <div className="flex flex-col h-screen bg-background">
-      {/* Header with filename and navigation */}
-      <PDFEditorHeader documentName={documentName} />
-
       {/* Top toolbar */}
       <div className="flex items-center justify-between px-4 h-12 bg-background border-b border-border">
         {/* Left: Tool selector */}

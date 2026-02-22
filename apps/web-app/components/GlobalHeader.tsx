@@ -24,9 +24,14 @@ export function GlobalHeader() {
     return <Navbar />
   }
 
-  // Editor gets the app nav without the Open Editor link, but with the export slot
-  if (pathname.startsWith('/editor')) {
+  // Document editor (/editor/[id]) gets back button + export slot
+  if (pathname.startsWith('/editor/')) {
     return <AppPageNav showEditorLink={false} showExportSlot />
+  }
+
+  // Editor dashboard (/editor) gets no back button or export slot
+  if (pathname === '/editor') {
+    return <AppPageNav showEditorLink={false} />
   }
 
   // App pages (profile, donate) get the full app nav
