@@ -150,9 +150,9 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
       }
       let bestEl: Element | null = null
       let bestRatio = 0
-      for (const [el, ratio] of ratios) {
+      ratios.forEach((ratio, el) => {
         if (ratio > bestRatio) { bestRatio = ratio; bestEl = el }
-      }
+      })
       if (bestEl) {
         const idx = pageRefs.current.findIndex(el => el === bestEl)
         if (idx !== -1) editor.setActivePage(idx)
@@ -294,7 +294,7 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
 
   if (editor.isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex flex-1 items-center justify-center">
         <div className="text-neutral-400 text-sm">{t('title')}</div>
       </div>
     )
@@ -302,14 +302,14 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
 
   if (!editor.pdfBytes || !mainFile) {
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex flex-1 items-center justify-center">
         <div className="text-neutral-400 text-sm">Document not found</div>
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col h-screen bg-background">
+    <div className="flex flex-col flex-1 min-h-0 bg-background">
       {/* Top toolbar */}
       <div className="flex items-center justify-between px-4 h-12 bg-background border-b border-border">
         {/* Left: Tool selector */}
@@ -436,7 +436,7 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
       )}
 
       {/* Main content: sidebar + scrollable pages */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden min-h-0">
         <PDFPageThumbnails
           pdfBytes={editor.pdfBytes}
           pageOrder={pageOrder}

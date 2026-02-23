@@ -78,11 +78,11 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <PDFWorkerSetup />
           <EditorActionsProvider>
-            <div className='flex flex-col min-h-screen relative'>
+            <div className='flex flex-col h-screen overflow-hidden relative'>
               <AnnouncementBanner />
-              <div className='flex-1 relative flex flex-col'>
+              <div className='flex-1 relative flex flex-col min-h-0'>
                 <GlobalHeader />
-                <main id="main-content" role="main" className="flex-1">{children}</main>
+                <main id="main-content" role="main" className="flex-1 flex flex-col overflow-y-auto min-h-0">{children}</main>
                 <footer aria-label="Site footer" />
               </div>
             </div>

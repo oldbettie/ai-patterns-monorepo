@@ -11,7 +11,7 @@ const PDFEditorShell = dynamic(
   { 
     ssr: false,
     loading: () => (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex flex-1 items-center justify-center">
         <div className="text-muted-foreground text-sm">Loading PDF editor...</div>
       </div>
     )
