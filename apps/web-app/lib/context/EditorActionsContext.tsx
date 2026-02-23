@@ -1,6 +1,6 @@
 'use client'
 // @feature:pdf-editor @domain:pdf @frontend
-// @summary: Context that lets PDFEditorShell register an export function accessible from the global layout header
+// @summary: Context that lets PDFEditorShell register an export function and document title accessible from the global layout header
 
 import { createContext, useContext, useState, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
@@ -9,16 +9,23 @@ interface EditorActionsContextValue {
   exportFn: (() => Promise<void>) | null
   setExportFn: (fn: () => Promise<void>) => void
   clearExportFn: () => void
+  editorTitle: string | null
+  setEditorTitle: (title: string) => void
+  clearEditorTitle: () => void
 }
 
 const EditorActionsContext = createContext<EditorActionsContextValue>({
   exportFn: null,
   setExportFn: () => {},
   clearExportFn: () => {},
+  editorTitle: null,
+  setEditorTitle: () => {},
+  clearEditorTitle: () => {},
 })
 
 export function EditorActionsProvider({ children }: { children: React.ReactNode }) {
   const [exportFn, setExportFnState] = useState<(() => Promise<void>) | null>(null)
+  const [editorTitle, setEditorTitleState] = useState<string | null>(null)
 
   const setExportFn = useCallback((fn: () => Promise<void>) => {
     setExportFnState(() => fn)
@@ -28,8 +35,16 @@ export function EditorActionsProvider({ children }: { children: React.ReactNode 
     setExportFnState(null)
   }, [])
 
+  const setEditorTitle = useCallback((title: string) => {
+    setEditorTitleState(title)
+  }, [])
+
+  const clearEditorTitle = useCallback(() => {
+    setEditorTitleState(null)
+  }, [])
+
   return (
-    <EditorActionsContext.Provider value={{ exportFn, setExportFn, clearExportFn }}>
+    <EditorActionsContext.Provider value={{ exportFn, setExportFn, clearExportFn, editorTitle, setEditorTitle, clearEditorTitle }}>
       {children}
     </EditorActionsContext.Provider>
   )
@@ -37,6 +52,16 @@ export function EditorActionsProvider({ children }: { children: React.ReactNode 
 
 export function useEditorActions() {
   return useContext(EditorActionsContext)
+}
+
+export function EditorTitleSlot() {
+  const { editorTitle } = useEditorActions()
+  if (!editorTitle) return null
+  return (
+    <span className="text-sm font-medium text-foreground truncate max-w-[300px]" title={editorTitle}>
+      {editorTitle}
+    </span>
+  )
 }
 
 export function ExportButtonSlot() {

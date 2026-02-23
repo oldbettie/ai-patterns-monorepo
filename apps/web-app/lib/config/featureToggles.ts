@@ -6,9 +6,10 @@ import { env } from '@/lib/env'
 type FeatureToggleConfig = {
   enableLogin: boolean
   enableSignup: boolean
-  enableStripe: boolean
+  enablePolar: boolean
   enableDonations: boolean
   enableDonateBanner: boolean
+  requireEmailVerification: boolean
 }
 
 export const isProd = env.NEXT_PUBLIC_STAGE === 'prod'
@@ -16,33 +17,37 @@ export const isProd = env.NEXT_PUBLIC_STAGE === 'prod'
 const ProdFeatureToggles: FeatureToggleConfig = {
   enableLogin: false,
   enableSignup: false,
-  enableStripe: false,
+  enablePolar: false,
   enableDonations: false,
   enableDonateBanner: false,
+  requireEmailVerification: true,
 }
 
 const StagingFeatureToggles: FeatureToggleConfig = {
   enableLogin: true,
   enableSignup: true,
-  enableStripe: true,
+  enablePolar: true,
   enableDonations: true,
   enableDonateBanner: true,
+  requireEmailVerification: true,
 }
 
 const DevFeatureToggles: FeatureToggleConfig = {
   enableLogin: true,
   enableSignup: true,
-  enableStripe: true,
+  enablePolar: true,
   enableDonations: true,
   enableDonateBanner: true,
+  requireEmailVerification: false,
 }
 
 const LocalFeatureToggles: FeatureToggleConfig = {
   enableLogin: true,
   enableSignup: true,
-  enableStripe: true,
+  enablePolar: true,
   enableDonations: true,
   enableDonateBanner: true,
+  requireEmailVerification: false,
 }
 
 export const FeatureToggles: FeatureToggleConfig = (() => {
@@ -79,6 +84,7 @@ export const AppRoutes = {
 
   // Authenticated routes
   dashboard: '/editor',
+  profile: '/profile',
   donate: '/donate',
   donateSuccess: '/donate/success',
 
@@ -105,8 +111,6 @@ export const ApiRoutes = {
   users: '/api/core/v1/users',
   donations: '/api/core/v1/donations',
 
-  // Webhooks
-  stripeWebhook: '/api/webhooks/stripe',
 } as const
 
 // Type exports for type safety

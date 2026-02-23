@@ -134,7 +134,7 @@ pnpm run dev
 
 Environment used by the web app in compose:
 
-- `POSTGRES_URL=postgres://postgres:postgres@postgres:5432/quick-pdfs?sslmode=disable`
+- `DATABASE_URL=postgres://postgres:postgres@postgres:5432/quick-pdfs?sslmode=disable`
 - `NEXT_PUBLIC_URL=http://localhost:3000`
 
 To stop:
@@ -183,10 +183,10 @@ NEXT_PUBLIC_URL=http://localhost:3000
 AUTH_SECRET=replace-with-a-strong-secret-of-32-chars-min
 RESEND_API_KEY=replace-with-your-resend-key
 EMAIL_DOMAIN=example.com
-POSTGRES_URL=postgres://postgres:postgres@localhost:5432/quick-pdfs?sslmode=disable
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/nextdb?sslmode=disable
 ```
 
-For Docker Compose, you can create `.env.docker` if needed to override additional values. Compose sets `POSTGRES_URL` and `NEXT_PUBLIC_URL` by default.
+For Docker Compose, you can create `.env.docker` if needed to override additional values. Compose sets `DATABASE_URL` and `NEXT_PUBLIC_URL` by default.
 
 ## Project Structure
 

@@ -29,7 +29,20 @@
       "login": "Sign In",
       "logout": "Sign Out",
       "signup": "Sign Up",
+      "profile": "Profile",
+      "donate": "Donate",
       "verified": "Verified"
+    },
+    "appNav": {
+      "openEditor": "Open Editor"
+    },
+    "announcementBanner": {
+      "message": "SimplifiedPDF is in early development. We're shipping new features weekly!",
+      "moreInfo": "More info",
+      "dismissLabel": "Dismiss banner",
+      "detailsStrong": "This is a new tool with limited use cases right now.",
+      "detailsBody": "We're actively working on expanding features and capabilities. Your feedback helps us prioritize what matters most.",
+      "feedbackLink": "Send us your thoughts"
     }
   },
   "pages": {
@@ -53,7 +66,7 @@
         "warning": "Storage almost full"
       },
       "donateBanner": {
-        "title": "Enjoying Quick PDFs?",
+        "title": "Enjoying SimplifiedPDF?",
         "subtitle": "Sign in and make a small donation to remove ads and support development.",
         "cta": "Support the project",
         "signInCta": "Sign in to donate"
@@ -68,7 +81,7 @@
       "page": "Page {current} of {total}",
       "header": {
         "backToDocuments": "My Documents",
-        "home": "Quick PDFs"
+        "home": "SimplifiedPDF"
       },
       "text": {
         "placeholder": "Type here...",
@@ -91,8 +104,18 @@
         "success": "PDF downloaded"
       }
     },
+    "profile": {
+      "title": "Profile",
+      "membership": "Membership",
+      "supporter": "Supporter",
+      "supporterPlus": "Supporter Plus",
+      "supporterPro": "Supporter Pro",
+      "free": "Free",
+      "expires": "Expires {date}",
+      "donate": "Support SimplifiedPDF"
+    },
     "donate": {
-      "title": "Support Quick PDFs",
+      "title": "Support SimplifiedPDF",
       "subtitle": "Your donation keeps this tool free and private",
       "alreadyDonor": "You are already a supporter. Thank you!",
       "amount": "Donation amount",

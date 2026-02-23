@@ -30,3 +30,4 @@ export type NewVerification = InferInsertModel<typeof verification>
 export type Donation = InferSelectModel<typeof donations>
 export type NewDonation = InferInsertModel<typeof donations>
 export type DonationStatus = 'pending' | 'completed' | 'failed'
+export type DonationTier = 'supporter' | 'supporter_plus' | 'supporter_pro'

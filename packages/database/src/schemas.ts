@@ -3,6 +3,12 @@
 
 import { boolean, integer, pgEnum, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
+export const donationTierEnum = pgEnum('donation_tier', [
+  'supporter',
+  'supporter_plus',
+  'supporter_pro',
+])
+
 // Better Auth Tables
 export const user = pgTable('user', {
   id: text('id').primaryKey(),
@@ -69,8 +75,8 @@ export const donations = pgTable('donations', {
   amount: integer('amount').notNull(),
   currency: text('currency').notNull().default('usd'),
   status: donationStatusEnum('status').notNull().default('pending'),
-  stripePaymentId: text('stripePaymentId'),
-  stripeClientSecret: text('stripeClientSecret'),
+  polarOrderId: text('polarOrderId'),
+  tier: donationTierEnum('tier'),
   donatedAt: timestamp('donatedAt').notNull().defaultNow(),
   expiresAt: timestamp('expiresAt'),
   createdAt: timestamp('createdAt').notNull().defaultNow(),

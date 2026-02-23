@@ -29,7 +29,20 @@
       "login": "サインイン",
       "logout": "サインアウト",
       "signup": "サインアップ",
+      "profile": "プロフィール",
+      "donate": "寄付する",
       "verified": "認証済み"
+    },
+    "appNav": {
+      "openEditor": "エディターを開く"
+    },
+    "announcementBanner": {
+      "message": "SimplifiedPDFは現在早期開発中です。毎週新機能をリリースしています！",
+      "moreInfo": "詳細",
+      "dismissLabel": "バナーを閉じる",
+      "detailsStrong": "現在は限られた用途のみ対応した新しいツールです。",
+      "detailsBody": "機能の拡充に積極的に取り組んでいます。皆様のフィードバックが優先事項の決定に役立ちます。",
+      "feedbackLink": "ご意見をお聞かせください"
     }
   },
   "pages": {
@@ -53,7 +66,7 @@
         "warning": "ストレージがほぼいっぱいです"
       },
       "donateBanner": {
-        "title": "Quick PDFsを楽しんでいますか？",
+        "title": "SimplifiedPDFを楽しんでいますか？",
         "subtitle": "サインインして少額の寄付をすることで、広告を削除し開発をサポートできます。",
         "cta": "プロジェクトをサポート",
         "signInCta": "サインインして寄付"
@@ -68,7 +81,7 @@
       "page": "ページ {current} / {total}",
       "header": {
         "backToDocuments": "マイドキュメント",
-        "home": "Quick PDFs"
+        "home": "SimplifiedPDF"
       },
       "text": {
         "placeholder": "ここに入力...",
@@ -91,8 +104,18 @@
         "success": "PDFをダウンロードしました"
       }
     },
+    "profile": {
+      "title": "プロフィール",
+      "membership": "メンバーシップ",
+      "supporter": "サポーター",
+      "supporterPlus": "サポータープラス",
+      "supporterPro": "サポータープロ",
+      "free": "無料",
+      "expires": "有効期限: {date}",
+      "donate": "SimplifiedPDF をサポートする"
+    },
     "donate": {
-      "title": "Quick PDFsを支援する",
+      "title": "SimplifiedPDFを支援する",
       "subtitle": "あなたの寄付がこのツールを無料でプライベートに保ちます",
       "alreadyDonor": "あなたはすでにサポーターです。ありがとうございます！",
       "amount": "寄付金額",

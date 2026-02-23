@@ -2,12 +2,14 @@
 
 import { usePathname } from 'next/navigation'
 import ThemeToggle from '@/components/theme-toggle'
-import LogoutButton from '@/components/logout-button'
+import { UserAccountButton } from '@/components/UserAccountButton'
 import { LanguageSelector } from '@/components/language-selector'
 import { ExportButtonSlot } from '@/lib/context/EditorActionsContext'
 import { Navbar } from '@/components/landing/Navbar'
+import { AppPageNav } from '@/components/AppPageNav'
 
 const LANDING_ROUTES = ['/sign-pdf', '/edit-pdf', '/privacy', '/alternatives']
+const APP_PAGE_ROUTES = ['/profile', '/donate']
 
 export function GlobalHeader() {
   const pathname = usePathname()
@@ -22,12 +24,27 @@ export function GlobalHeader() {
     return <Navbar />
   }
 
+  // Document editor (/editor/[id]) gets back button + export slot
+  if (pathname.startsWith('/editor/')) {
+    return <AppPageNav showEditorLink={false} showExportSlot />
+  }
+
+  // Editor dashboard (/editor) gets no back button or export slot
+  if (pathname === '/editor') {
+    return <AppPageNav showEditorLink={false} />
+  }
+
+  // App pages (profile, donate) get the full app nav
+  if (APP_PAGE_ROUTES.some((route) => pathname.startsWith(route))) {
+    return <AppPageNav />
+  }
+
   // Editor and auth pages get the minimal floating header
   return (
     <header className='absolute top-2 right-4 z-50'>
       <nav aria-label="Global" className='flex items-center gap-2'>
-        <LogoutButton />
         <ExportButtonSlot />
+        <UserAccountButton />
         <ThemeToggle />
         <LanguageSelector />
       </nav>

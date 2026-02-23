@@ -13,9 +13,10 @@ import { AppRoutes, FeatureToggles } from '@/lib/config/featureToggles'
 
 interface DashboardClientProps {
   user: User | null
+  isDonor: boolean
 }
 
-export function DashboardClient({ user }: DashboardClientProps) {
+export function DashboardClient({ user, isDonor }: DashboardClientProps) {
   const t = useTranslations('pages.dashboard')
 
   return (
@@ -30,7 +31,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
         <DocumentGrid />
       </section>
 
-      {FeatureToggles.enableDonateBanner && <DonateBanner user={user} />}
+      {FeatureToggles.enableDonateBanner && !isDonor && <DonateBanner user={user} />}
     </main>
   )
 }

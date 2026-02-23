@@ -25,6 +25,8 @@ export default function SignupPage() {
   const commonT = useTranslations('common')
   const errorsT = useTranslations('errors')
 
+  if (!FeatureToggles.enableSignup) return null
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)

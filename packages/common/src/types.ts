@@ -84,4 +84,5 @@ export interface AppState {
   donorStatusSyncedAt: number | null
 }
 
-export type DonorStatus = { isDonor: boolean; expiresAt: string | null }
+export type DonationTier = 'supporter' | 'supporter_plus' | 'supporter_pro'
+export type DonorStatus = { isDonor: boolean; tier: DonationTier | null; expiresAt: string | null }
