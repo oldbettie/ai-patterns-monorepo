@@ -6,7 +6,7 @@ import EmailVerification from './templates/email-verification'
 import PasswordReset from './templates/password-reset'
 
 export class EmailService {
-  private readonly fromEmail = `noreply@${env.EMAIL_DOMAIN}` // TODO: this might now work
+  private readonly fromEmail = `noreply@${env.EMAIL_DOMAIN}`
 
   constructor(private readonly emailProvider: Resend) {}
 
@@ -32,9 +32,15 @@ export class EmailService {
         html: emailHtml,
       })
 
+      if (result.error) {
+        console.error('[EmailService] Resend error sending verification email:', result.error)
+        throw new Error(result.error.message)
+      }
+
+      console.log('[EmailService] Verification email sent successfully:', result.data?.id)
       return result
     } catch (error) {
-      console.error('Error sending verification email:', error)
+      console.error('[EmailService] Error sending verification email:', error)
       throw error
     }
   }
@@ -53,11 +59,19 @@ export class EmailService {
       })
     )
 
-    return await this.emailProvider.emails.send({
+    const result = await this.emailProvider.emails.send({
       from: this.fromEmail,
       to: email,
       subject: 'Reset your password',
       html: emailHtml,
     })
+
+    if (result.error) {
+      console.error('[EmailService] Resend error sending password reset email:', result.error)
+      throw new Error(result.error.message)
+    }
+
+    console.log('[EmailService] Password reset email sent successfully:', result.data?.id)
+    return result
   }
 }

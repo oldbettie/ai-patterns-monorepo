@@ -47,7 +47,7 @@ const LocalFeatureToggles: FeatureToggleConfig = {
   enablePolar: true,
   enableDonations: true,
   enableDonateBanner: true,
-  requireEmailVerification: false,
+  requireEmailVerification: true,
 }
 
 export const FeatureToggles: FeatureToggleConfig = (() => {
