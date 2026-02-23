@@ -38,6 +38,7 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
   const pageRefs = useRef<(HTMLDivElement | null)[]>([])
   const suppressObserverRef = useRef(false)
   const suppressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const intersectionRatiosRef = useRef<Map<Element, number>>(new Map())
 
   const [activeTool, setActiveTool] = useState<ActiveTool>('selector')
   const [pendingTextPlacement, setPendingTextPlacement] = useState(false)
@@ -133,24 +134,33 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
     return () => el.removeEventListener('wheel', handleWheel)
   }, [])
 
-  // IntersectionObserver to track which page is most visible
+  // IntersectionObserver to track which page is most visible.
+  // We maintain a running map of every observed element's latest ratio so the
+  // callback always picks the globally most-visible page, not just the most-visible
+  // among the entries that happened to change in the current batch.
   useEffect(() => {
     if (!editor.totalPages) return
+    const ratios = intersectionRatiosRef.current
+    ratios.clear()
+
     const observer = new IntersectionObserver((entries) => {
       if (suppressObserverRef.current) return
-      let best: IntersectionObserverEntry | null = null
       for (const e of entries) {
-        if (e.isIntersecting && (!best || e.intersectionRatio > best.intersectionRatio))
-          best = e
+        ratios.set(e.target, e.intersectionRatio)
       }
-      if (best) {
-        const idx = pageRefs.current.findIndex(el => el === best!.target)
+      let bestEl: Element | null = null
+      let bestRatio = 0
+      for (const [el, ratio] of ratios) {
+        if (ratio > bestRatio) { bestRatio = ratio; bestEl = el }
+      }
+      if (bestEl) {
+        const idx = pageRefs.current.findIndex(el => el === bestEl)
         if (idx !== -1) editor.setActivePage(idx)
       }
     }, { root: scrollRef.current, threshold: [0.1, 0.3, 0.5, 0.7, 1.0] })
 
     pageRefs.current.forEach(el => el && observer.observe(el))
-    return () => observer.disconnect()
+    return () => { observer.disconnect(); ratios.clear() }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editor.totalPages, editor.setActivePage])
 

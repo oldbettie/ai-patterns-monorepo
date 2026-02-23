@@ -139,7 +139,9 @@ export function PDFPageThumbnails({
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
   )
 
-  const sortableIds = pageOrder.map((_, i) => `page-${i}`)
+  // Stable IDs keyed by original page index, not visual position.
+  // This ensures dnd-kit can track items correctly across reorders.
+  const sortableIds = pageOrder.map(originalPageIdx => `page-${originalPageIdx}`)
 
   function handleDragStart(event: DragStartEvent) {
     setActiveId(event.active.id as string)
@@ -172,8 +174,8 @@ export function PDFPageThumbnails({
             <div className="flex flex-col gap-2">
               {pageOrder.map((originalPageIdx, visualPos) => (
                 <SortableThumbnailItem
-                  key={`page-${visualPos}`}
-                  id={`page-${visualPos}`}
+                  key={`page-${originalPageIdx}`}
+                  id={`page-${originalPageIdx}`}
                   originalPageIdx={originalPageIdx}
                   visualPos={visualPos}
                   isActive={activePage === visualPos}
