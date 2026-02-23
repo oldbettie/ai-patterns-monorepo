@@ -19,6 +19,20 @@ export const metadata: Metadata = {
   },
   description:
     'Free PDF editor with no signup, no subscription, and no watermarks. Edit PDFs, add text, and sign documents right in your browser. Your files never leave your device.',
+  openGraph: {
+    type: 'website',
+    siteName: 'SimplifiedPDF',
+    title: 'SimplifiedPDF',
+    description:
+      'Free PDF editor with no signup, no subscription, and no watermarks. Edit PDFs, add text, and sign documents right in your browser. Your files never leave your device.',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SimplifiedPDF',
+    description:
+      'Free PDF editor with no signup, no subscription, and no watermarks. Edit PDFs, add text, and sign documents right in your browser. Your files never leave your device.',
+  },
 }
 
 export const viewport: Viewport = {

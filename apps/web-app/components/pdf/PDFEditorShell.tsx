@@ -16,7 +16,7 @@ import { SignatureElement } from '@/components/pdf/SignatureElement'
 import { TextToolbar } from '@/components/pdf/TextToolbar'
 import { SignatureDrawingModal } from '@/components/pdf/SignatureDrawingModal'
 import { PDFPageThumbnails } from '@/components/pdf/PDFPageThumbnails'
-import { loadPDFBytes, getPDFPageCount, exportPDF, downloadPDF } from '@/lib/pdf/pdfEditor'
+import { loadPDFBytes, getPDFPageCount, exportPDF, downloadPDF, addBlankPage, reorderPDFPages } from '@/lib/pdf/pdfEditor'
 import type { StoredSignature } from '@quick-pdfs/common'
 
 const MIN_SCALE = 0.25
@@ -36,6 +36,8 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
   const { setExportFn, clearExportFn, setEditorTitle, clearEditorTitle } = useEditorActions()
   const scrollRef = useRef<HTMLDivElement>(null)
   const pageRefs = useRef<(HTMLDivElement | null)[]>([])
+  const suppressObserverRef = useRef(false)
+  const suppressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const [activeTool, setActiveTool] = useState<ActiveTool>('selector')
   const [pendingTextPlacement, setPendingTextPlacement] = useState(false)
@@ -50,6 +52,7 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
   const [documentName, setDocumentName] = useState('document.pdf')
   const [scale, setScale] = useState(1)
   const [storedSignatures, setStoredSignatures] = useState<StoredSignature[]>([])
+  const [pageOrder, setPageOrder] = useState<number[]>([])
   const [editingSignatureElementId, setEditingSignatureElementId] = useState<string | null>(null)
   const [editingStoredSignatureId, setEditingStoredSignatureId] = useState<string | null>(null)
   const [selectedTextId, setSelectedTextId] = useState<string | null>(null)
@@ -62,20 +65,26 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
   }
   const mainFile = mainFileRef.current
 
-  // Load document and stored signatures on mount
+  // Load document on mount. The cancelled flag prevents Strict Mode's double-effect
+  // execution from calling setPdfBytes twice with different Uint8Array references,
+  // which would cause react-pdf to warn about an "equal but changed" file prop.
   useEffect(() => {
+    let cancelled = false
     const loadDocument = async () => {
       editor.setLoading(true)
       const doc = await getDocument(documentId)
+      if (cancelled) return
       if (!doc) { editor.setLoading(false); return }
       setDocumentName(doc.name)
       setEditorTitle(doc.name)
       const bytes = await loadPDFBytes(doc.originalFile)
       const pageCount = await getPDFPageCount(bytes)
+      if (cancelled) return
       editor.setPdfBytes(bytes, pageCount)
+      setPageOrder(Array.from({ length: pageCount }, (_, i) => i))
     }
     loadDocument()
-    return () => clearEditorTitle()
+    return () => { cancelled = true; clearEditorTitle() }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [documentId])
 
@@ -97,13 +106,15 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
     const signatureElements = editor.signatureElements
     const images = signatureImages
     const filename = documentName
+    const order = pageOrder
     setExportFn(async () => {
-      const bytes = await exportPDF(pdfBytes, textElements, signatureElements, images)
-      downloadPDF(bytes, filename)
+      const withOverlays = await exportPDF(pdfBytes, textElements, signatureElements, images)
+      const reordered = await reorderPDFPages(withOverlays, order)
+      downloadPDF(reordered, filename)
     })
     return clearExportFn
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editor.pdfBytes, editor.textElements, editor.signatureElements, signatureImages, documentName])
+  }, [editor.pdfBytes, editor.textElements, editor.signatureElements, signatureImages, documentName, pageOrder])
 
   // Ctrl/Cmd + scroll to zoom; also intercept browser pinch-zoom on the canvas area
   useEffect(() => {
@@ -126,6 +137,7 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
   useEffect(() => {
     if (!editor.totalPages) return
     const observer = new IntersectionObserver((entries) => {
+      if (suppressObserverRef.current) return
       let best: IntersectionObserverEntry | null = null
       for (const e of entries) {
         if (e.isIntersecting && (!best || e.intersectionRatio > best.intersectionRatio))
@@ -142,9 +154,27 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editor.totalPages, editor.setActivePage])
 
-  const handleThumbnailClick = useCallback((pageIndex: number) => {
-    pageRefs.current[pageIndex]?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  const handleThumbnailClick = useCallback((visualPos: number) => {
+    editor.setActivePage(visualPos)
+    // Suppress IntersectionObserver updates while smooth scroll is in progress
+    suppressObserverRef.current = true
+    if (suppressTimerRef.current) clearTimeout(suppressTimerRef.current)
+    suppressTimerRef.current = setTimeout(() => { suppressObserverRef.current = false }, 800)
+    pageRefs.current[visualPos]?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [editor.setActivePage])
+
+  const handleReorder = useCallback((newOrder: number[]) => {
+    setPageOrder(newOrder)
   }, [])
+
+  const handleAddPage = useCallback(async () => {
+    if (!editor.pdfBytes) return
+    const newBytes = await addBlankPage(editor.pdfBytes)
+    const newCount = editor.totalPages + 1
+    editor.setPdfBytes(newBytes, newCount)
+    setPageOrder(prev => [...prev, newCount - 1])
+    mainFileRef.current = { data: newBytes.slice() }
+  }, [editor])
 
   const handlePageClick = (e: React.MouseEvent<HTMLDivElement>, pageIndex: number) => {
     if (activeTool === 'selector') return
@@ -399,9 +429,11 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
       <div className="flex flex-1 overflow-hidden">
         <PDFPageThumbnails
           pdfBytes={editor.pdfBytes}
-          totalPages={editor.totalPages}
+          pageOrder={pageOrder}
           activePage={editor.activePage}
           onPageClick={handleThumbnailClick}
+          onReorder={handleReorder}
+          onAddPage={handleAddPage}
         />
 
         {/* Scrollable page stack */}
@@ -412,21 +444,21 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
         >
           <Document file={mainFile} loading={null} error={null}>
             <div className="flex flex-col items-center gap-8">
-              {Array.from({ length: editor.totalPages }, (_, i) => (
+              {pageOrder.map((originalPageIdx, visualPos) => (
                 <div
-                  key={i}
-                  ref={el => { pageRefs.current[i] = el }}
+                  key={originalPageIdx}
+                  ref={el => { pageRefs.current[visualPos] = el }}
                   className={`relative shadow-xl ${activeTool === 'text' && pendingTextPlacement ? 'cursor-text' : activeTool === 'signature' ? 'cursor-crosshair' : ''}`}
-                  onClick={e => handlePageClick(e, i)}
+                  onClick={e => handlePageClick(e, originalPageIdx)}
                 >
                   <Page
-                    pageIndex={i}
+                    pageIndex={originalPageIdx}
                     scale={scale}
                     renderTextLayer={false}
                     renderAnnotationLayer={false}
                   />
                   {/* Text overlays for this page */}
-                  {editor.textElements.filter(el => el.pageIndex === i).map(el => (
+                  {editor.textElements.filter(el => el.pageIndex === originalPageIdx).map(el => (
                     <TextElement
                       key={el.id}
                       element={el}
@@ -438,7 +470,7 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
                     />
                   ))}
                   {/* Signature overlays for this page */}
-                  {editor.signatureElements.filter(el => el.pageIndex === i).map(el => {
+                  {editor.signatureElements.filter(el => el.pageIndex === originalPageIdx).map(el => {
                     const imgData = signatureImages.get(el.signatureId)
                     if (!imgData) return null
                     return (

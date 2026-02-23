@@ -142,6 +142,37 @@ export async function exportPDF(
 }
 
 /**
+ * Add a blank page to the end of a PDF, matching the last page's dimensions (or A4 fallback)
+ */
+export async function addBlankPage(bytes: Uint8Array): Promise<Uint8Array> {
+  const pdfDoc = await PDFDocument.load(bytes)
+  const pageCount = pdfDoc.getPageCount()
+  let width = 595.28  // A4 width in points
+  let height = 841.89 // A4 height in points
+  if (pageCount > 0) {
+    const lastPage = pdfDoc.getPage(pageCount - 1)
+    width = lastPage.getWidth()
+    height = lastPage.getHeight()
+  }
+  pdfDoc.addPage([width, height])
+  return pdfDoc.save()
+}
+
+/**
+ * Reorder pages in a PDF by copying them in the given order into a new document.
+ * pageOrder maps visual position → original page index.
+ */
+export async function reorderPDFPages(bytes: Uint8Array, pageOrder: number[]): Promise<Uint8Array> {
+  const sourceDoc = await PDFDocument.load(bytes)
+  const newDoc = await PDFDocument.create()
+  const copiedPages = await newDoc.copyPages(sourceDoc, pageOrder)
+  for (const page of copiedPages) {
+    newDoc.addPage(page)
+  }
+  return newDoc.save()
+}
+
+/**
  * Trigger browser download of PDF bytes
  */
 export function downloadPDF(bytes: Uint8Array, filename: string): void {
