@@ -34,58 +34,117 @@
   },
   "pages": {
     "landing": {
-      "badge": "AI支援開発向けに構築",
+      "badge": "テンプレートセットアップガイド",
       "hero": {
-        "title": "AI対応Next.jsテンプレート",
-        "subtitle": "一貫したパターン、型安全性、AIエージェント連携のために設計されたアーキテクチャを備えた本番対応モノレポ。",
-        "learnMore": "パターンについて学ぶ"
+        "title": "Better Stack モノレポテンプレート",
+        "subtitle": "SaaSアプリケーション、ダッシュボード、フルスタックプロジェクトに最適な出発点。AIエージェントワークフロー向けに最適化されています。",
+        "learnMore": "アーキテクチャパターン"
       },
       "cta": {
         "getStarted": "始める",
         "signIn": "サインイン"
       },
-      "sections": {
-        "value": {
-          "eyebrow": "テンプレートの特徴",
-          "title": "高速、安全、スケーラブル",
-          "subtitle": "迅速な開発のために現代的な技術とベストプラクティスで構築されています。",
-          "items": {
-            "patterns": {
-              "title": "パターン駆動アーキテクチャ",
-              "desc": "Service/Repositoryパターン、型付きAPI、AIエージェントが即座に理解できる一貫した規約。"
-            },
-            "typeSafety": {
-              "title": "エンドツーエンドの型安全性",
-              "desc": "TypeScript strictモード、Zodバリデーション、Drizzle ORMにより、ランタイムサプライズはゼロ。"
-            },
-            "maintainable": {
-              "title": "保守と拡張が容易",
-              "desc": "明確なレイヤー、テスト可能なサービス、文書化されたパターンにより、リファクタリングが簡単。"
-            }
-          }
-        },
-        "how": {
-          "eyebrow": "使い方",
-          "title": "テンプレート + カスタマイズ + デプロイ",
-          "subtitle": "テンプレートから始めて、ニーズに合わせてカスタマイズし、本番環境にデプロイします。",
-          "steps": {
-            "1": "実績あるパターンが組み込まれたテンプレートをクローンします",
-            "2": "明確で文書化された規約に従ってサービスを拡張します",
-            "3": "アーキテクチャが堅牢であることを確信して自信を持ってデプロイします"
+      "techStack": {
+        "eyebrow": "使用技術",
+        "title": "モダンなフルスタック技術"
+      },
+      "value": {
+        "eyebrow": "テンプレートの特徴",
+        "title": "高速、安全、スケーラブル",
+        "subtitle": "迅速な開発のために現代的な技術とベストプラクティスで構築されています。",
+        "items": {
+          "patterns": {
+            "title": "パターン駆動アーキテクチャ",
+            "desc": "Service/Repositoryパターン、型付きAPI、AIエージェントが即座に理解できる一貫した規約。"
+          },
+          "typeSafety": {
+            "title": "エンドツーエンドの型安全性",
+            "desc": "TypeScript strictモード、Zodバリデーション、Drizzle ORMにより、ランタイムサプライズはゼロ。"
+          },
+          "maintainable": {
+            "title": "保守と拡張が容易",
+            "desc": "明確なレイヤー、テスト可能なサービス、文書化されたパターンにより、リファクタリングが簡単。"
           }
         }
       },
-      "pricing": {
-        "title": "今日から開始",
-        "subtitle": "完全なテンプレートにアクセスしてプロジェクトを開始します。",
-        "primary": "無料アカウント作成",
-        "secondary": "サインイン"
+      "preSteps": {
+        "eyebrow": "開始前の準備",
+        "title": "必要なプロバイダー",
+        "subtitle": "セットアップ手順を実行する前に、データベースとメールプロバイダーが必要です。",
+        "database": {
+          "title": "データベース（PostgreSQL）",
+          "desc": "NeonまたはSupabaseは優れたPostgresプロバイダーです。Dockerを使用してローカルデータベースを実行することもできます（無料）。",
+          "tip": "開発環境にはローカルデータベースをお勧めします — 無料です。"
+        },
+        "email": {
+          "title": "メールプロバイダー",
+          "desc": "Resendは優れたメールプロバイダーです。",
+          "tip": "ヒント：複数のプロジェクトがある場合は、Gmailでemail+project@gmail.comを使用すると無料アカウントで利用できます。"
+        }
+      },
+      "setup": {
+        "eyebrow": "はじめに",
+        "title": "セットアップ手順",
+        "subtitle": "テンプレートのクローン後、これらの手順に従ってください。",
+        "steps": {
+          "1": "ClaudeまたはCursorファイル（CLAUDE.md）に概要を追加する",
+          "2": "このREADME、AIファイル、プロジェクト構造に基づいてClaude Codeにセットアップを依頼する",
+          "3": "プロバイダーと.env変数が設定されていることを確認する",
+          "4": ".githubワークフローを使用している場合は、GitHubシークレットが設定されていることを確認する"
+        }
+      },
+      "deployments": {
+        "eyebrow": "本番環境",
+        "title": "デプロイメントプロバイダー",
+        "subtitle": "プロバイダーを設定してインターネットに公開しましょう。",
+        "recommended": "おすすめ",
+        "providers": {
+          "railway": {
+            "title": "Railway",
+            "desc": "ウェブサイトのデプロイメントと高度な機能に最適なツールです。"
+          },
+          "neon": {
+            "title": "Neon",
+            "desc": "安価なサーバーレスデータベースプロバイダー。"
+          },
+          "resend": {
+            "title": "Resend",
+            "desc": "メールSMTPプロバイダー。"
+          },
+          "vercel": {
+            "title": "Vercel",
+            "desc": "週末プロジェクトに最適ですが、スケールすると高額になる場合があります。"
+          },
+          "supabase": {
+            "title": "Supabase",
+            "desc": "オプション機能を備えた別の優れたデータベースプロバイダー。"
+          }
+        }
+      },
+      "advanced": {
+        "eyebrow": "さらなる発展",
+        "title": "高度な機能",
+        "subtitle": "プロジェクトが動き始めたら検討できる任意の拡張機能。",
+        "items": {
+          "i18n": {
+            "title": "国際化（i18n）",
+            "desc": "組み込みのnext-intlセットアップを使用して、複数言語でプロダクトを提供します。"
+          },
+          "analytics": {
+            "title": "Mixpanel分析",
+            "desc": "実際のユーザーが増えてきたら高度な分析を活用しましょう。"
+          },
+          "oauth": {
+            "title": "OAuthとBetterAuthプラグイン",
+            "desc": "ソーシャルログイン（Google、GitHub）やその他の認証プラグインを追加します。"
+          }
+        }
       },
       "footer": {
-        "brand": "SaaSテンプレート",
+        "brand": "Better Stack テンプレート",
         "login": "ログイン",
         "signup": "サインアップ",
-        "whyLink": "パターンが重要な理由"
+        "whyLink": "アーキテクチャパターン"
       }
     },
     "why": {

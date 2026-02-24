@@ -1,4 +1,4 @@
-# Better Stack Monorepo Template
+# Monorepo Template
 
 A production-ready monorepo template for building modern web applications with:
 - **Next.js App Router** with TypeScript
@@ -8,11 +8,58 @@ A production-ready monorepo template for building modern web applications with:
 - **Workspace management** with pnpm
 - **I18n Translations** OPTIONAL 
 
+## Overview (Simple)
+
 Perfect starting point for SaaS applications, dashboards, and full-stack projects.
-This stack is optimised for AI workflows. Generally speaking when these patterns are followed then code review becomes much simpler and refactoring later becomes trivial.
+This stack is optimised for AI agent workflows. Generally speaking when these patterns are followed then code review becomes much simpler and refactoring later becomes trivial.
 Most template repos contain loads of crap that most people wont use and will just slow them down. The core concept here has 2 parts.
 
-## Part 1 Services/Repositories
+### Steps
+
+Setting up a database provider and Email provider is required for all projects. This template runs a database locally via docker alternatively you can use a remote database but I recommend using a local database since it is free.
+
+PreSteps:
+- Neon or Supabase are great postgres providers
+- Resend is a great email provider (Tip: If you have multiple projects you can get free accounts with a single email if you use gmail
+ with `email_name+project_name@provider_name.com`) Email verification is disabled locally via `featureToggles.ts`
+
+1. Add your intro paragraph to the Claude/Cursor files
+2. Have Claude-Code setup everything else based on this readme, ai files and project structure
+3. Ensure you have setup providers and `.env` variables
+4. Ensure you have setup github secrets if you are using the .github workflows
+
+### Production Deployments
+
+- You will need to manually setup your deployments to get this on the internet. 
+
+#### Recommendations
+
+[Railway](https://railway.com?referralCode=4uNPq2): Railway is a great tool for website deployments and advanced features in the future.
+[Neon](https://neon.com/): Neon is a cheap serverless database provider.
+[Resend](https://resend.com/): Resend is your email SMTP provider.
+
+Other good options:
+[Vercel](https://vercel.com/): A great tool for weekend projects but can get very expensive for production uses with many uses.
+[Supabase]: Another great database provider with other optional features, but more complex and often introduces breaking changes.
+
+All of the above platforms integrate with Github 1 click deployments if you choose, some I have setup workflows to ensure a deployment is consistent.
+
+### Advanced
+
+This does not cover many of the other optional things you could use because not everyone will want them. Somethings you might want to look into later are as follows.
+
+- I18n to allow you to offer your product in other languages.
+- Mixpanel for advanced analytics once you have users.
+- OAuth and BetterAuth plugins.
+
+
+
+
+
+
+## Overview (Further)
+
+## Part 1 Services/Repositories Pattern
 Service/repository is a popular pattern both in AI coding and traditioanl coding. It shines as a core business layer for the following reasons 
 - DDD or Onion Architecture.
 - Consistently testable.
@@ -134,7 +181,7 @@ pnpm run dev
 
 Environment used by the web app in compose:
 
-- `POSTGRES_URL=postgres://postgres:postgres@postgres:5432/better-stack?sslmode=disable`
+- `DATABASE_URL=postgres://postgres:postgres@postgres:5432/better-stack?sslmode=disable`
 - `NEXT_PUBLIC_URL=http://localhost:3000`
 
 To stop:
@@ -182,11 +229,11 @@ Create `.env.local` at the repo root for local dev (Next.js reads via `apps/web-
 NEXT_PUBLIC_URL=http://localhost:3000
 AUTH_SECRET=replace-with-a-strong-secret-of-32-chars-min
 RESEND_API_KEY=replace-with-your-resend-key
-EMAIL_DOMAIN=example.com
-POSTGRES_URL=postgres://postgres:postgres@localhost:5432/better-stack?sslmode=disable
+FROM_EMAIL=noreply@example.com
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/better-stack?sslmode=disable
 ```
 
-For Docker Compose, you can create `.env.docker` if needed to override additional values. Compose sets `POSTGRES_URL` and `NEXT_PUBLIC_URL` by default.
+For Docker Compose, you can create `.env.docker` if needed to override additional values. Compose sets `DATABASE_URL` and `NEXT_PUBLIC_URL` by default.
 
 ## Project Structure
 

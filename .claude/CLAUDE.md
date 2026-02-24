@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is the **Better-Stach** (Next.js Better Stack Monorepo) project.
+This is the **Better-Stack** (Next.js Better Stack Monorepo) project.
 It is a modern full-stack web application built with Next.js 16, Better Auth, and Drizzle ORM. 
 INSERT SHORT GUIDING PRINCIPES HERE FOR YOUR PROJECT
 Example:
@@ -28,7 +28,7 @@ When analyzing large codebases or multiple files that might exceed context limit
 - Large log files or build artifacts
 
 ### READ THESE FILES FOR CONTEXT:
-- `apps/web-app/package.json`
+- `apps/web-app/package.json` All project bash commands
 - `packages/database/src/schemas.ts` (Database definitions)
 - `.cursor/rules/main-project-guidelines.mdc` (Detailed patterns)
 - `apps/web-app/lib/config/featureToggles.ts` (Routes configuration)
@@ -39,20 +39,21 @@ When analyzing large codebases or multiple files that might exceed context limit
 - **Monorepo Structure:**
   - `apps/web-app`: Main Next.js application
   - `packages/database`: Shared database schema, repositories and configurations
-  - `packages/services`: Business logic service layer
+  - `packages/services`: Shared business logic service layer
 - **Domain-Driven Design:**
-  - `lib/services/`: Business logic (e.g., `companyService.ts`)
-  - `lib/repositories/`: Data access layer (in `packages/database` or `lib`)
-  - `lib/validators/`: Centralized Zod schemas
+  - `apps/<app-name>/lib/services/`: App specifc Business logic (e.g., `companyService.ts`)
+  - `packages/database/src/repositories/`: Data access layer (in `packages/database` or `lib`)
+  - `apps/<app-name>/lib/validators/`: Centralized Zod schemas
 - **Server Communication:**
-  - **Server Actions:** Located in `actions/`, must use `secureFetch`.
-  - **API Routes:** Located in `app/(routes)/api/core/` and `app/(routes)/api/auth/`.
-  - **Routes Configuration:** Defined in `lib/config/featureToggles.ts` (ApiRoutes/AppRoutes).
+  - **Server Actions:** Located in `apps/<app-name>/actions/`, must use `secureFetch`.
+  - **API Routes:** Located in `apps/<app-name>/app/(routes)/api/core/` and `apps/<app-name>/app/(routes)/api/auth/`.
+  - **Routes Configuration:** Defined in `apps/<app-name>/lib/config/featureToggles.ts` (ApiRoutes/AppRoutes).
 
 ### Key Patterns (Enforced)
 
 1. **Server Communication**:
    - **ALWAYS** use `secureFetch` from `lib/serverUtils.ts` for authenticated calls.
+   - **ALWAYS** use `publicFetch` from `lib/serverUtils.ts` for non-authenticated calls.
    - **NEVER** use magic strings for URLs. Use `ApiRoutes` and `AppRoutes` from `lib/config/featureToggles.ts`.
    - **NEVER** call API routes from any client component, ALWAYS use server actions..
    - **Server Actions** Authenticated user calls must handle API calls via `secureFetch()`.
@@ -77,8 +78,13 @@ When analyzing large codebases or multiple files that might exceed context limit
    - ALWAYS `await params`
    `(req, { params }: { params: Promise<{ companyId: string }> })`.
 
+5. **Middleware**:
+   - Only use middleware for global patterns
+
 
 ## Development Commands
+
+All commands are to be run from the root of the project.
 
 ### Package Management
 ```bash

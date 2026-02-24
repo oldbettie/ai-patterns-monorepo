@@ -1,0 +1,41 @@
+name: Database Migrations
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  migrate:
+    name: Run Database Migrations
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run Migrations (Dev)
+        if: github.ref == 'refs/heads/dev'
+        run: pnpm --filter @better-stack-monorepo/database db:migrate
+        env:
+          DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
+
+      - name: Run Migrations (Prod)
+        if: github.ref == 'refs/heads/main'
+        run: pnpm --filter @better-stack-monorepo/database db:migrate
+        env:
+          DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}

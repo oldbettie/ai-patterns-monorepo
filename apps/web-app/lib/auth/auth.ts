@@ -1,6 +1,7 @@
 import { account, session, user, verification } from '@better-stack-monorepo/database/src/schemas'
 import { db } from '@better-stack-monorepo/database/src/database'
 import { env } from '@/lib/env'
+import { FeatureConfig } from '@/lib/config/featureToggles'
 import { EmailService } from '@/lib/resend/email-service'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
@@ -22,7 +23,7 @@ export const auth = betterAuth({
   baseURL: env.NEXT_PUBLIC_URL,
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
+    requireEmailVerification: FeatureConfig.features.emailVerification,
     resetPasswordTokenExpiresIn: 3600, // 1 hour
     sendResetPassword: async ({
       user,
@@ -50,7 +51,7 @@ export const auth = betterAuth({
         verificationUrl: url,
       })
     },
-    sendOnSignUp: true,
+    sendOnSignUp: FeatureConfig.features.emailVerification,
     autoSignInAfterVerification: true,
     expiresIn: 24 * 60 * 60, // 24 hours
   },

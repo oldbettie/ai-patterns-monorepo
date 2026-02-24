@@ -6,7 +6,7 @@ import EmailVerification from './templates/email-verification'
 import PasswordReset from './templates/password-reset'
 
 export class EmailService {
-  private readonly fromEmail = `noreply@${env.EMAIL_DOMAIN}` // TODO: this might now work
+  private readonly fromEmail = `noreply@${env.FROM_EMAIL}` // TODO: this might now work
 
   constructor(private readonly emailProvider: Resend) {}
 

@@ -34,58 +34,117 @@
   },
   "pages": {
     "landing": {
-      "badge": "Built for AI-assisted development",
+      "badge": "Template Setup Guide",
       "hero": {
-        "title": "AI-Friendly Next.js Template",
-        "subtitle": "Production-ready monorepo with consistent patterns, type safety, and architecture designed for AI agent collaboration.",
-        "learnMore": "Learn about our patterns"
+        "title": "Better Stack Monorepo Template",
+        "subtitle": "Perfect starting point for SaaS applications, dashboards, and full-stack projects. Optimised for AI agent workflows.",
+        "learnMore": "Architecture Patterns"
       },
       "cta": {
         "getStarted": "Get started",
         "signIn": "Sign in"
       },
-      "sections": {
-        "value": {
-          "eyebrow": "Why Our Template",
-          "title": "Fast, secure, and scalable",
-          "subtitle": "Built with modern technologies and best practices for rapid development.",
-          "items": {
-            "patterns": {
-              "title": "Pattern-Driven Architecture",
-              "desc": "Service/Repository pattern, typed APIs, and consistent conventions AI agents understand instantly."
-            },
-            "typeSafety": {
-              "title": "End-to-End Type Safety",
-              "desc": "TypeScript strict mode, Zod validation, and Drizzle ORM ensure zero runtime surprises."
-            },
-            "maintainable": {
-              "title": "Easy to Maintain & Extend",
-              "desc": "Clear layers, testable services, and documented patterns make refactoring trivial."
-            }
-          }
-        },
-        "how": {
-          "eyebrow": "How it works",
-          "title": "Template + Customize + Deploy",
-          "subtitle": "Start with our template, customize to your needs, and deploy to production.",
-          "steps": {
-            "1": "Clone the template with battle-tested patterns built-in",
-            "2": "Extend services following clear, documented conventions",
-            "3": "Deploy with confidence knowing your architecture is solid"
+      "techStack": {
+        "eyebrow": "Built with",
+        "title": "Modern Full-Stack Technology"
+      },
+      "value": {
+        "eyebrow": "Why This Template",
+        "title": "Fast, secure, and scalable",
+        "subtitle": "Built with modern technologies and best practices for rapid development.",
+        "items": {
+          "patterns": {
+            "title": "Pattern-Driven Architecture",
+            "desc": "Service/Repository pattern, typed APIs, and consistent conventions AI agents understand instantly."
+          },
+          "typeSafety": {
+            "title": "End-to-End Type Safety",
+            "desc": "TypeScript strict mode, Zod validation, and Drizzle ORM ensure zero runtime surprises."
+          },
+          "maintainable": {
+            "title": "Easy to Maintain & Extend",
+            "desc": "Clear layers, testable services, and documented patterns make refactoring trivial."
           }
         }
       },
-      "pricing": {
-        "title": "Start building today",
-        "subtitle": "Get access to the complete template and start your project.",
-        "primary": "Create free account",
-        "secondary": "Sign in"
+      "preSteps": {
+        "eyebrow": "Before You Start",
+        "title": "Required Providers",
+        "subtitle": "You'll need a database and email provider before running the setup steps.",
+        "database": {
+          "title": "Database (PostgreSQL)",
+          "desc": "Neon or Supabase are great Postgres providers. You can also run a local database via Docker (free).",
+          "tip": "We recommend a local database for development — it's free."
+        },
+        "email": {
+          "title": "Email Provider",
+          "desc": "Resend is a great email provider.",
+          "tip": "Tip: If you have multiple projects use Gmail with email+project@gmail.com for free accounts."
+        }
+      },
+      "setup": {
+        "eyebrow": "Getting Started",
+        "title": "Setup Steps",
+        "subtitle": "Follow these steps after cloning the template.",
+        "steps": {
+          "1": "Add your intro paragraph to the Claude/Cursor files (CLAUDE.md)",
+          "2": "Have Claude Code set everything up based on this readme, ai files and project structure",
+          "3": "Ensure you have set up providers and .env variables",
+          "4": "Ensure you have set up GitHub secrets if you are using the .github workflows"
+        }
+      },
+      "deployments": {
+        "eyebrow": "Production",
+        "title": "Deployment Providers",
+        "subtitle": "Set up your providers to get this on the internet.",
+        "recommended": "Recommended",
+        "providers": {
+          "railway": {
+            "title": "Railway",
+            "desc": "Great tool for website deployments and advanced features."
+          },
+          "neon": {
+            "title": "Neon",
+            "desc": "Cheap serverless database provider."
+          },
+          "resend": {
+            "title": "Resend",
+            "desc": "Your email SMTP provider."
+          },
+          "vercel": {
+            "title": "Vercel",
+            "desc": "Great for weekend projects, can get expensive at scale."
+          },
+          "supabase": {
+            "title": "Supabase",
+            "desc": "Another great database provider with optional features."
+          }
+        }
+      },
+      "advanced": {
+        "eyebrow": "Going Further",
+        "title": "Advanced Features",
+        "subtitle": "Optional enhancements to explore once your project is running.",
+        "items": {
+          "i18n": {
+            "title": "Internationalisation (i18n)",
+            "desc": "Offer your product in multiple languages using the built-in next-intl setup."
+          },
+          "analytics": {
+            "title": "Mixpanel Analytics",
+            "desc": "Advanced analytics once you have real users."
+          },
+          "oauth": {
+            "title": "OAuth & BetterAuth Plugins",
+            "desc": "Add social login (Google, GitHub) and other auth plugins."
+          }
+        }
       },
       "footer": {
-        "brand": "SaaS Template",
+        "brand": "Better Stack Template",
         "login": "Login",
         "signup": "Sign Up",
-        "whyLink": "Why patterns matter"
+        "whyLink": "Architecture Patterns"
       }
     },
     "why": {
