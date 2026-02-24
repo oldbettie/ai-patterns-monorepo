@@ -60,6 +60,7 @@
     "zod": "^4.0.5"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "24.0.13",
     "@types/react-signature-canvas": "^1.0.7",
     "@types/uuid": "^11.0.0",
