@@ -140,6 +140,28 @@
           }
         }
       },
+      "aiStrategy": {
+        "eyebrow": "AI-First Development",
+        "title": "Built for AI Agent Workflows",
+        "subtitle": "A structured tagging and skills system that helps Claude navigate, understand, and extend your codebase with precision.",
+        "items": {
+          "tags": {
+            "tag": "// @feature:* @domain:* @backend",
+            "title": "AI Code Tags",
+            "desc": "Annotate source files with structured tags so Claude can instantly find relevant code by feature, domain, and layer — no more broad keyword searches."
+          },
+          "skills": {
+            "tag": ".claude/skills/tag-search/",
+            "title": "Project Skills",
+            "desc": "Store custom skills in .claude/skills/ to encode project-specific search strategies, conventions, and workflows that persist across every session."
+          },
+          "context": {
+            "tag": ".claude/CLAUDE.md",
+            "title": "Machine-Readable Context",
+            "desc": "CLAUDE.md gives every AI session instant knowledge of your architecture, patterns, commands, and rules — no ramp-up time required."
+          }
+        }
+      },
       "footer": {
         "brand": "Better Stack Template",
         "login": "Login",

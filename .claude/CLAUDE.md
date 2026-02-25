@@ -8,14 +8,6 @@ INSERT SHORT GUIDING PRINCIPES HERE FOR YOUR PROJECT
 Example:
 We create modern easy to use templates for better DX when creating new software projects efficiently
 
-### Technology Stack
-- **Frontend:** Next.js 16 (App Router), Tailwind CSS v4, React 19, Radix UI/Shadcn
-- **Backend:** Next.js Server Actions, Route Handlers (API)
-- **Database:** Drizzle ORM (PostgreSQL), `packages/database`
-- **Authentication:** Better Auth
-- **Validation:** Zod, React Hook Form
-- **Testing:** Vitest
-
 ## Critical File Reading Guidelines
 
 When analyzing large codebases or multiple files that might exceed context limits, use the Gemini CLI & MCP with its massive context window.
@@ -111,14 +103,6 @@ pnpm test          # Run Vitest
 pnpm lint          # Run ESLint
 pnpm type-check    # Run TypeScript check
 ```
-
-## MCP Instructions
-
-### Gemini MCP
-Use `gemini -p` when:
-- Analyzing multiple files or large directories.
-- Need project-wide context.
-- Verifying patterns across the codebase.
 
 ## Important Notes
 - **Server Components:** Default to Server Components and always use server pages with data requests. Add `'use client'` only when necessary and never call api routes from the client directly.

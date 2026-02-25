@@ -140,6 +140,28 @@
           }
         }
       },
+      "aiStrategy": {
+        "eyebrow": "AIファースト開発",
+        "title": "AIエージェントワークフローのために設計",
+        "subtitle": "構造化されたタグとスキルシステムにより、Claudeがコードベースを正確にナビゲート・理解・拡張できます。",
+        "items": {
+          "tags": {
+            "tag": "// @feature:* @domain:* @backend",
+            "title": "AIコードタグ",
+            "desc": "ソースファイルに構造化タグを付けることで、Claudeが機能・ドメイン・レイヤーごとに関連コードを即座に発見できます。"
+          },
+          "skills": {
+            "tag": ".claude/skills/tag-search/",
+            "title": "プロジェクトスキル",
+            "desc": ".claude/skills/にカスタムスキルを保存することで、プロジェクト固有の検索戦略・規約・ワークフローをセッションをまたいで永続化できます。"
+          },
+          "context": {
+            "tag": ".claude/CLAUDE.md",
+            "title": "機械可読コンテキスト",
+            "desc": "CLAUDE.mdにより、すべてのAIセッションがアーキテクチャ・パターン・コマンド・ルールを即座に把握できます。準備時間は不要です。"
+          }
+        }
+      },
       "footer": {
         "brand": "Better Stack テンプレート",
         "login": "ログイン",

@@ -6,6 +6,7 @@ import { SetupStepsSection } from './SetupStepsSection'
 import { PreSetupSection } from './PreSetupSection'
 import { DeploymentProvidersSection } from './DeploymentProvidersSection'
 import { AdvancedFeaturesSection } from './AdvancedFeaturesSection'
+import { AiStrategySection } from './AiStrategySection'
 import { LandingFooter } from './LandingFooter'
 
 export async function LandingPage() {
@@ -19,6 +20,7 @@ export async function LandingPage() {
       <PreSetupSection />
       <DeploymentProvidersSection />
       <AdvancedFeaturesSection />
+      <AiStrategySection />
       <LandingFooter />
     </main>
   )
