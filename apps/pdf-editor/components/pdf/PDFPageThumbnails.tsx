@@ -3,9 +3,7 @@
 // @summary: Left sidebar with drag-to-reorder page thumbnails and add-blank-page button
 
 import { useEffect, useRef, useState } from 'react'
-import { Document, Page } from 'react-pdf'
-import 'react-pdf/dist/Page/AnnotationLayer.css'
-import 'react-pdf/dist/Page/TextLayer.css'
+import { Page } from 'react-pdf'
 import {
   DndContext,
   closestCenter,
@@ -26,7 +24,6 @@ import { CSS } from '@dnd-kit/utilities'
 import { GripVertical, Plus } from 'lucide-react'
 
 interface PDFPageThumbnailsProps {
-  pdfBytes: Uint8Array
   pageOrder: number[]          // visual position → original page index
   activePage: number           // visual position of active page
   onPageClick: (visualPos: number) => void
@@ -110,7 +107,6 @@ function ThumbnailPreview({ visualPos }: { visualPos: number }) {
 }
 
 export function PDFPageThumbnails({
-  pdfBytes,
   pageOrder,
   activePage,
   onPageClick,
@@ -119,16 +115,6 @@ export function PDFPageThumbnails({
 }: PDFPageThumbnailsProps) {
   const thumbRefs = useRef<(HTMLDivElement | null)[]>([])
   const [activeId, setActiveId] = useState<string | null>(null)
-
-  // Only create a new file object when pdfBytes reference changes (new content).
-  // useRef is immune to Strict Mode's memo-invalidation, preventing spurious reloads.
-  const fileRef = useRef<{ data: Uint8Array } | null>(null)
-  const prevPdfBytesRef = useRef<Uint8Array | null>(null)
-  if (pdfBytes !== prevPdfBytesRef.current) {
-    prevPdfBytesRef.current = pdfBytes
-    fileRef.current = { data: pdfBytes.slice() }
-  }
-  const file = fileRef.current!
 
   // Scroll active thumbnail into view
   useEffect(() => {
@@ -163,36 +149,34 @@ export function PDFPageThumbnails({
 
   return (
     <div className="w-[152px] flex-shrink-0 overflow-y-auto border-r border-border bg-background flex flex-col gap-2 py-2 px-2">
-      <Document file={file} loading={null} error={null}>
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-        >
-          <SortableContext items={sortableIds} strategy={verticalListSortingStrategy}>
-            <div className="flex flex-col gap-2">
-              {pageOrder.map((originalPageIdx, visualPos) => (
-                <SortableThumbnailItem
-                  key={`page-${originalPageIdx}`}
-                  id={`page-${originalPageIdx}`}
-                  originalPageIdx={originalPageIdx}
-                  visualPos={visualPos}
-                  isActive={activePage === visualPos}
-                  onClick={() => onPageClick(visualPos)}
-                  thumbRef={el => { thumbRefs.current[visualPos] = el }}
-                />
-              ))}
-            </div>
-          </SortableContext>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={sortableIds} strategy={verticalListSortingStrategy}>
+          <div className="flex flex-col gap-2">
+            {pageOrder.map((originalPageIdx, visualPos) => (
+              <SortableThumbnailItem
+                key={`page-${originalPageIdx}`}
+                id={`page-${originalPageIdx}`}
+                originalPageIdx={originalPageIdx}
+                visualPos={visualPos}
+                isActive={activePage === visualPos}
+                onClick={() => onPageClick(visualPos)}
+                thumbRef={el => { thumbRefs.current[visualPos] = el }}
+              />
+            ))}
+          </div>
+        </SortableContext>
 
-          <DragOverlay>
-            {activeVisualPos >= 0 ? (
-              <ThumbnailPreview visualPos={activeVisualPos} />
-            ) : null}
-          </DragOverlay>
-        </DndContext>
-      </Document>
+        <DragOverlay>
+          {activeVisualPos >= 0 ? (
+            <ThumbnailPreview visualPos={activeVisualPos} />
+          ) : null}
+        </DragOverlay>
+      </DndContext>
 
       <button
         onClick={onAddPage}
