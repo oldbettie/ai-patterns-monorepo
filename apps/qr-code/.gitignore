@@ -1,0 +1,52 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.pnpm-store
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env
+.env*.local
+.env.docker
+
+# vercel
+.vercel
+
+# Turborepo
+.turbo
+
+# typescript
+*.tsbuildinfo
+
+.vscode
+
+# WebStorm - exclude user-specific files but keep team configuration
+.idea/*
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+!.idea/jsLinters/
+!.idea/prettier.xml
+!.idea/saveactions_settings.xml
+!.idea/WEBSTORM_SETUP.md

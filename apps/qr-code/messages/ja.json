@@ -1,0 +1,185 @@
+{
+  "common": {
+    "language": "言語",
+    "english": "英語",
+    "japanese": "日本語",
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "continue": "続行",
+    "cancel": "キャンセル",
+    "submit": "送信",
+    "back": "戻る",
+    "next": "次へ",
+    "save": "保存",
+    "name": "名前",
+    "email": "メール",
+    "password": "パスワード",
+    "yes": "はい",
+    "no": "いいえ"
+  },
+  "components": {
+    "languageSelector": {
+      "language": "言語"
+    },
+    "authStatus": {
+      "authenticationStatus": "認証状態",
+      "loggedIn": "サインイン済み",
+      "loggedOut": "サインアウト済み",
+      "login": "サインイン",
+      "logout": "サインアウト",
+      "signup": "サインアップ",
+      "profile": "プロフィール",
+      "donate": "寄付する",
+      "verified": "認証済み"
+    },
+    "appNav": {
+      "openGenerator": "ジェネレーターを開く"
+    }
+  },
+  "pages": {
+    "generate": {
+      "title": "QRコードジェネレーター",
+      "subtitle": "任意のコンテンツタイプのQRコードを生成",
+      "urlLabel": "URLまたはリンク",
+      "urlPlaceholder": "https://example.com",
+      "typeSelector": {
+        "label": "QRコードタイプ",
+        "url": "URL",
+        "wifi": "WiFi",
+        "vcard": "連絡先（vCard）",
+        "sms": "SMS",
+        "email": "メール",
+        "text": "プレーンテキスト"
+      },
+      "customise": {
+        "label": "カスタマイズ",
+        "fgColor": "前景色",
+        "bgColor": "背景色",
+        "dotStyle": "ドットスタイル",
+        "dotStyleSquare": "四角",
+        "dotStyleRounded": "丸角",
+        "dotStyleDots": "ドット"
+      },
+      "download": {
+        "png": "PNGをダウンロード",
+        "svg": "SVGをダウンロード",
+        "print": "印刷"
+      },
+      "save": "QRコードを保存",
+      "saving": "保存中..."
+    },
+    "history": {
+      "title": "保存されたQRコード",
+      "empty": "保存されたQRコードはまだありません",
+      "emptySubtitle": "QRコードを生成して保存するとここに表示されます",
+      "rename": "名前を変更",
+      "delete": "削除",
+      "load": "読み込む"
+    },
+    "profile": {
+      "title": "プロフィール",
+      "membership": "メンバーシップ",
+      "supporter": "サポーター",
+      "supporterPlus": "サポータープラス",
+      "supporterPro": "サポータープロ",
+      "free": "無料",
+      "expires": "有効期限: {date}",
+      "donate": "Quick QR をサポートする"
+    },
+    "donate": {
+      "title": "Quick QRを支援する",
+      "subtitle": "あなたの寄付がこのツールを無料でプライベートに保ちます",
+      "alreadyDonor": "あなたはすでにサポーターです。ありがとうございます！",
+      "amount": "寄付金額",
+      "donate": "寄付する",
+      "processing": "処理中...",
+      "offlineMessage": "寄付にはインターネット接続が必要です。",
+      "success": {
+        "title": "ありがとうございます！",
+        "message": "広告なしの体験をお楽しみください。",
+        "backToDashboard": "ジェネレーターに戻る"
+      }
+    },
+    "login": {
+      "title": "アカウントにサインイン",
+      "loginButton": "サインイン",
+      "forgotPassword": "パスワードをお忘れですか？",
+      "dontHaveAccount": "アカウントをお持ちでない方",
+      "signUpInstead": "サインアップ",
+      "emailPlaceholder": "メールアドレスを入力",
+      "passwordPlaceholder": "パスワードを入力"
+    },
+    "signup": {
+      "title": "アカウントを作成",
+      "signupButton": "サインアップ",
+      "alreadyHaveAccount": "既にアカウントをお持ちですか？",
+      "signInInstead": "サインイン",
+      "namePlaceholder": "名前を入力",
+      "emailPlaceholder": "メールアドレスを入力",
+      "passwordPlaceholder": "パスワードを作成"
+    },
+    "forgotPassword": {
+      "title": "パスワードをリセット",
+      "description": "メールアドレスを入力すると、パスワードリセット用のリンクをお送りします。",
+      "sendResetLink": "リセットリンクを送信",
+      "emailSent": "メールを送信しました！受信箱の指示をご確認ください。",
+      "backToLogin": "ログインに戻る",
+      "checkEmail": "リセットリンクのメールをご確認ください。見つからない場合は、迷惑メールフォルダもご確認ください。",
+      "emailLabel": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力"
+    },
+    "resetPassword": {
+      "title": "パスワードリセット",
+      "description": "新しいパスワードを入力してください",
+      "newPassword": "新しいパスワード",
+      "confirmPassword": "パスワード確認",
+      "resetButton": "パスワードリセット",
+      "passwordResetSuccess": "パスワードが正常にリセットされました！",
+      "invalidResetLink": "無効なリセットリンクです。新しいパスワードリセットをリクエストしてください。",
+      "requestNewResetLink": "新しいリセットリンクをリクエスト",
+      "passwordMismatch": "パスワードが一致しません",
+      "passwordTooShort": "パスワードは8文字以上である必要があります",
+      "resettingPassword": "パスワードをリセット中...",
+      "backToLogin": "サインインに戻る",
+      "newPasswordPlaceholder": "新しいパスワードを入力",
+      "confirmPasswordPlaceholder": "パスワードを確認",
+      "passwordRequirement": "パスワードは8文字以上である必要があります",
+      "signInWithNewPassword": "新しいパスワードでサインイン",
+      "passwordUpdated": "パスワードが更新されました。新しいパスワードでサインインできます。"
+    },
+    "verifyEmail": {
+      "title": "メールを確認",
+      "description": "確認リンクが含まれたメールをお送りしました。受信箱をご確認の上、リンクをクリックしてメールアドレスを確認してください。",
+      "checkEmail": "メールを確認",
+      "emailVerified": "メールが正常に確認されました！",
+      "invalidToken": "無効または期限切れのトークンです",
+      "resendEmail": "メールを再送信",
+      "checkEmailTitle": "メールを確認",
+      "emailSentTo": "確認リンクを送信しました：",
+      "clickLinkInstructions": "メール内のリンクをクリックしてアカウントを確認してください。メールが見つからない場合は、迷惑メールフォルダもご確認ください。",
+      "resendVerificationEmail": "確認メールを再送信",
+      "verificationEmailSent": "確認メールを送信しました！受信箱をご確認ください。",
+      "backToLogin": "サインインに戻る",
+      "sending": "送信中...",
+      "resendIn": "再送信まで",
+      "verifyingEmail": "メールを確認中...",
+      "pleaseWait": "メールアドレスを確認中です。しばらくお待ちください。",
+      "verificationFailed": "確認に失敗しました",
+      "emailVerificationCompletedButLoginFailed": "メール確認は完了しましたが、自動ログインに失敗しました。手動でサインインしてください。",
+      "unexpectedErrorDuringVerification": "確認中に予期しないエラーが発生しました",
+      "emailVerifiedSuccessfully": "メールが正常に確認されました！",
+      "accountVerifiedRedirect": "アカウントが確認されました。ログイン済みです。まもなくリダイレクトします。",
+      "continueToDashboard": "ジェネレーターに続行"
+    }
+  },
+  "errors": {
+    "somethingWentWrong": "問題が発生しました",
+    "tryAgain": "もう一度お試しください",
+    "invalidCredentials": "無効な認証情報",
+    "emailRequired": "メールアドレスが必要です",
+    "passwordRequired": "パスワードが必要です",
+    "passwordTooShort": "パスワードは8文字以上である必要があります",
+    "emailInvalid": "有効なメールアドレスを入力してください"
+  }
+}
