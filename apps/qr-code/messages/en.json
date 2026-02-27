@@ -1,0 +1,185 @@
+{
+  "common": {
+    "language": "Language",
+    "english": "English",
+    "japanese": "Japanese",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "continue": "Continue",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "save": "Save",
+    "name": "Full name",
+    "email": "Email",
+    "password": "Password",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "components": {
+    "languageSelector": {
+      "language": "Language"
+    },
+    "authStatus": {
+      "authenticationStatus": "Authentication Status",
+      "loggedIn": "You are signed in",
+      "loggedOut": "You are not signed in",
+      "login": "Sign In",
+      "logout": "Sign Out",
+      "signup": "Sign Up",
+      "profile": "Profile",
+      "donate": "Donate",
+      "verified": "Verified"
+    },
+    "appNav": {
+      "openGenerator": "Open Generator"
+    }
+  },
+  "pages": {
+    "generate": {
+      "title": "QR Code Generator",
+      "subtitle": "Generate a QR code for any content type",
+      "urlLabel": "URL or link",
+      "urlPlaceholder": "https://example.com",
+      "typeSelector": {
+        "label": "QR code type",
+        "url": "URL",
+        "wifi": "WiFi",
+        "vcard": "Contact (vCard)",
+        "sms": "SMS",
+        "email": "Email",
+        "text": "Plain Text"
+      },
+      "customise": {
+        "label": "Customise",
+        "fgColor": "Foreground colour",
+        "bgColor": "Background colour",
+        "dotStyle": "Dot style",
+        "dotStyleSquare": "Square",
+        "dotStyleRounded": "Rounded",
+        "dotStyleDots": "Dots"
+      },
+      "download": {
+        "png": "Download PNG",
+        "svg": "Download SVG",
+        "print": "Print"
+      },
+      "save": "Save QR Code",
+      "saving": "Saving..."
+    },
+    "history": {
+      "title": "Saved QR Codes",
+      "empty": "No saved QR codes yet",
+      "emptySubtitle": "Generate and save a QR code to see it here",
+      "rename": "Rename",
+      "delete": "Delete",
+      "load": "Load"
+    },
+    "profile": {
+      "title": "Profile",
+      "membership": "Membership",
+      "supporter": "Supporter",
+      "supporterPlus": "Supporter Plus",
+      "supporterPro": "Supporter Pro",
+      "free": "Free",
+      "expires": "Expires {date}",
+      "donate": "Support Quick QR"
+    },
+    "donate": {
+      "title": "Support Quick QR",
+      "subtitle": "Your donation keeps this tool free and private",
+      "alreadyDonor": "You are already a supporter. Thank you!",
+      "amount": "Donation amount",
+      "donate": "Donate",
+      "processing": "Processing...",
+      "offlineMessage": "An internet connection is required to donate.",
+      "success": {
+        "title": "Thank you!",
+        "message": "You now have an ad-free experience.",
+        "backToDashboard": "Back to Generator"
+      }
+    },
+    "login": {
+      "title": "Sign in to your account",
+      "loginButton": "Sign in",
+      "forgotPassword": "Forgot Password?",
+      "dontHaveAccount": "Don't have an account?",
+      "signUpInstead": "Sign up instead",
+      "emailPlaceholder": "Enter your email",
+      "passwordPlaceholder": "Enter your password"
+    },
+    "signup": {
+      "title": "Create your account",
+      "signupButton": "Sign up",
+      "alreadyHaveAccount": "Already have an account?",
+      "signInInstead": "Sign in instead",
+      "namePlaceholder": "Enter your full name",
+      "emailPlaceholder": "Enter your email",
+      "passwordPlaceholder": "Create a password"
+    },
+    "forgotPassword": {
+      "title": "Reset your password",
+      "description": "Enter your email address and we'll send you a link to reset your password.",
+      "sendResetLink": "Send Reset Link",
+      "emailSent": "Email sent! Check your inbox for instructions.",
+      "backToLogin": "Back to login",
+      "checkEmail": "Check your email for the reset link. If you don't see it, check your spam folder.",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "Enter your email address"
+    },
+    "resetPassword": {
+      "title": "Reset Password",
+      "description": "Enter your new password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "resetButton": "Reset Password",
+      "passwordResetSuccess": "Password reset successfully!",
+      "invalidResetLink": "Invalid reset link. Please request a new password reset.",
+      "requestNewResetLink": "Request new reset link",
+      "passwordMismatch": "Passwords don't match",
+      "passwordTooShort": "Password must be at least 8 characters long",
+      "resettingPassword": "Resetting password...",
+      "backToLogin": "Back to sign in",
+      "newPasswordPlaceholder": "Enter your new password",
+      "confirmPasswordPlaceholder": "Confirm your new password",
+      "passwordRequirement": "Password must be at least 8 characters long",
+      "signInWithNewPassword": "Sign in with new password",
+      "passwordUpdated": "Your password has been updated. You can now sign in with your new password."
+    },
+    "verifyEmail": {
+      "title": "Verify your email",
+      "description": "We sent you an email with a verification link. Please check your inbox and click the link to verify your email address.",
+      "checkEmail": "Check your email",
+      "emailVerified": "Email verified successfully!",
+      "invalidToken": "Invalid or expired token",
+      "resendEmail": "Resend email",
+      "checkEmailTitle": "Check your email",
+      "emailSentTo": "We've sent a verification link to",
+      "clickLinkInstructions": "Click the link in the email to verify your account. If you don't see the email, check your spam folder.",
+      "resendVerificationEmail": "Resend verification email",
+      "verificationEmailSent": "Verification email sent! Please check your inbox.",
+      "backToLogin": "Back to sign in",
+      "sending": "Sending...",
+      "resendIn": "Resend in",
+      "verifyingEmail": "Verifying your email...",
+      "pleaseWait": "Please wait while we verify your email address.",
+      "verificationFailed": "Verification failed",
+      "emailVerificationCompletedButLoginFailed": "Email verification completed, but automatic login failed. Please try signing in manually.",
+      "unexpectedErrorDuringVerification": "An unexpected error occurred during verification",
+      "emailVerifiedSuccessfully": "Email verified successfully!",
+      "accountVerifiedRedirect": "Your account has been verified. You're now logged in and will be redirected shortly.",
+      "continueToDashboard": "Continue to generator"
+    }
+  },
+  "errors": {
+    "somethingWentWrong": "Something went wrong",
+    "tryAgain": "Please try again",
+    "invalidCredentials": "Invalid credentials",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "passwordTooShort": "Password must be at least 8 characters",
+    "emailInvalid": "Please enter a valid email address"
+  }
+}

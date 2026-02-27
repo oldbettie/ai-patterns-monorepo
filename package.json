@@ -1,15 +1,17 @@
 {
-  "name": "quick-pdfs",
+  "name": "better-stack-monorepo",
   "version": "1.0.0",
   "private": true,
-  "description": "Quick PDFs - Modern PDF editing and management platform",
+  "description": "Monorepo template for Next.js and Drizzle, Better-auth, and Tailwind",
   "scripts": {
     "build": "pnpm -r build",
     "dev": "pnpm -r dev",
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
-    "web:build": "pnpm --filter web-app build",
-    "web:dev": "pnpm --filter web-app dev",
+    "pdf:build": "pnpm --filter pdf-editor build",
+    "pdf:dev": "pnpm --filter pdf-editor dev",
+    "qr:build": "pnpm --filter qr-code build",
+    "qr:dev": "pnpm --filter qr-code dev",
     "db:generate": "cd packages/database && pnpm db:generate",
     "db:migrate": "cd packages/database && pnpm db:migrate",
     "db:studio": "cd packages/database && pnpm db:studio"

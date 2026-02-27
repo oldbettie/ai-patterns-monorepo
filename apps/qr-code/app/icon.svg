@@ -1,0 +1,17 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main Document Shape -->
+  <path d="M6 4C6 2.89543 6.89543 2 8 2H20L26 8V28C26 29.1046 25.1046 30 24 30H8C6.89543 30 6 29.1046 6 28V4Z" fill="#FF4B4B"/>
+  
+  <!-- Top Corner Fold (Dog-ear) -->
+  <path d="M20 2V8H26L20 2Z" fill="#D22F2F"/>
+
+  <!-- PDF Text (Bold and Legible) -->
+  <text x="16" y="20" font-family="Arial, sans-serif" font-weight="900" font-size="7" fill="white" text-anchor="middle">PDF</text>
+
+  <!-- Editing Pen (Bottom Right) -->
+  <!-- White border around pen for contrast -->
+  <circle cx="24" cy="24" r="6" fill="white"/>
+  <g transform="translate(20, 20) scale(0.4)">
+    <path d="M21.75 2.25a3.18 3.18 0 014.5 4.5L10.5 22.5 3 27l4.5-7.5L21.75 2.25z" fill="#4B56D2"/>
+  </g>
+</svg>

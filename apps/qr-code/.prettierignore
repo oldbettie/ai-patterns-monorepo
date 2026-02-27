@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Build outputs
+.next/
+dist/
+build/
+out/
+
+# Database migrations (auto-generated)
+lib/drizzle/migrations/
+**/migrations/**/*.sql
+**/migrations/meta/
+
+# Generated files
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# Config files that should keep their format
+.prettierrc
+docker-compose.yml
+*.env*
+
+# Documentation (often has specific formatting)
+README.md
+CHANGELOG.md
+*.md
+
+# Public assets
+public/
+
+# Test coverage
+coverage/

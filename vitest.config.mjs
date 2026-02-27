@@ -8,7 +8,7 @@ export default defineConfig({
   test: {
     environment: 'node',
     globals: true,
-    setupFiles: ['./apps/web-app/tests/setup.ts'],
+    setupFiles: ['./apps/pdf-editor/tests/setup.ts'],
     include: [
       'apps/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}',
       'packages/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'
@@ -24,10 +24,10 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'apps/web-app'),
+      '@': path.resolve(__dirname, 'apps/pdf-editor'),
       '@quick-pdfs/common': path.resolve(__dirname, 'packages/common/src'),
       '@quick-pdfs/database': path.resolve(__dirname, 'packages/database'),
-      'server-only': path.resolve(__dirname, 'apps/web-app/tests/__mocks__/server-only.ts'),
+      'server-only': path.resolve(__dirname, 'apps/pdf-editor/tests/__mocks__/server-only.ts'),
     },
   },
   esbuild: {
