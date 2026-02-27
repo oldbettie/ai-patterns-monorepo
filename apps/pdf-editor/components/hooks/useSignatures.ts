@@ -31,14 +31,9 @@ export function useSignatures(editor: Editor) {
   // Load signature images for placed signatures not yet in cache
   useEffect(() => {
     const loadImages = async () => {
-      let missingIds: string[] = []
-
-      setSignatureImages(prevImages => {
-        missingIds = editor.signatureElements
-          .map(sig => sig.signatureId)
-          .filter(id => !prevImages.has(id))
-        return prevImages
-      })
+      const missingIds = editor.signatureElements
+        .map(sig => sig.signatureId)
+        .filter(id => !signatureImages.has(id))
 
       if (missingIds.length === 0) return
 
@@ -62,7 +57,7 @@ export function useSignatures(editor: Editor) {
       })
     }
     loadImages()
-  }, [editor.signatureElements, getSignature])
+  }, [editor.signatureElements, getSignature, signatureImages])
 
   // Place the most recent stored signature at a canvas position, or open modal if none exist
   const handlePlaceAt = useCallback((x: number, y: number, pageIndex: number) => {
