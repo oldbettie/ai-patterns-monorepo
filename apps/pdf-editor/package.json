@@ -4,7 +4,7 @@
   "description": "Next.js web app",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "node scripts/copy-pdf-worker.js && next dev --turbopack",
     "build": "node scripts/copy-pdf-worker.js && next build",
     "start": "next start",
     "lint": "next lint",
