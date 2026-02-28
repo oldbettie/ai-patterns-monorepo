@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Check, X, ShieldCheck, Zap, WifiOff, CreditCard } from 'lucide-react'
 import { AppRoutes } from '@/lib/config/featureToggles'
+import { useTranslations } from 'next-intl'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -25,109 +26,65 @@ export const metadata: Metadata = {
   },
 }
 
-const comparisonRows = [
-  { feature: 'Price', us: 'Free, always', them: '~$23/month (Pro)', highlight: true },
-  { feature: 'Account required', us: 'Never', them: 'Yes (Adobe ID)', positiveUs: true, negativeForThem: true },
-  { feature: 'Software to install', us: 'None — runs in browser', them: 'Desktop app or extension', positiveUs: true, negativeForThem: true },
-  { feature: 'Add text to PDF', us: 'Yes', them: 'Yes (paid)', positiveUs: true, positiveForThem: false },
-  { feature: 'Sign PDF', us: 'Yes', them: 'Yes (Acrobat Sign, paid)', positiveUs: true, positiveForThem: false },
-  { feature: 'Fill PDF forms', us: 'Yes', them: 'Yes (paid)', positiveUs: true, positiveForThem: false },
-  { feature: 'Files uploaded to server', us: 'Never', them: 'Adobe cloud (always)', highlight: true },
-  { feature: 'Watermark on download', us: 'Never', them: 'No (paid tier)', positiveUs: true, positiveForThem: true },
-  { feature: 'Works offline', us: 'Yes', them: 'Limited', positiveUs: true, positiveForThem: false },
-  { feature: 'Create PDFs from scratch', us: 'Not yet', them: 'Yes', positiveUs: false, positiveForThem: true },
-  { feature: 'OCR (searchable PDF)', us: 'Not yet', them: 'Yes', positiveUs: false, positiveForThem: true },
-  { feature: 'PDF compression', us: 'Not yet', them: 'Yes', positiveUs: false, positiveForThem: true },
-]
-
-const weWin = [
-  {
-    icon: CreditCard,
-    title: 'Free forever',
-    desc: "Adobe charges $22.99/month for Acrobat Pro. SimplifiedPDF covers the most common tasks — add text, sign, fill forms — at no cost, with no trial period.",
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Your files never leave your device',
-    desc: 'Adobe uploads files to its cloud to process them. SimplifiedPDF runs entirely in your browser — your PDF is never transmitted to any server.',
-  },
-  {
-    icon: Zap,
-    title: 'No Adobe ID required',
-    desc: 'Adobe requires you to create an account before you can do anything. SimplifiedPDF lets you open and edit a PDF in seconds with no signup.',
-  },
-  {
-    icon: WifiOff,
-    title: 'Works without installing anything',
-    desc: 'Acrobat requires a desktop app or browser extension. SimplifiedPDF runs in any modern browser with no installation.',
-  },
-]
-
-const theyWin = [
-  {
-    title: 'Create PDFs from other file types',
-    desc: 'Adobe can convert Word, Excel, and image files into PDF. SimplifiedPDF currently only edits existing PDFs.',
-  },
-  {
-    title: 'OCR — make scanned PDFs searchable',
-    desc: "Acrobat's OCR technology can recognise text in scanned documents. SimplifiedPDF does not currently offer this.",
-  },
-  {
-    title: 'PDF compression and file size reduction',
-    desc: 'Adobe can significantly compress PDFs for sending. SimplifiedPDF does not currently offer compression.',
-  },
-  {
-    title: 'Advanced redaction and security',
-    desc: 'Adobe Pro offers document redaction and encryption. SimplifiedPDF is focused on basic editing and signing.',
-  },
-]
-
-const faqs = [
-  {
-    q: 'Can SimplifiedPDF replace Adobe Acrobat?',
-    a: 'For most everyday tasks — adding text, filling forms, signing documents — yes. SimplifiedPDF handles these for free, with no subscription and no software. If you need advanced features like OCR, PDF creation from other file types, or professional redaction, Adobe Acrobat remains the more complete tool.',
-  },
-  {
-    q: 'Is SimplifiedPDF really free, or does it have a free tier like Adobe?',
-    a: "Completely free. There's no free tier that limits downloads or adds watermarks. The core features — add text, sign, fill forms, download — are free forever with no strings attached.",
-  },
-  {
-    q: 'Does SimplifiedPDF upload my PDFs to a server like Adobe does?',
-    a: 'No. SimplifiedPDF runs entirely inside your browser. Your PDF files are processed locally on your device and are never sent to our servers. Adobe Acrobat, by contrast, uploads files to Adobe\'s cloud infrastructure.',
-  },
-  {
-    q: 'Can I sign a PDF for free with SimplifiedPDF?',
-    a: "Yes. Draw your signature, place it on the document, and download the signed PDF — all for free. Adobe's e-signing features require an Acrobat subscription or a separate Adobe Sign plan.",
-  },
-  {
-    q: 'Does SimplifiedPDF work on Mac and Windows?',
-    a: 'Yes. Because it runs in your browser, SimplifiedPDF works on any operating system — Mac, Windows, Linux, iOS, or Android.',
-  },
-]
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'SoftwareApplication',
-      name: 'SimplifiedPDF',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Any (Web Browser)',
-      url: 'https://www.simplifiedpdf.com',
-      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-    },
-    {
-      '@type': 'FAQPage',
-      mainEntity: faqs.map((faq) => ({
-        '@type': 'Question',
-        name: faq.q,
-        acceptedAnswer: { '@type': 'Answer', text: faq.a },
-      })),
-    },
-  ],
-}
-
 export default function AdobeAcrobatAlternativePage() {
+  const t = useTranslations('pages.alternatives.adobeAcrobat')
+
+  const comparisonRows = [
+    { feature: t('row1Feature'), us: t('row1Us'), them: t('row1Them'), highlight: true },
+    { feature: t('row2Feature'), us: t('row2Us'), them: t('row2Them'), positiveUs: true, negativeForThem: true },
+    { feature: t('row3Feature'), us: t('row3Us'), them: t('row3Them'), positiveUs: true, negativeForThem: true },
+    { feature: t('row4Feature'), us: t('row4Us'), them: t('row4Them'), positiveUs: true, positiveForThem: false },
+    { feature: t('row5Feature'), us: t('row5Us'), them: t('row5Them'), positiveUs: true, positiveForThem: false },
+    { feature: t('row6Feature'), us: t('row6Us'), them: t('row6Them'), positiveUs: true, positiveForThem: false },
+    { feature: t('row7Feature'), us: t('row7Us'), them: t('row7Them'), highlight: true },
+    { feature: t('row8Feature'), us: t('row8Us'), them: t('row8Them'), positiveUs: true, positiveForThem: true },
+    { feature: t('row9Feature'), us: t('row9Us'), them: t('row9Them'), positiveUs: true, positiveForThem: false },
+    { feature: t('row10Feature'), us: t('row10Us'), them: t('row10Them'), positiveUs: false, positiveForThem: true },
+    { feature: t('row11Feature'), us: t('row11Us'), them: t('row11Them'), positiveUs: false, positiveForThem: true },
+    { feature: t('row12Feature'), us: t('row12Us'), them: t('row12Them'), positiveUs: false, positiveForThem: true },
+  ]
+
+  const weWin = [
+    { icon: CreditCard, title: t('win1Title'), desc: t('win1Desc') },
+    { icon: ShieldCheck, title: t('win2Title'), desc: t('win2Desc') },
+    { icon: Zap, title: t('win3Title'), desc: t('win3Desc') },
+    { icon: WifiOff, title: t('win4Title'), desc: t('win4Desc') },
+  ]
+
+  const theyWin = [
+    { title: t('limit1Title'), desc: t('limit1Desc') },
+    { title: t('limit2Title'), desc: t('limit2Desc') },
+    { title: t('limit3Title'), desc: t('limit3Desc') },
+    { title: t('limit4Title'), desc: t('limit4Desc') },
+  ]
+
+  const faqs = Array.from({ length: 5 }, (_, i) => ({
+    q: t(`faq_q${i + 1}`),
+    a: t(`faq_a${i + 1}`),
+  }))
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'SoftwareApplication',
+        name: 'SimplifiedPDF',
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'Any (Web Browser)',
+        url: 'https://www.simplifiedpdf.com',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.q,
+          acceptedAnswer: { '@type': 'Answer', text: faq.a },
+        })),
+      },
+    ],
+  }
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -135,24 +92,23 @@ export default function AdobeAcrobatAlternativePage() {
       {/* Hero */}
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-4xl text-center">
-          <span className="text-primary font-medium tracking-wide text-sm uppercase">Adobe Acrobat Alternative</span>
+          <span className="text-primary font-medium tracking-wide text-sm uppercase">{t('heroEyebrow')}</span>
           <h1 className="font-display text-5xl md:text-6xl text-foreground mt-4 mb-6">
-            The Free Adobe Acrobat Alternative
+            {t('heroHeadline')}
           </h1>
           <p className="text-xl text-muted-foreground mb-4 max-w-2xl mx-auto">
-            Edit PDFs, add text, fill forms, and sign documents — all in your browser, completely free.
-            No subscription. No Adobe ID. No files uploaded to the cloud.
+            {t('heroDescription')}
           </p>
           <p className="text-muted-foreground mb-10 font-medium">
-            Adobe Acrobat Pro costs $22.99/month. SimplifiedPDF costs nothing.
+            {t('heroPriceNote')}
           </p>
           <Link
             href={AppRoutes.editor}
             className="inline-block bg-primary text-primary-foreground text-lg font-medium px-10 py-4 rounded-xl hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-0.5"
           >
-            Try SimplifiedPDF Free
+            {t('heroCta')}
           </Link>
-          <p className="mt-4 text-sm text-muted-foreground">No signup. Your files stay on your device.</p>
+          <p className="mt-4 text-sm text-muted-foreground">{t('heroNote')}</p>
         </div>
       </section>
 
@@ -160,15 +116,15 @@ export default function AdobeAcrobatAlternativePage() {
       <section className="py-24 px-6 bg-card/50">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12">
-            <h2 className="font-display text-4xl md:text-5xl text-foreground">SimplifiedPDF vs. Adobe Acrobat Pro</h2>
+            <h2 className="font-display text-4xl md:text-5xl text-foreground">{t('comparisonTitle')}</h2>
           </div>
           <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-border bg-muted/30">
                   <th className="p-6 font-medium text-muted-foreground w-1/3">Feature</th>
-                  <th className="p-6 font-display text-xl text-primary bg-card border-x border-border w-1/3">SimplifiedPDF</th>
-                  <th className="p-6 font-medium text-muted-foreground w-1/3">Adobe Acrobat Pro</th>
+                  <th className="p-6 font-display text-xl text-primary bg-card border-x border-border w-1/3">{t('comparisonColUs')}</th>
+                  <th className="p-6 font-medium text-muted-foreground w-1/3">{t('comparisonColThem')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -209,7 +165,7 @@ export default function AdobeAcrobatAlternativePage() {
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="font-display text-4xl md:text-5xl text-foreground">What SimplifiedPDF does that Adobe charges for</h2>
+            <h2 className="font-display text-4xl md:text-5xl text-foreground">{t('weWinTitle')}</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {weWin.map((item, i) => (
@@ -229,12 +185,12 @@ export default function AdobeAcrobatAlternativePage() {
       <section className="py-24 px-6 bg-card/50">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-12">
-            <span className="text-amber-500 font-medium tracking-wide text-sm uppercase">Honest limitations</span>
+            <span className="text-amber-500 font-medium tracking-wide text-sm uppercase">{t('theyWinEyebrow')}</span>
             <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">
-              What Adobe does that we don&apos;t (yet)
+              {t('theyWinTitle')}
             </h2>
             <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
-              We believe in honesty. Here are the things Adobe Acrobat can do that SimplifiedPDF currently cannot.
+              {t('theyWinDesc')}
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
@@ -251,8 +207,7 @@ export default function AdobeAcrobatAlternativePage() {
             ))}
           </div>
           <p className="mt-8 text-center text-muted-foreground">
-            If these features are critical for you, Adobe Acrobat Pro may be the better fit.
-            For everyday PDF editing, signing, and form-filling, SimplifiedPDF is a strong free alternative.
+            {t('theyWinNote')}
           </p>
         </div>
       </section>
@@ -260,7 +215,7 @@ export default function AdobeAcrobatAlternativePage() {
       {/* FAQ */}
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-3xl">
-          <h2 className="font-display text-4xl md:text-5xl text-foreground text-center mb-12">Frequently Asked Questions</h2>
+          <h2 className="font-display text-4xl md:text-5xl text-foreground text-center mb-12">{t('faqTitle')}</h2>
           <div className="space-y-4">
             {faqs.map((faq, i) => (
               <div key={i} className="p-6 rounded-xl border border-border bg-card">
@@ -276,18 +231,18 @@ export default function AdobeAcrobatAlternativePage() {
       <section className="py-24 px-6 bg-card/50 text-center">
         <div className="container mx-auto max-w-4xl">
           <h2 className="font-display text-5xl md:text-6xl text-foreground mb-6">
-            Stop paying for Acrobat.
+            {t('finalCtaHeadline')}
           </h2>
           <p className="text-xl text-muted-foreground mb-10">
-            SimplifiedPDF handles everyday PDF editing — free, private, no account.
+            {t('finalCtaSubtext')}
           </p>
           <Link
             href={AppRoutes.editor}
             className="inline-block bg-primary text-primary-foreground text-lg font-medium px-10 py-4 rounded-xl hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-0.5"
           >
-            Open the Editor — It&apos;s Free
+            {t('finalCtaCta')}
           </Link>
-          <p className="mt-4 text-sm text-muted-foreground">Your documents never leave your browser.</p>
+          <p className="mt-4 text-sm text-muted-foreground">{t('finalCtaNote')}</p>
         </div>
       </section>
     </>
