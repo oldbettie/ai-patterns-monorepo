@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { AppRoutes } from '@/lib/config/featureToggles'
+import { AppRoutes, ExternalLinks } from '@/lib/config/featureToggles'
 
 export function Footer() {
   return (
@@ -27,6 +27,7 @@ export function Footer() {
               <li><Link href="#how-it-works" className="hover:text-white dark:hover:text-foreground transition-colors">How It Works</Link></li>
               <li><Link href="#features" className="hover:text-white dark:hover:text-foreground transition-colors">Features</Link></li>
               <li><Link href={AppRoutes.generate} className="hover:text-white dark:hover:text-foreground transition-colors">QR Generator</Link></li>
+              <li><a href={ExternalLinks.pdfApp} className="hover:text-white dark:hover:text-foreground transition-colors">SimplifiedPDF ↗</a></li>
             </ul>
           </div>
 

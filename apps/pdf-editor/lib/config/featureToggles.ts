@@ -113,6 +113,13 @@ export const ApiRoutes = {
 
 } as const
 
+/**
+ * External links to sister apps in the Quick PDFs ecosystem
+ */
+export const ExternalLinks = {
+  qrApp: 'https://simplifiedqr.com',
+} as const
+
 // Type exports for type safety
 export type AppRoute = typeof AppRoutes[keyof typeof AppRoutes]
 export type ApiRoute = typeof ApiRoutes[keyof typeof ApiRoutes]
