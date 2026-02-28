@@ -3,14 +3,14 @@
 // @summary: Live QR code preview using qr-code-styling, mounted via useEffect (client-only)
 
 import { useEffect, useRef, useState } from 'react'
+import type QRCodeStyling from 'qr-code-styling'
 import type { QROptions } from '@/lib/qr/qrGenerator'
 
 interface QRPreviewProps {
   data: string
   options?: QROptions
   // Optional ref to expose the qr instance to the parent (for download / save)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  qrRef?: React.MutableRefObject<any>
+  qrRef?: React.MutableRefObject<QRCodeStyling | null>
   placeholder?: string
 }
 

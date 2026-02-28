@@ -6,6 +6,7 @@ import { QRHistory } from '@/components/qr/QRHistory'
 import { QRPreview } from '@/components/qr/QRPreview'
 import { QRStyleOptions } from '@/components/qr/QRStyleOptions'
 import { DownloadPanel } from '@/components/qr/DownloadPanel'
+import type QRCodeStyling from 'qr-code-styling'
 import type { QRToolOptions } from '@/components/hooks/useQRTool'
 import type { QRHistoryEntry } from '@/lib/qr/qrHistoryTypes'
 import type React from 'react'
@@ -16,8 +17,7 @@ interface QRToolLayoutProps {
   description: string
   // QR state (passed from useQRTool)
   data: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  qrRef: React.MutableRefObject<any>
+  qrRef: React.MutableRefObject<QRCodeStyling | null>
   options: QRToolOptions
   onOptionsChange: (opts: QRToolOptions) => void
   saving: boolean

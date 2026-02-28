@@ -3,12 +3,12 @@
 // @summary: Download buttons for PNG, SVG, and print
 
 import { useState } from 'react'
+import type QRCodeStyling from 'qr-code-styling'
 import { Download, Printer } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 interface DownloadPanelProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  qrRef: React.MutableRefObject<any>
+  qrRef: React.MutableRefObject<QRCodeStyling | null>
   disabled?: boolean
   label?: string
 }

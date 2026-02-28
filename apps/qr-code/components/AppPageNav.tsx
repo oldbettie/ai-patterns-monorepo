@@ -12,12 +12,12 @@ import { Link2, Wifi, User, MessageSquare, Mail, FileText, ChevronDown } from 'l
 import { useState, useRef, useEffect } from 'react'
 
 const TOOL_CONFIGS = [
-  { href: '/generate/url', icon: Link2, key: 'url' },
-  { href: '/generate/wifi', icon: Wifi, key: 'wifi' },
-  { href: '/generate/vcard', icon: User, key: 'vcard' },
-  { href: '/generate/sms', icon: MessageSquare, key: 'sms' },
-  { href: '/generate/email', icon: Mail, key: 'email' },
-  { href: '/generate/text', icon: FileText, key: 'text' },
+  { href: AppRoutes.generateUrl, icon: Link2, key: 'url' },
+  { href: AppRoutes.generateWifi, icon: Wifi, key: 'wifi' },
+  { href: AppRoutes.generateVcard, icon: User, key: 'vcard' },
+  { href: AppRoutes.generateSms, icon: MessageSquare, key: 'sms' },
+  { href: AppRoutes.generateEmail, icon: Mail, key: 'email' },
+  { href: AppRoutes.generateText, icon: FileText, key: 'text' },
 ] as const
 
 interface AppPageNavProps {

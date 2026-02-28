@@ -3,6 +3,7 @@
 // @summary: Shared state/logic hook for all QR tool pages (data, options, save, load, history)
 
 import { useState, useRef, useCallback } from 'react'
+import type QRCodeStyling from 'qr-code-styling'
 import { useQRHistory } from '@/components/hooks/useQRHistory'
 import type { QRHistoryEntry, QRType, QRDotStyle } from '@/lib/qr/qrHistoryTypes'
 
@@ -23,8 +24,7 @@ export function useQRTool(type: QRType) {
   const [data, setData] = useState('')
   const [saving, setSaving] = useState(false)
   const [options, setOptions] = useState<QRToolOptions>(DEFAULT_OPTIONS)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const qrRef = useRef<any>(null)
+  const qrRef = useRef<QRCodeStyling | null>(null)
 
   const { entries, saveEntry, deleteEntry, renameEntry, loading } = useQRHistory()
 
