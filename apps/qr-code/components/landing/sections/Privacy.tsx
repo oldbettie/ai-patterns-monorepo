@@ -14,7 +14,7 @@ export function Privacy() {
             Their privacy policy buried in 8,000 words of legal text.
           </p>
           <p>
-            Quick QR works differently. All processing happens inside your own browser, on your own device.
+            Simplified QR works differently. All processing happens inside your own browser, on your own device.
             When you generate a QR code, the data never leaves your machine — it doesn't touch our servers because it never gets sent to them.
           </p>
           <p className="text-white dark:text-foreground font-medium">

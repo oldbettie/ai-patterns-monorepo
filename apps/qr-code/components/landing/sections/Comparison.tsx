@@ -25,7 +25,7 @@ export function Comparison() {
             <thead>
               <tr className="border-b border-border bg-muted/30">
                 <th className="p-6 font-medium text-muted-foreground w-1/3">Feature</th>
-                <th className="p-6 font-display text-xl text-primary bg-card border-x border-border w-1/3">Quick QR</th>
+                <th className="p-6 font-display text-xl text-primary bg-card border-x border-border w-1/3">Simplified QR</th>
                 <th className="p-6 font-medium text-muted-foreground w-1/3">Most Others</th>
               </tr>
             </thead>
@@ -68,9 +68,9 @@ export function Comparison() {
         </div>
 
         <p className="mt-8 text-center text-muted-foreground max-w-3xl mx-auto">
-          We built Quick QR because we got tired of the same bait-and-switch. You search for "free QR code generator",
+          We built Simplified QR because we got tired of the same bait-and-switch. You search for "free QR code generator",
           you find one, you customise it, you click download — and suddenly it's $12 a month or it adds a watermark.
-          That's not free. Quick QR will always let you download your QR codes for free.
+          That's not free. Simplified QR will always let you download your QR codes for free.
         </p>
       </div>
     </section>

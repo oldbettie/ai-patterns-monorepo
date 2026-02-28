@@ -16,7 +16,8 @@
     "email": "Email",
     "password": "Password",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "optional": "(optional)"
   },
   "components": {
     "languageSelector": {
@@ -34,7 +35,8 @@
       "verified": "Verified"
     },
     "appNav": {
-      "openGenerator": "Open Generator"
+      "openGenerator": "Open Generator",
+      "allTools": "All Tools"
     }
   },
   "pages": {
@@ -64,10 +66,107 @@
       "download": {
         "png": "Download PNG",
         "svg": "Download SVG",
-        "print": "Print"
+        "print": "Print",
+        "downloading": "Downloading…"
       },
       "save": "Save QR Code",
-      "saving": "Saving..."
+      "saving": "Saving...",
+      "hub": {
+        "subtitle": "Free, no signup, no watermarks. Your data never leaves your device.",
+        "cardDescriptions": {
+          "url": "Website, app, or any link",
+          "wifi": "Share network credentials",
+          "vcard": "Save contact info to phone",
+          "sms": "Pre-fill a text message",
+          "email": "Pre-fill an email",
+          "text": "Plain text or notes"
+        }
+      },
+      "tools": {
+        "url": {
+          "pageTitle": "URL QR Code",
+          "pageDescription": "Link to any website, app, or page. Free, no signup, no watermarks.",
+          "placeholder": "Enter a URL above to see your QR code"
+        },
+        "wifi": {
+          "pageTitle": "WiFi QR Code",
+          "pageDescription": "Let guests join your network by scanning — no typing passwords.",
+          "placeholder": "Enter a network name above to see your QR code"
+        },
+        "vcard": {
+          "pageTitle": "Contact QR Code",
+          "pageDescription": "Scan to save contact info directly to your phone's address book.",
+          "placeholder": "Enter a name above to see your QR code"
+        },
+        "sms": {
+          "pageTitle": "SMS QR Code",
+          "pageDescription": "Scan to open a pre-filled text message on any phone.",
+          "placeholder": "Enter a phone number above to see your QR code"
+        },
+        "email": {
+          "pageTitle": "Email QR Code",
+          "pageDescription": "Scan to open a pre-filled email in any mail app.",
+          "placeholder": "Enter an email address above to see your QR code"
+        },
+        "text": {
+          "pageTitle": "Text QR Code",
+          "pageDescription": "Encode any plain text — notes, addresses, codes, or anything else.",
+          "placeholder": "Enter some text above to see your QR code"
+        }
+      },
+      "forms": {
+        "url": {
+          "label": "URL or link",
+          "placeholder": "https://example.com",
+          "hint": "Paste any link — no account needed."
+        },
+        "wifi": {
+          "ssid": "Network Name (SSID)",
+          "ssidPlaceholder": "My WiFi Network",
+          "password": "Password",
+          "passwordPlaceholder": "Leave blank for open networks",
+          "security": "Security",
+          "encNone": "None",
+          "hidden": "Hidden network"
+        },
+        "vcard": {
+          "name": "Full Name",
+          "namePlaceholder": "Jane Smith",
+          "phone": "Phone",
+          "phonePlaceholder": "+1 555 000 0000",
+          "email": "Email",
+          "emailPlaceholder": "jane@example.com",
+          "org": "Organization",
+          "orgPlaceholder": "Acme Corp",
+          "title": "Job Title",
+          "titlePlaceholder": "Software Engineer",
+          "url": "Website",
+          "urlPlaceholder": "https://example.com",
+          "address": "Address",
+          "addressPlaceholder": "123 Main St, City, Country"
+        },
+        "sms": {
+          "phone": "Phone Number",
+          "phonePlaceholder": "+1 555 000 0000",
+          "message": "Message",
+          "messagePlaceholder": "Pre-filled message text…",
+          "hint": "Scan to open a pre-filled SMS to this number."
+        },
+        "email": {
+          "to": "To",
+          "toPlaceholder": "recipient@example.com",
+          "subject": "Subject",
+          "subjectPlaceholder": "Email subject…",
+          "body": "Body",
+          "bodyPlaceholder": "Email body text…",
+          "hint": "Scan to open a pre-filled email."
+        },
+        "text": {
+          "label": "Text",
+          "placeholder": "Enter any text or notes…",
+          "hint": "Any text — notes, addresses, codes, or anything else."
+        }
+      }
     },
     "history": {
       "title": "Saved QR Codes",
@@ -85,10 +184,10 @@
       "supporterPro": "Supporter Pro",
       "free": "Free",
       "expires": "Expires {date}",
-      "donate": "Support Quick QR"
+      "donate": "Support Simplified QR"
     },
     "donate": {
-      "title": "Support Quick QR",
+      "title": "Support Simplified QR",
       "subtitle": "Your donation keeps this tool free and private",
       "alreadyDonor": "You are already a supporter. Thank you!",
       "amount": "Donation amount",

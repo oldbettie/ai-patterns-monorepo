@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: 'Free QR Code Generator — No Signup, No Subscription, No Catch',
     description: 'Generate QR codes for URLs, WiFi, vCards, SMS, email, and plain text. Free, fast, and private.',
     type: 'website',
-    siteName: 'Quick QR',
+    siteName: 'Simplified QR',
   },
   twitter: {
     card: 'summary_large_image',
@@ -29,12 +29,12 @@ const homeJsonLd = {
   '@graph': [
     {
       '@type': 'WebSite',
-      name: 'Quick QR',
+      name: 'Simplified QR',
       url: process.env.NEXT_PUBLIC_URL || 'https://qrcode.app',
     },
     {
       '@type': 'SoftwareApplication',
-      name: 'Quick QR',
+      name: 'Simplified QR',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Any (Web Browser)',
       offers: {

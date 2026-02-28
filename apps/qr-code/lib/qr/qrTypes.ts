@@ -9,13 +9,16 @@ export function formatWiFi({
   ssid,
   password,
   encryption,
+  hidden,
 }: {
   ssid: string
   password: string
   encryption: 'WPA' | 'WEP' | 'nopass'
+  hidden?: boolean
 }): string {
   const esc = (s: string) => s.replace(/[\\;,"]/g, (c) => `\\${c}`)
-  return `WIFI:T:${encryption};S:${esc(ssid)};P:${esc(password)};;`
+  const hiddenPart = hidden ? 'H:true;' : ''
+  return `WIFI:T:${encryption};S:${esc(ssid)};P:${esc(password)};${hiddenPart};`
 }
 
 export function formatVCard({
@@ -23,11 +26,17 @@ export function formatVCard({
   phone,
   email,
   org,
+  title,
+  url,
+  address,
 }: {
   name: string
   phone?: string
   email?: string
   org?: string
+  title?: string
+  url?: string
+  address?: string
 }): string {
   const lines = [
     'BEGIN:VCARD',
@@ -36,6 +45,9 @@ export function formatVCard({
     phone ? `TEL:${phone}` : null,
     email ? `EMAIL:${email}` : null,
     org ? `ORG:${org}` : null,
+    title ? `TITLE:${title}` : null,
+    url ? `URL:${url}` : null,
+    address ? `ADR:;;${address};;;;` : null,
     'END:VCARD',
   ]
   return lines.filter(Boolean).join('\n')

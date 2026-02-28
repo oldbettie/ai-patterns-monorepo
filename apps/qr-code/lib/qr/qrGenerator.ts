@@ -1,7 +1,7 @@
 // @feature:qr-generator @domain:qr @frontend
 // @summary: qr-code-styling wrapper — client-only, import dynamically or use in useEffect
 
-import type { QRDotStyle } from '@/lib/types'
+import type { QRDotStyle } from '@/lib/qr/qrHistoryTypes'
 
 export interface QROptions {
   width?: number

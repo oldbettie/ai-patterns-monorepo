@@ -8,22 +8,22 @@ import type { Metadata, Viewport } from 'next'
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'https://qrcode.app'),
   title: {
-    default: 'Quick QR',
-    template: '%s — Quick QR',
+    default: 'Simplified QR',
+    template: '%s — Simplified QR',
   },
   description:
     'Free QR code generator. Create QR codes for URLs, WiFi, vCards, SMS, and more. No signup required. Files never leave your device.',
   openGraph: {
     type: 'website',
-    siteName: 'Quick QR',
-    title: 'Quick QR',
+    siteName: 'Simplified QR',
+    title: 'Simplified QR',
     description:
       'Free QR code generator. Create QR codes for URLs, WiFi, vCards, SMS, and more. No signup required.',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Quick QR',
+    title: 'Simplified QR',
     description:
       'Free QR code generator. Create QR codes for URLs, WiFi, vCards, SMS, and more. No signup required.',
   },
