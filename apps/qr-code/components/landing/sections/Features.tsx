@@ -1,47 +1,50 @@
 import { Link2, Wifi, Contact, MessageSquare, Mail, FileText, Download, ShieldCheck } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export function Features() {
+  const t = useTranslations('pages.home.features')
+
   const features = [
     {
       icon: Link2,
-      title: "URL QR Codes",
-      desc: "Generate QR codes that open any website or link. Perfect for business cards, flyers, menus, and anywhere you want to bridge print and digital."
+      title: t('feature1Title'),
+      desc: t('feature1Desc')
     },
     {
       icon: Wifi,
-      title: "WiFi QR Codes",
-      desc: "Let guests connect to your WiFi by scanning a code — no typing required. Supports WPA2, WEP, and open networks."
+      title: t('feature2Title'),
+      desc: t('feature2Desc')
     },
     {
       icon: Contact,
-      title: "vCard / Contact",
-      desc: "Share your contact details with a scan. Name, phone, email, and organisation — all saved instantly to the scanner's contacts."
+      title: t('feature3Title'),
+      desc: t('feature3Desc')
     },
     {
       icon: MessageSquare,
-      title: "SMS QR Codes",
-      desc: "Pre-fill a text message with a recipient number and body text. One scan opens the Messages app ready to send."
+      title: t('feature4Title'),
+      desc: t('feature4Desc')
     },
     {
       icon: Mail,
-      title: "Email QR Codes",
-      desc: "Pre-address an email with recipient, subject, and body. Ideal for feedback forms, support requests, and contact pages."
+      title: t('feature5Title'),
+      desc: t('feature5Desc')
     },
     {
       icon: FileText,
-      title: "Plain Text",
-      desc: "Encode any plain text — notes, coupons, serial numbers, instructions. Simple and universally readable."
+      title: t('feature6Title'),
+      desc: t('feature6Desc')
     },
     {
       icon: Download,
-      title: "PNG & SVG Export",
-      desc: "Download your QR code as a high-resolution PNG for screens or as a scalable SVG for print. No watermarks. No branding.",
+      title: t('feature7Title'),
+      desc: t('feature7Desc'),
       highlight: true
     },
     {
       icon: ShieldCheck,
-      title: "Nothing Uploaded, Ever",
-      desc: "Your content never leaves your device. No cloud storage. No third-party access. What you encode is only ever seen by you.",
+      title: t('feature8Title'),
+      desc: t('feature8Desc'),
       highlight: true
     }
   ]
@@ -50,8 +53,8 @@ export function Features() {
     <section id="features" className="py-24 bg-card/50 px-6">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
-          <span className="text-primary font-medium tracking-wide text-sm uppercase">What You Can Do</span>
-          <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">Every QR code type you need.</h2>
+          <span className="text-primary font-medium tracking-wide text-sm uppercase">{t('label')}</span>
+          <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">{t('title')}</h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">

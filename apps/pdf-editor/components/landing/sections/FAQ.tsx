@@ -2,74 +2,27 @@
 
 import { useState } from 'react'
 import { Plus, Minus } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export function FAQ() {
-  const faqs = [
-    {
-      q: "Is SimplifiedPDF really free?",
-      a: "Yes. Editing PDFs, adding text, drawing signatures, and downloading your finished documents are all completely free. No trial period, no credit card required, no subscription. We mean it."
-    },
-    {
-      q: "Do I need to create an account?",
-      a: "No. You can start editing a PDF right now without signing up for anything. An optional account may be added in the future for features like syncing documents across devices, but the core editor will always be free and always require no account."
-    },
-    {
-      q: "Are my documents uploaded to your servers?",
-      a: "No. Everything runs inside your browser on your own device. Your PDF files are never sent to our servers. We don't see them, store them, or have any access to them. Not even temporarily."
-    },
-    {
-      q: "Is there a watermark on downloaded files?",
-      a: "No. Your downloaded PDF is clean. No watermarks, no branding added to your documents."
-    },
-    {
-      q: "What can I do with SimplifiedPDF?",
-      a: "You can add text anywhere on a PDF page, draw and save signatures, place signatures on documents, manage your edited documents locally, and download the finished PDF. More features will be added over time."
-    },
-    {
-      q: "Does it work offline?",
-      a: "Yes. Once you've loaded SimplifiedPDF in your browser, it works without an internet connection. Your documents and signatures are stored locally on your device."
-    },
-    {
-      q: "What happens to my documents if I clear my browser data?",
-      a: "Your documents are stored in your browser's local storage. If you clear your browser data, those files will be removed. We recommend downloading any important documents to your device after editing."
-    },
-    {
-      q: "Is SimplifiedPDF available on mobile?",
-      a: "Yes. SimplifiedPDF works in any modern mobile browser on iOS and Android. You can even install it to your home screen for quick access."
-    },
-    {
-      q: "How does SimplifiedPDF make money if it's free?",
-      a: "SimplifiedPDF is sustained by optional donations from users who find it useful and want to support it. That's it. Donors get an ad-free experience. There are no hidden revenue streams that compromise your privacy or your downloads."
-    },
-    {
-      q: "Can I use SimplifiedPDF instead of Adobe Acrobat?",
-      a: "Yes, for most everyday tasks. SimplifiedPDF lets you add text, fill forms, draw signatures, and download your edited PDF for free — all without a subscription or software install. Adobe Acrobat Pro offers more advanced features like OCR and PDF creation from scratch, but for signing and editing existing PDFs, SimplifiedPDF covers the essentials at no cost."
-    },
-    {
-      q: "Can I edit a PDF form with SimplifiedPDF?",
-      a: "Yes. SimplifiedPDF lets you click on any part of a PDF and add text, making it ideal for filling in forms, applications, and official documents. Just open your PDF, click the field you want to fill, type your answer, and download."
-    },
-    {
-      q: "Does SimplifiedPDF work on iPhone and Android?",
-      a: "Yes. SimplifiedPDF runs in any modern mobile browser, including Safari on iPhone and Chrome on Android. You can add text and sign PDFs directly from your phone. You can also install it to your home screen for quick access, just like an app."
-    },
-    {
-      q: "Is SimplifiedPDF legal for signing contracts?",
-      a: "Electronic signatures created in SimplifiedPDF are a form of e-signature, which is legally recognised in most countries under laws like the US ESIGN Act and the EU eIDAS Regulation for standard business agreements, rental contracts, NDAs, and similar documents. For high-stakes legal matters or regulated industries that require qualified electronic signatures, consult a legal professional about your specific requirements."
-    }
-  ]
+  const t = useTranslations('pages.home.faq')
+
+  const faqs = Array.from({ length: 13 }, (_, i) => ({
+    q: t(`faq_q${i + 1}`),
+    a: t(`faq_a${i + 1}`)
+  }))
 
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
     <section id="faq" className="py-24 bg-background px-6">
       <div className="container mx-auto max-w-3xl">
-        <h2 className="font-display text-4xl md:text-5xl text-foreground text-center mb-12">Frequently Asked Questions</h2>
-        
+        <h2 className="font-display text-4xl md:text-5xl text-foreground text-center mb-12">{t('title')}</h2>
+
         <div className="space-y-4">
           {faqs.map((faq, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className="bg-card rounded-xl border border-border overflow-hidden transition-all hover:border-primary/30"
             >
               <button
@@ -83,8 +36,8 @@ export function FAQ() {
                   <Plus className="w-5 h-5 text-muted-foreground shrink-0" />
                 )}
               </button>
-              
-              <div 
+
+              <div
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${
                   openIndex === i ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                 }`}
@@ -97,7 +50,7 @@ export function FAQ() {
           ))}
         </div>
       </div>
-      
+
       {/* FAQ Schema */}
       <script
         type="application/ld+json"

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Upload, PenTool, Download, ShieldCheck, WifiOff, Zap, FileText, Briefcase, Home, GraduationCap } from 'lucide-react'
 import { AppRoutes } from '@/lib/config/featureToggles'
 import { Footer } from '@/components/landing/sections/Footer'
+import { useTranslations } from 'next-intl'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -27,117 +28,69 @@ export const metadata: Metadata = {
   },
 }
 
-const steps = [
-  {
-    icon: Upload,
-    title: 'Step 1: Open Your PDF',
-    desc: [
-      'Drop your PDF into the editor.',
-      'It opens instantly in your browser.',
-      'Nothing is sent to any server.',
-    ],
-  },
-  {
-    icon: PenTool,
-    title: 'Step 2: Draw Your Signature',
-    desc: [
-      'Use your mouse, trackpad, or finger.',
-      'Save it for reuse on future documents.',
-      'Drag and resize to position it perfectly.',
-    ],
-  },
-  {
-    icon: Download,
-    title: 'Step 3: Download',
-    desc: [
-      'Click download — done.',
-      'No watermark. No paywall. No account prompt.',
-      'Your signed PDF saves to your device.',
-    ],
-  },
-]
-
-const differentiators = [
-  {
-    icon: ShieldCheck,
-    title: 'No Account Required',
-    desc: 'Sign PDFs without creating a profile or handing over an email address. Just open and sign.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Files Stay on Your Device',
-    desc: 'Your PDF is never uploaded to our servers. Everything runs inside your browser — private by design.',
-  },
-  {
-    icon: Zap,
-    title: 'No Watermark',
-    desc: 'Your signed PDF is clean. No branding, no "signed with SimplifiedPDF" footer. It looks exactly as you intended.',
-  },
-  {
-    icon: WifiOff,
-    title: 'Works Offline',
-    desc: 'Once loaded, the editor works without internet. Sign documents even on a plane or with a slow connection.',
-  },
-]
-
-const useCases = [
-  { icon: Home, label: 'Rental agreements', desc: 'Sign tenancy agreements and lease renewals without printing.' },
-  { icon: Briefcase, label: 'Work contracts', desc: 'Return signed employment contracts and NDAs instantly.' },
-  { icon: FileText, label: 'HR forms', desc: 'Fill and sign onboarding paperwork from any device.' },
-  { icon: GraduationCap, label: 'School documents', desc: 'Permission slips, enrolment forms, and consent letters.' },
-]
-
-const faqs = [
-  {
-    q: 'Is e-signing a PDF legal?',
-    a: 'Yes. Electronic signatures are legally recognised in most countries for everyday documents — including contracts, rental agreements, NDAs, and HR forms — under laws like the US ESIGN Act and EU eIDAS Regulation.',
-  },
-  {
-    q: 'Do I need to print and scan to sign a PDF?',
-    a: 'No. With SimplifiedPDF you can draw your signature directly on the document using your mouse or finger and download the signed version instantly. No printing required.',
-  },
-  {
-    q: 'Can I sign a PDF on my phone?',
-    a: 'Yes. SimplifiedPDF works in any modern mobile browser on iOS and Android. You can draw your signature with your finger and download the signed PDF in seconds.',
-  },
-  {
-    q: 'Is my signature saved anywhere?',
-    a: 'Your signature is saved locally in your browser on your own device only. It is never sent to our servers. You can reuse it across multiple documents.',
-  },
-  {
-    q: 'Can I sign multiple pages in one PDF?',
-    a: 'Yes. You can navigate to any page in the PDF and place your signature exactly where you need it, as many times as needed.',
-  },
-  {
-    q: 'Does SimplifiedPDF work without the internet?',
-    a: 'Yes. Once you have loaded the editor in your browser, it works offline. Your documents and signature are stored on your device.',
-  },
-]
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'SoftwareApplication',
-      name: 'SimplifiedPDF — Sign PDF Online',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Any (Web Browser)',
-      url: 'https://www.simplifiedpdf.com/sign-pdf',
-      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-      featureList: ['Draw signature', 'Place on PDF', 'Download signed PDF', 'No account required', 'No file upload'],
-    },
-    {
-      '@type': 'FAQPage',
-      mainEntity: faqs.map((faq) => ({
-        '@type': 'Question',
-        name: faq.q,
-        acceptedAnswer: { '@type': 'Answer', text: faq.a },
-      })),
-    },
-  ],
-}
-
 export default function SignPdfPage() {
+  const t = useTranslations('pages.signPdf')
+
+  const steps = [
+    {
+      icon: Upload,
+      title: t('step1Title'),
+      desc: [t('step1Desc1'), t('step1Desc2'), t('step1Desc3')],
+    },
+    {
+      icon: PenTool,
+      title: t('step2Title'),
+      desc: [t('step2Desc1'), t('step2Desc2'), t('step2Desc3')],
+    },
+    {
+      icon: Download,
+      title: t('step3Title'),
+      desc: [t('step3Desc1'), t('step3Desc2'), t('step3Desc3')],
+    },
+  ]
+
+  const differentiators = [
+    { icon: ShieldCheck, title: t('diff1Title'), desc: t('diff1Desc') },
+    { icon: ShieldCheck, title: t('diff2Title'), desc: t('diff2Desc') },
+    { icon: Zap, title: t('diff3Title'), desc: t('diff3Desc') },
+    { icon: WifiOff, title: t('diff4Title'), desc: t('diff4Desc') },
+  ]
+
+  const useCases = [
+    { icon: Home, label: t('uc1Label'), desc: t('uc1Desc') },
+    { icon: Briefcase, label: t('uc2Label'), desc: t('uc2Desc') },
+    { icon: FileText, label: t('uc3Label'), desc: t('uc3Desc') },
+    { icon: GraduationCap, label: t('uc4Label'), desc: t('uc4Desc') },
+  ]
+
+  const faqs = Array.from({ length: 6 }, (_, i) => ({
+    q: t(`faq_q${i + 1}`),
+    a: t(`faq_a${i + 1}`),
+  }))
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'SoftwareApplication',
+        name: 'SimplifiedPDF — Sign PDF Online',
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'Any (Web Browser)',
+        url: 'https://www.simplifiedpdf.com/sign-pdf',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        featureList: ['Draw signature', 'Place on PDF', 'Download signed PDF', 'No account required', 'No file upload'],
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.q,
+          acceptedAnswer: { '@type': 'Answer', text: faq.a },
+        })),
+      },
+    ],
+  }
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -145,21 +98,20 @@ export default function SignPdfPage() {
       {/* Hero */}
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-4xl text-center">
-          <span className="text-primary font-medium tracking-wide text-sm uppercase">Free · No Account · Private</span>
+          <span className="text-primary font-medium tracking-wide text-sm uppercase">{t('heroEyebrow')}</span>
           <h1 className="font-display text-5xl md:text-6xl text-foreground mt-4 mb-6">
-            Sign PDF Online — Free, Private, No Signup
+            {t('heroHeadline')}
           </h1>
           <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Draw your signature, place it anywhere on your PDF, and download the signed document instantly.
-            No account, no subscription, no files sent to any server.
+            {t('heroDescription')}
           </p>
           <Link
             href={AppRoutes.editor}
             className="inline-block bg-primary text-primary-foreground text-lg font-medium px-10 py-4 rounded-xl hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-0.5"
           >
-            Sign Your PDF — It&apos;s Free
+            {t('heroCta')}
           </Link>
-          <p className="mt-4 text-sm text-muted-foreground">Your documents never leave your browser.</p>
+          <p className="mt-4 text-sm text-muted-foreground">{t('heroNote')}</p>
         </div>
       </section>
 
@@ -167,8 +119,8 @@ export default function SignPdfPage() {
       <section className="py-24 px-6 bg-card/50">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <span className="text-primary font-medium tracking-wide text-sm uppercase">How It Works</span>
-            <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">Three steps. No account. No waiting.</h2>
+            <span className="text-primary font-medium tracking-wide text-sm uppercase">{t('howItWorksEyebrow')}</span>
+            <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">{t('howItWorksTitle')}</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-12 relative">
             <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-border -z-10" />
@@ -194,8 +146,8 @@ export default function SignPdfPage() {
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <span className="text-primary font-medium tracking-wide text-sm uppercase">Why SimplifiedPDF</span>
-            <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">The PDF signer that doesn&apos;t compromise your privacy</h2>
+            <span className="text-primary font-medium tracking-wide text-sm uppercase">{t('whyEyebrow')}</span>
+            <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">{t('whyTitle')}</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {differentiators.map((item, i) => (
@@ -215,8 +167,8 @@ export default function SignPdfPage() {
       <section className="py-24 px-6 bg-card/50">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-16">
-            <span className="text-primary font-medium tracking-wide text-sm uppercase">Common Uses</span>
-            <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">What people sign with SimplifiedPDF</h2>
+            <span className="text-primary font-medium tracking-wide text-sm uppercase">{t('useCasesEyebrow')}</span>
+            <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">{t('useCasesTitle')}</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {useCases.map((uc, i) => (
@@ -235,7 +187,7 @@ export default function SignPdfPage() {
       {/* FAQ */}
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-3xl">
-          <h2 className="font-display text-4xl md:text-5xl text-foreground text-center mb-12">Frequently Asked Questions</h2>
+          <h2 className="font-display text-4xl md:text-5xl text-foreground text-center mb-12">{t('faqTitle')}</h2>
           <div className="space-y-4">
             {faqs.map((faq, i) => (
               <div key={i} className="p-6 rounded-xl border border-border bg-card">
@@ -251,18 +203,18 @@ export default function SignPdfPage() {
       <section className="py-24 px-6 bg-card/50 text-center">
         <div className="container mx-auto max-w-4xl">
           <h2 className="font-display text-5xl md:text-6xl text-foreground mb-6">
-            Ready to sign your PDF?
+            {t('finalCtaHeadline')}
           </h2>
           <p className="text-xl text-muted-foreground mb-10">
-            No account. No subscription. No nonsense.
+            {t('finalCtaSubtext')}
           </p>
           <Link
             href={AppRoutes.editor}
             className="inline-block bg-primary text-primary-foreground text-lg font-medium px-10 py-4 rounded-xl hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-0.5"
           >
-            Open the Editor — It&apos;s Free
+            {t('finalCtaCta')}
           </Link>
-              <p className="mt-4 text-sm text-muted-foreground">Your documents never leave your browser.</p>
+          <p className="mt-4 text-sm text-muted-foreground">{t('finalCtaNote')}</p>
         </div>
       </section>
       <Footer />

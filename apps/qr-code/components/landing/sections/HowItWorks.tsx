@@ -1,21 +1,24 @@
 import { Type, Settings, Download } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export function HowItWorks() {
+  const t = useTranslations('pages.home.howItWorks')
+
   const steps = [
     {
       icon: Type,
-      title: "Step 1: Enter Your Content",
-      desc: ["Type a URL, WiFi password, contact info,", "SMS message, or plain text.", "Nothing is sent to any server."]
+      title: t('step1Title'),
+      desc: [t('step1Desc1'), t('step1Desc2'), t('step1Desc3')]
     },
     {
       icon: Settings,
-      title: "Step 2: Customise",
-      desc: ["Choose colours and dot style.", "Add a logo if you want.", "Preview updates live as you type."]
+      title: t('step2Title'),
+      desc: [t('step2Desc1'), t('step2Desc2'), t('step2Desc3')]
     },
     {
       icon: Download,
-      title: "Step 3: Download",
-      desc: ["Click download and save as PNG or SVG.", "Print-ready quality, no watermarks.", "That's it. Free forever."]
+      title: t('step3Title'),
+      desc: [t('step3Desc1'), t('step3Desc2'), t('step3Desc3')]
     }
   ]
 
@@ -23,8 +26,8 @@ export function HowItWorks() {
     <section id="how-it-works" className="py-24 bg-background px-6">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
-          <span className="text-primary font-medium tracking-wide text-sm uppercase">How It Works</span>
-          <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">Three steps. No account. No waiting.</h2>
+          <span className="text-primary font-medium tracking-wide text-sm uppercase">{t('label')}</span>
+          <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">{t('title')}</h2>
         </div>
 
         <div className="grid md:grid-cols-3 gap-12 relative">

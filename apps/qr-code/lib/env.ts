@@ -15,6 +15,7 @@ export const env = createEnv({
     POLAR_PRODUCT_ID_SUPPORTER: z.string().min(1).optional(),
     POLAR_PRODUCT_ID_PLUS: z.string().min(1).optional(),
     POLAR_PRODUCT_ID_PRO: z.string().min(1).optional(),
+
   },
   client: {
     NEXT_PUBLIC_URL: z

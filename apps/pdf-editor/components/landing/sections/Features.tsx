@@ -1,41 +1,44 @@
 import Link from 'next/link'
 import { Type, PenLine, FolderOpen, WifiOff, ShieldCheck, Download } from 'lucide-react'
 import { AppRoutes } from '@/lib/config/featureToggles'
+import { useTranslations } from 'next-intl'
 
 export function Features() {
+  const t = useTranslations('pages.home.features')
+
   const features = [
     {
       icon: Type,
-      title: "Add Text",
-      desc: "Click anywhere on a PDF page and start typing. Choose your font, size, and colour. Perfect for filling in forms, adding names, dates, or addresses."
+      title: t('feature1Title'),
+      desc: t('feature1Desc')
     },
     {
       icon: PenLine,
-      title: "Sign Documents",
-      desc: "Draw your signature with your mouse or finger. Save it for reuse across documents. Add, move, resize, or remove signatures at any time.",
+      title: t('feature2Title'),
+      desc: t('feature2Desc'),
       link: AppRoutes.signPdf,
-      linkText: "Learn about signing PDFs →"
+      linkText: t('feature2Link')
     },
     {
       icon: FolderOpen,
-      title: "Manage Your Files",
-      desc: "All your edited PDFs are stored locally in your browser — like a private drive on your own device. Access, re-edit, or delete them anytime."
+      title: t('feature3Title'),
+      desc: t('feature3Desc')
     },
     {
       icon: WifiOff,
-      title: "Works Offline",
-      desc: "Load the editor once and it works without an internet connection. Your documents and signatures are always available, even on a plane."
+      title: t('feature4Title'),
+      desc: t('feature4Desc')
     },
     {
       icon: ShieldCheck,
-      title: "Nothing Uploaded, Ever",
-      desc: "Your documents never leave your device. No cloud storage. No third-party access. No risk. What you edit is only ever seen by you.",
+      title: t('feature5Title'),
+      desc: t('feature5Desc'),
       highlight: true
     },
     {
       icon: Download,
-      title: "Free to Download",
-      desc: "When you're done editing, just click download. No account prompt. No \"upgrade to export\". No watermark on your files. Free means free.",
+      title: t('feature6Title'),
+      desc: t('feature6Desc'),
       highlight: true
     }
   ]
@@ -44,17 +47,17 @@ export function Features() {
     <section id="features" className="py-24 bg-card/50 px-6">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
-          <span className="text-primary font-medium tracking-wide text-sm uppercase">What You Can Do</span>
-          <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">Everything you need for everyday PDF editing.</h2>
+          <span className="text-primary font-medium tracking-wide text-sm uppercase">{t('label')}</span>
+          <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">{t('title')}</h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className={`p-8 rounded-xl border transition-all hover:shadow-md ${
-                feature.highlight 
-                  ? "bg-accent/30 border-primary/20" 
+                feature.highlight
+                  ? "bg-accent/30 border-primary/20"
                   : "bg-card border-border"
               }`}
             >

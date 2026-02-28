@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Check, X, Upload, PenTool, Download, ShieldCheck, Type, FileText, Briefcase, GraduationCap, Heart } from 'lucide-react'
 import { AppRoutes } from '@/lib/config/featureToggles'
 import { Footer } from '@/components/landing/sections/Footer'
+import { useTranslations } from 'next-intl'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -27,109 +28,77 @@ export const metadata: Metadata = {
   },
 }
 
-const editorFeatures = [
-  {
-    icon: Type,
-    title: 'Add Text Anywhere',
-    desc: 'Click anywhere on the PDF and start typing. Choose font, size, and colour to match the document.',
-  },
-  {
-    icon: FileText,
-    title: 'Fill PDF Forms',
-    desc: 'Type into any form field — text boxes, date fields, signature lines. No special software needed.',
-  },
-  {
-    icon: PenTool,
-    title: 'Draw Signatures',
-    desc: 'Sign with your mouse or finger. Save your signature for reuse across documents.',
-  },
-]
-
-const steps = [
-  {
-    icon: Upload,
-    title: 'Step 1: Open Your PDF',
-    desc: ['Drop your PDF into the editor.', 'Opens instantly in your browser.', 'Nothing sent to any server.'],
-  },
-  {
-    icon: Type,
-    title: 'Step 2: Add Text or Fill Fields',
-    desc: ['Click to add text anywhere.', 'Choose font, size, and colour.', 'Fill in forms, dates, names.'],
-  },
-  {
-    icon: Download,
-    title: 'Step 3: Download',
-    desc: ['Click download — done.', 'No paywall. No watermark.', 'Your edited PDF saves to your device.'],
-  },
-]
-
-const useCases = [
-  { icon: Briefcase, label: 'Job applications', desc: 'Fill in employment forms without printing.' },
-  { icon: FileText, label: 'Tax forms', desc: 'Complete self-assessment and tax documents digitally.' },
-  { icon: Heart, label: 'Medical forms', desc: 'Patient intake and consent forms filled in seconds.' },
-  { icon: GraduationCap, label: 'School assignments', desc: 'Annotate, fill, and return coursework PDFs.' },
-]
-
-const comparisonRows = [
-  { feature: 'Add text to PDF', us: 'Free, always', them: 'Free or subscription' },
-  { feature: 'Fill PDF forms', us: 'Free, always', them: 'Often subscription' },
-  { feature: 'Download without watermark', us: 'Always free', them: 'Paid tier only', highlight: true },
-  { feature: 'File uploaded to server', us: 'Never', them: 'Yes (Smallpdf, ILovePDF)', highlight: true },
-  { feature: 'Account required', us: 'Never', them: 'Often required' },
-  { feature: 'Works offline', us: 'Yes', them: 'Rarely' },
-]
-
-const faqs = [
-  {
-    q: 'Can I add text to a PDF without Adobe Acrobat?',
-    a: 'Yes. SimplifiedPDF lets you add text to any PDF right in your browser — no software download, no Adobe subscription required. Just open the PDF, click where you want to type, and start editing.',
-  },
-  {
-    q: 'Can I fill in a PDF form online?',
-    a: 'Yes. Open your form in SimplifiedPDF, click on any field, and type your answer. You can fill in text fields, dates, names, and any other area of the PDF. Download the completed form when you\'re done.',
-  },
-  {
-    q: 'Will there be a watermark on my edited PDF?',
-    a: 'No. SimplifiedPDF never adds watermarks to your downloaded files. The PDF you download looks exactly as you edited it.',
-  },
-  {
-    q: 'Is my PDF uploaded to your servers?',
-    a: 'No. Everything runs inside your browser on your own device. Your PDF files are never sent to our servers. We don\'t see them, store them, or have any access to them.',
-  },
-  {
-    q: 'Can I change the font size or colour when adding text?',
-    a: 'Yes. When you add text to a PDF in SimplifiedPDF, you can choose the font, size, and colour to match the rest of the document.',
-  },
-  {
-    q: 'Does editing a PDF work on mobile?',
-    a: 'Yes. SimplifiedPDF works in any modern mobile browser on iOS and Android. You can add text, fill forms, and download your edited PDF from your phone.',
-  },
-]
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'SoftwareApplication',
-      name: 'SimplifiedPDF — Edit PDF Online',
-      applicationCategory: 'BusinessApplication',
-      operatingSystem: 'Any (Web Browser)',
-      url: 'https://www.simplifiedpdf.com/edit-pdf',
-      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-      featureList: ['Add text to PDF', 'Fill PDF forms', 'Sign PDF', 'Download without watermark', 'No file upload'],
-    },
-    {
-      '@type': 'FAQPage',
-      mainEntity: faqs.map((faq) => ({
-        '@type': 'Question',
-        name: faq.q,
-        acceptedAnswer: { '@type': 'Answer', text: faq.a },
-      })),
-    },
-  ],
-}
-
 export default function EditPdfPage() {
+  const t = useTranslations('pages.editPdf')
+
+  const editorFeatures = [
+    { icon: Type, title: t('feat1Title'), desc: t('feat1Desc') },
+    { icon: FileText, title: t('feat2Title'), desc: t('feat2Desc') },
+    { icon: PenTool, title: t('feat3Title'), desc: t('feat3Desc') },
+  ]
+
+  const steps = [
+    {
+      icon: Upload,
+      title: t('step1Title'),
+      desc: [t('step1Desc1'), t('step1Desc2'), t('step1Desc3')],
+    },
+    {
+      icon: Type,
+      title: t('step2Title'),
+      desc: [t('step2Desc1'), t('step2Desc2'), t('step2Desc3')],
+    },
+    {
+      icon: Download,
+      title: t('step3Title'),
+      desc: [t('step3Desc1'), t('step3Desc2'), t('step3Desc3')],
+    },
+  ]
+
+  const useCases = [
+    { icon: Briefcase, label: t('uc1Label'), desc: t('uc1Desc') },
+    { icon: FileText, label: t('uc2Label'), desc: t('uc2Desc') },
+    { icon: Heart, label: t('uc3Label'), desc: t('uc3Desc') },
+    { icon: GraduationCap, label: t('uc4Label'), desc: t('uc4Desc') },
+  ]
+
+  const comparisonRows = [
+    { feature: t('row1Feature'), us: t('row1Us'), them: t('row1Them') },
+    { feature: t('row2Feature'), us: t('row2Us'), them: t('row2Them') },
+    { feature: t('row3Feature'), us: t('row3Us'), them: t('row3Them'), highlight: true },
+    { feature: t('row4Feature'), us: t('row4Us'), them: t('row4Them'), highlight: true },
+    { feature: t('row5Feature'), us: t('row5Us'), them: t('row5Them') },
+    { feature: t('row6Feature'), us: t('row6Us'), them: t('row6Them') },
+  ]
+
+  const faqs = Array.from({ length: 6 }, (_, i) => ({
+    q: t(`faq_q${i + 1}`),
+    a: t(`faq_a${i + 1}`),
+  }))
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'SoftwareApplication',
+        name: 'SimplifiedPDF — Edit PDF Online',
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'Any (Web Browser)',
+        url: 'https://www.simplifiedpdf.com/edit-pdf',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        featureList: ['Add text to PDF', 'Fill PDF forms', 'Sign PDF', 'Download without watermark', 'No file upload'],
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.q,
+          acceptedAnswer: { '@type': 'Answer', text: faq.a },
+        })),
+      },
+    ],
+  }
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -137,21 +106,20 @@ export default function EditPdfPage() {
       {/* Hero */}
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-4xl text-center">
-          <span className="text-primary font-medium tracking-wide text-sm uppercase">Free · No Account · No Watermark</span>
+          <span className="text-primary font-medium tracking-wide text-sm uppercase">{t('heroEyebrow')}</span>
           <h1 className="font-display text-5xl md:text-6xl text-foreground mt-4 mb-6">
-            Edit PDF Free Online — Add Text, Fill Forms, No Signup
+            {t('heroHeadline')}
           </h1>
           <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Add text to any PDF, fill in forms, draw signatures — all in your browser.
-            Download instantly, no watermark, no account required.
+            {t('heroDescription')}
           </p>
           <Link
             href={AppRoutes.editor}
             className="inline-block bg-primary text-primary-foreground text-lg font-medium px-10 py-4 rounded-xl hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-0.5"
           >
-            Edit Your PDF — It&apos;s Free
+            {t('heroCta')}
           </Link>
-          <p className="mt-4 text-sm text-muted-foreground">Your documents never leave your browser.</p>
+          <p className="mt-4 text-sm text-muted-foreground">{t('heroNote')}</p>
         </div>
       </section>
 
@@ -159,8 +127,8 @@ export default function EditPdfPage() {
       <section className="py-24 px-6 bg-card/50">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <span className="text-primary font-medium tracking-wide text-sm uppercase">What You Can Do</span>
-            <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">Everything you need to edit a PDF</h2>
+            <span className="text-primary font-medium tracking-wide text-sm uppercase">{t('featuresEyebrow')}</span>
+            <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">{t('featuresTitle')}</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {editorFeatures.map((feat, i) => (
@@ -181,11 +149,10 @@ export default function EditPdfPage() {
         <div className="container mx-auto max-w-3xl text-center">
           <ShieldCheck className="w-10 h-10 text-primary mx-auto mb-4" strokeWidth={1.5} />
           <h2 className="font-display text-3xl md:text-4xl text-foreground mb-4">
-            Unlike Smallpdf or ILovePDF, your PDF never touches our servers
+            {t('privacyCalloutTitle')}
           </h2>
           <p className="text-muted-foreground text-lg">
-            Most online PDF editors upload your file to their servers to process it. SimplifiedPDF runs entirely in your
-            browser — your document is never transmitted, stored, or seen by anyone but you.
+            {t('privacyCalloutDesc')}
           </p>
         </div>
       </section>
@@ -194,8 +161,8 @@ export default function EditPdfPage() {
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <span className="text-primary font-medium tracking-wide text-sm uppercase">How It Works</span>
-            <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">Three steps. No account. No waiting.</h2>
+            <span className="text-primary font-medium tracking-wide text-sm uppercase">{t('howItWorksEyebrow')}</span>
+            <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">{t('howItWorksTitle')}</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-12 relative">
             <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-border -z-10" />
@@ -221,8 +188,8 @@ export default function EditPdfPage() {
       <section className="py-24 px-6 bg-card/50">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-16">
-            <span className="text-primary font-medium tracking-wide text-sm uppercase">Common Uses</span>
-            <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">What people edit with SimplifiedPDF</h2>
+            <span className="text-primary font-medium tracking-wide text-sm uppercase">{t('useCasesEyebrow')}</span>
+            <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">{t('useCasesTitle')}</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {useCases.map((uc, i) => (
@@ -242,15 +209,15 @@ export default function EditPdfPage() {
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-12">
-            <h2 className="font-display text-4xl md:text-5xl text-foreground">SimplifiedPDF vs. the alternatives</h2>
+            <h2 className="font-display text-4xl md:text-5xl text-foreground">{t('comparisonTitle')}</h2>
           </div>
           <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-border bg-muted/30">
                   <th className="p-6 font-medium text-muted-foreground w-1/3">Feature</th>
-                  <th className="p-6 font-display text-xl text-primary bg-card border-x border-border w-1/3">SimplifiedPDF</th>
-                  <th className="p-6 font-medium text-muted-foreground w-1/3">Smallpdf / ILovePDF</th>
+                  <th className="p-6 font-display text-xl text-primary bg-card border-x border-border w-1/3">{t('comparisonColUs')}</th>
+                  <th className="p-6 font-medium text-muted-foreground w-1/3">{t('comparisonColThem')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -280,7 +247,7 @@ export default function EditPdfPage() {
       {/* FAQ */}
       <section className="py-24 px-6 bg-card/50">
         <div className="container mx-auto max-w-3xl">
-          <h2 className="font-display text-4xl md:text-5xl text-foreground text-center mb-12">Frequently Asked Questions</h2>
+          <h2 className="font-display text-4xl md:text-5xl text-foreground text-center mb-12">{t('faqTitle')}</h2>
           <div className="space-y-4">
             {faqs.map((faq, i) => (
               <div key={i} className="p-6 rounded-xl border border-border bg-card">
@@ -296,18 +263,18 @@ export default function EditPdfPage() {
       <section className="py-24 px-6 bg-background text-center">
         <div className="container mx-auto max-w-4xl">
           <h2 className="font-display text-5xl md:text-6xl text-foreground mb-6">
-            Stop printing. Start editing.
+            {t('finalCtaHeadline')}
           </h2>
           <p className="text-xl text-muted-foreground mb-10">
-            No account. No subscription. No nonsense.
+            {t('finalCtaSubtext')}
           </p>
           <Link
             href={AppRoutes.editor}
             className="inline-block bg-primary text-primary-foreground text-lg font-medium px-10 py-4 rounded-xl hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-0.5"
           >
-            Open the Editor — It&apos;s Free
+            {t('finalCtaCta')}
           </Link>
-          <p className="mt-4 text-sm text-muted-foreground">Your documents never leave your browser.</p>
+          <p className="mt-4 text-sm text-muted-foreground">{t('finalCtaNote')}</p>
         </div>
       </section>
       <Footer />

@@ -1,32 +1,35 @@
 import { Check, X } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export function Comparison() {
+  const t = useTranslations('pages.home.comparison')
+
   const rows = [
-    { feature: "Generate QR Codes", pure: true, others: true, pureText: "Free", othersText: "Free" },
-    { feature: "Download QR Code", pure: true, others: false, pureText: "Always Free", othersText: "Requires subscription", highlight: true },
-    { feature: "SVG Export", pure: true, others: false, pureText: "Always Free", othersText: "Paid plan only", highlight: true },
-    { feature: "Signup Required", pure: false, others: "warn", pureText: "Never", othersText: "Usually required" },
-    { feature: "Data Uploaded to Server", pure: false, others: "warn", pureText: "Never", othersText: "Usually yes" },
-    { feature: "Works Offline", pure: true, others: false, pureText: "Yes", othersText: "Rarely" },
-    { feature: "Watermark on Download", pure: false, others: "warn", pureText: "Never", othersText: "Often yes" },
-    { feature: "Monthly Fee", pure: false, others: "warn", pureText: "None", othersText: "£8–£25/month" },
+    { feature: t('row1Feature'), pure: true, others: true, pureText: t('row1Us'), othersText: t('row1Others') },
+    { feature: t('row2Feature'), pure: true, others: false, pureText: t('row2Us'), othersText: t('row2Others'), highlight: true },
+    { feature: t('row3Feature'), pure: true, others: false, pureText: t('row3Us'), othersText: t('row3Others'), highlight: true },
+    { feature: t('row4Feature'), pure: false, others: "warn", pureText: t('row4Us'), othersText: t('row4Others') },
+    { feature: t('row5Feature'), pure: false, others: "warn", pureText: t('row5Us'), othersText: t('row5Others') },
+    { feature: t('row6Feature'), pure: true, others: false, pureText: t('row6Us'), othersText: t('row6Others') },
+    { feature: t('row7Feature'), pure: false, others: "warn", pureText: t('row7Us'), othersText: t('row7Others') },
+    { feature: t('row8Feature'), pure: false, others: "warn", pureText: t('row8Us'), othersText: t('row8Others') },
   ]
 
   return (
     <section className="py-24 bg-background px-6">
       <div className="container mx-auto max-w-5xl">
         <div className="text-center mb-16">
-          <span className="text-primary font-medium tracking-wide text-sm uppercase">Why We Exist</span>
-          <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">Why most "free" QR generators aren't actually free</h2>
+          <span className="text-primary font-medium tracking-wide text-sm uppercase">{t('label')}</span>
+          <h2 className="font-display text-4xl md:text-5xl text-foreground mt-3">{t('title')}</h2>
         </div>
 
         <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-border bg-muted/30">
-                <th className="p-6 font-medium text-muted-foreground w-1/3">Feature</th>
-                <th className="p-6 font-display text-xl text-primary bg-card border-x border-border w-1/3">Simplified QR</th>
-                <th className="p-6 font-medium text-muted-foreground w-1/3">Most Others</th>
+                <th className="p-6 font-medium text-muted-foreground w-1/3">{t('colFeature')}</th>
+                <th className="p-6 font-display text-xl text-primary bg-card border-x border-border w-1/3">{t('colUs')}</th>
+                <th className="p-6 font-medium text-muted-foreground w-1/3">{t('colOthers')}</th>
               </tr>
             </thead>
             <tbody>
@@ -68,9 +71,7 @@ export function Comparison() {
         </div>
 
         <p className="mt-8 text-center text-muted-foreground max-w-3xl mx-auto">
-          We built Simplified QR because we got tired of the same bait-and-switch. You search for "free QR code generator",
-          you find one, you customise it, you click download — and suddenly it's $12 a month or it adds a watermark.
-          That's not free. Simplified QR will always let you download your QR codes for free.
+          {t('note')}
         </p>
       </div>
     </section>

@@ -1,21 +1,24 @@
 import { Link2, Wifi, Contact, UtensilsCrossed, Building2, ShoppingBag, GraduationCap, Newspaper } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 export function UseCases() {
+  const t = useTranslations('pages.home.useCases')
+
   const cases = [
-    { icon: Link2, text: "Sharing a website on a flyer" },
-    { icon: Wifi, text: "Guest WiFi at cafes and offices" },
-    { icon: Contact, text: "Digital business cards" },
-    { icon: UtensilsCrossed, text: "Restaurant menus" },
-    { icon: Building2, text: "Event check-in and ticketing" },
-    { icon: ShoppingBag, text: "Product packaging links" },
-    { icon: GraduationCap, text: "Classroom handouts and worksheets" },
-    { icon: Newspaper, text: "Print media linking to online content" },
+    { icon: Link2, text: t('case1') },
+    { icon: Wifi, text: t('case2') },
+    { icon: Contact, text: t('case3') },
+    { icon: UtensilsCrossed, text: t('case4') },
+    { icon: Building2, text: t('case5') },
+    { icon: ShoppingBag, text: t('case6') },
+    { icon: GraduationCap, text: t('case7') },
+    { icon: Newspaper, text: t('case8') },
   ]
 
   return (
     <section className="py-24 bg-card/50 px-6">
       <div className="container mx-auto max-w-5xl text-center">
-        <h2 className="font-display text-3xl md:text-4xl text-foreground mb-12">Built for every everyday use case</h2>
+        <h2 className="font-display text-3xl md:text-4xl text-foreground mb-12">{t('title')}</h2>
 
         <div className="flex flex-wrap justify-center gap-4">
           {cases.map((item, i) => (

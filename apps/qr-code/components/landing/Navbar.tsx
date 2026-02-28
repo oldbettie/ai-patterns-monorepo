@@ -6,8 +6,11 @@ import { usePathname } from 'next/navigation'
 import { AppRoutes } from '@/lib/config/featureToggles'
 import { cn } from '@/lib/utils'
 import ThemeToggle from '@/components/theme-toggle'
+import { LanguageSelector } from '@/components/language-selector'
+import { useTranslations } from 'next-intl'
 
 export function Navbar() {
+  const t = useTranslations('pages.home.navbar')
   const pathname = usePathname()
   const isHomepage = pathname === '/'
   const [isScrolled, setIsScrolled] = useState(false)
@@ -23,13 +26,13 @@ export function Navbar() {
 
   const navLinks = isHomepage
     ? [
-        { name: 'How It Works', href: '#how-it-works' },
-        { name: 'Features', href: '#features' },
-        { name: 'Privacy', href: '#privacy' },
-        { name: 'FAQ', href: '#faq' },
+        { name: t('howItWorks'), href: '#how-it-works' },
+        { name: t('features'), href: '#features' },
+        { name: t('privacy'), href: '#privacy' },
+        { name: t('faq'), href: '#faq' },
       ]
     : [
-        { name: 'FAQ', href: AppRoutes.home + '#faq' },
+        { name: t('faq'), href: AppRoutes.home + '#faq' },
       ]
 
   return (
@@ -42,14 +45,14 @@ export function Navbar() {
       >
         <div className="container mx-auto px-6 flex items-center justify-between">
           <Link href="/" className="font-display text-2xl text-foreground font-medium tracking-tight">
-            Simplified QR
+            {t('brand')}
           </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
-                key={link.name}
+                key={link.href}
                 href={link.href}
                 className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
               >
@@ -59,17 +62,19 @@ export function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center gap-4">
+            <LanguageSelector />
             <ThemeToggle />
             <Link
               href={AppRoutes.generate}
               className="bg-primary text-primary-foreground px-5 py-2.5 rounded-lg hover:bg-primary/90 transition-all hover:shadow-md font-medium text-sm"
             >
-              Generate QR Code →
+              {t('cta')}
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-4">
+            <LanguageSelector />
             <ThemeToggle />
             <button
               className="text-foreground"
@@ -89,7 +94,7 @@ export function Navbar() {
           <div className="md:hidden absolute top-full left-0 right-0 bg-background border-b border-border p-4 flex flex-col gap-4 shadow-lg animate-in slide-in-from-top-2">
             {navLinks.map((link) => (
               <Link
-                key={link.name}
+                key={link.href}
                 href={link.href}
                 className="text-foreground font-medium py-2"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -102,7 +107,7 @@ export function Navbar() {
               className="bg-primary text-primary-foreground px-5 py-3 rounded-lg text-center font-medium mt-2"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Generate QR Code →
+              {t('cta')}
             </Link>
           </div>
         )}
