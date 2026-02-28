@@ -13,7 +13,7 @@ export function WhyWeExist() {
             Some quietly store your data on their servers.
           </p>
           <p className="font-display text-2xl md:text-3xl font-semibold text-primary-foreground dark:text-primary pt-4 border-l-4 border-primary pl-6 text-left">
-            Quick QR is different. Everything runs in your browser. Your data is never uploaded anywhere.
+            Simplified QR is different. Everything runs in your browser. Your data is never uploaded anywhere.
             Generating is free. Downloading is free. Always.
           </p>
           <p className="opacity-80 text-sm pt-8">

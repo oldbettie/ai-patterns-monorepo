@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const runtime = 'edge'
-export const alt = 'Quick QR'
+export const alt = 'Simplified QR'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -49,7 +49,7 @@ export default async function Image() {
               marginTop: 8,
             }}
           >
-            Quick QR
+            Simplified QR
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@
 import { useState } from 'react'
 import { Pencil, Trash2, Check, X } from 'lucide-react'
 import type { QRHistoryEntry } from '@/lib/qr/qrHistoryTypes'
+import { useTranslations } from 'next-intl'
 
 interface QRHistoryProps {
   entries: QRHistoryEntry[]
@@ -15,6 +16,8 @@ interface QRHistoryProps {
 }
 
 export function QRHistory({ entries, loading, onLoad, onDelete, onRename }: QRHistoryProps) {
+  const tCommon = useTranslations('common')
+  const tHistory = useTranslations('pages.history')
   const [renamingId, setRenamingId] = useState<string | null>(null)
   const [renameValue, setRenameValue] = useState('')
 
@@ -37,7 +40,7 @@ export function QRHistory({ entries, loading, onLoad, onDelete, onRename }: QRHi
   if (loading) {
     return (
       <div className="flex items-center justify-center py-8 text-muted-foreground text-sm">
-        Loading…
+        {tCommon('loading')}
       </div>
     )
   }
@@ -45,8 +48,8 @@ export function QRHistory({ entries, loading, onLoad, onDelete, onRename }: QRHi
   if (entries.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-8 gap-2 text-center">
-        <p className="text-muted-foreground text-sm font-medium">No saved QR codes yet</p>
-        <p className="text-muted-foreground/60 text-xs">Generate and save a QR code to see it here</p>
+        <p className="text-muted-foreground text-sm font-medium">{tHistory('empty')}</p>
+        <p className="text-muted-foreground/60 text-xs">{tHistory('emptySubtitle')}</p>
       </div>
     )
   }

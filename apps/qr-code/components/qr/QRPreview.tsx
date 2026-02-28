@@ -3,17 +3,18 @@
 // @summary: Live QR code preview using qr-code-styling, mounted via useEffect (client-only)
 
 import { useEffect, useRef, useState } from 'react'
+import type QRCodeStyling from 'qr-code-styling'
 import type { QROptions } from '@/lib/qr/qrGenerator'
 
 interface QRPreviewProps {
   data: string
   options?: QROptions
   // Optional ref to expose the qr instance to the parent (for download / save)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  qrRef?: React.MutableRefObject<any>
+  qrRef?: React.MutableRefObject<QRCodeStyling | null>
+  placeholder?: string
 }
 
-export function QRPreview({ data, options = {}, qrRef }: QRPreviewProps) {
+export function QRPreview({ data, options = {}, qrRef, placeholder = 'Fill in the fields above to see your QR code' }: QRPreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [ready, setReady] = useState(false)
 
@@ -61,7 +62,7 @@ export function QRPreview({ data, options = {}, qrRef }: QRPreviewProps) {
     return (
       <div className="w-[280px] h-[280px] rounded-xl border-2 border-dashed border-border flex items-center justify-center bg-muted/20">
         <p className="text-sm text-muted-foreground text-center px-4">
-          Enter a URL above to see your QR code
+          {placeholder}
         </p>
       </div>
     )

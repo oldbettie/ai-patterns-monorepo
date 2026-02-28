@@ -8,6 +8,17 @@ import ThemeToggle from '@/components/theme-toggle'
 import { LanguageSelector } from '@/components/language-selector'
 import { useTranslations } from 'next-intl'
 import { UserAccountButton } from '@/components/UserAccountButton'
+import { Link2, Wifi, User, MessageSquare, Mail, FileText, ChevronDown } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+
+const TOOL_CONFIGS = [
+  { href: AppRoutes.generateUrl, icon: Link2, key: 'url' },
+  { href: AppRoutes.generateWifi, icon: Wifi, key: 'wifi' },
+  { href: AppRoutes.generateVcard, icon: User, key: 'vcard' },
+  { href: AppRoutes.generateSms, icon: MessageSquare, key: 'sms' },
+  { href: AppRoutes.generateEmail, icon: Mail, key: 'email' },
+  { href: AppRoutes.generateText, icon: FileText, key: 'text' },
+] as const
 
 interface AppPageNavProps {
   showGeneratorLink?: boolean
@@ -15,6 +26,19 @@ interface AppPageNavProps {
 
 export function AppPageNav({ showGeneratorLink = true }: AppPageNavProps) {
   const t = useTranslations('components.appNav')
+  const tGenerate = useTranslations('pages.generate')
+  const [toolsOpen, setToolsOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setToolsOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [])
 
   return (
     <nav className='w-full border-b border-border bg-background/95 backdrop-blur-md py-3'>
@@ -25,7 +49,7 @@ export function AppPageNav({ showGeneratorLink = true }: AppPageNavProps) {
             href={AppRoutes.home}
             className='font-display text-2xl text-foreground font-medium tracking-tight'
           >
-            Quick QR
+            Simplified QR
           </Link>
         </div>
 
@@ -35,12 +59,39 @@ export function AppPageNav({ showGeneratorLink = true }: AppPageNavProps) {
           <ThemeToggle />
           <LanguageSelector />
           {showGeneratorLink && (
-            <Link
-              href={AppRoutes.generate}
-              className='bg-primary text-primary-foreground px-5 py-2.5 rounded-lg hover:bg-primary/90 transition-all hover:shadow-md font-medium text-sm'
-            >
-              {t('openGenerator')} →
-            </Link>
+            <div ref={dropdownRef} className='relative'>
+              <button
+                onClick={() => setToolsOpen((o) => !o)}
+                className='flex items-center gap-1.5 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg hover:bg-primary/90 transition-all hover:shadow-md font-medium text-sm'
+              >
+                {t('openGenerator')}
+                <ChevronDown className={`w-4 h-4 transition-transform ${toolsOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {toolsOpen && (
+                <div className='absolute right-0 top-full mt-2 w-44 bg-card border border-border rounded-xl shadow-lg py-1.5 z-50'>
+                  <Link
+                    href={AppRoutes.generate}
+                    onClick={() => setToolsOpen(false)}
+                    className='block px-4 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors'
+                  >
+                    {t('allTools')}
+                  </Link>
+                  <div className='border-t border-border my-1' />
+                  {TOOL_CONFIGS.map(({ href, icon: Icon, key }) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      onClick={() => setToolsOpen(false)}
+                      className='flex items-center gap-2.5 px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors'
+                    >
+                      <Icon className='w-3.5 h-3.5 text-muted-foreground' />
+                      {tGenerate(`typeSelector.${key}`)}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
         </div>
       </div>

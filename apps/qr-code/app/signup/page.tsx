@@ -58,7 +58,7 @@ export default function SignupPage() {
       <div className='w-full max-w-md space-y-8'>
         <div>
           <Link href={AppRoutes.home} className="flex justify-center mb-6">
-            <h1 className="font-display text-4xl font-medium tracking-tight">Quick QR</h1>
+            <h1 className="font-display text-4xl font-medium tracking-tight">Simplified QR</h1>
           </Link>
           <h2 className='mt-2 text-center text-3xl font-display font-medium text-foreground'>
             {pageT('title')}

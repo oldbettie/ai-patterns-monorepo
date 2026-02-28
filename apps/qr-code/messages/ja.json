@@ -16,7 +16,8 @@
     "email": "メール",
     "password": "パスワード",
     "yes": "はい",
-    "no": "いいえ"
+    "no": "いいえ",
+    "optional": "（省略可）"
   },
   "components": {
     "languageSelector": {
@@ -34,7 +35,8 @@
       "verified": "認証済み"
     },
     "appNav": {
-      "openGenerator": "ジェネレーターを開く"
+      "openGenerator": "ジェネレーターを開く",
+      "allTools": "すべてのツール"
     }
   },
   "pages": {
@@ -64,10 +66,107 @@
       "download": {
         "png": "PNGをダウンロード",
         "svg": "SVGをダウンロード",
-        "print": "印刷"
+        "print": "印刷",
+        "downloading": "ダウンロード中…"
       },
       "save": "QRコードを保存",
-      "saving": "保存中..."
+      "saving": "保存中...",
+      "hub": {
+        "subtitle": "無料、登録不要、透かしなし。データはデバイスから出ません。",
+        "cardDescriptions": {
+          "url": "ウェブサイト、アプリ、またはリンク",
+          "wifi": "ネットワーク認証情報を共有",
+          "vcard": "連絡先をスマートフォンに保存",
+          "sms": "テキストメッセージを事前入力",
+          "email": "メールを事前入力",
+          "text": "プレーンテキストまたはメモ"
+        }
+      },
+      "tools": {
+        "url": {
+          "pageTitle": "URL QRコード",
+          "pageDescription": "ウェブサイト、アプリ、またはページへのリンク。無料、登録不要、透かしなし。",
+          "placeholder": "上にURLを入力するとQRコードが表示されます"
+        },
+        "wifi": {
+          "pageTitle": "WiFi QRコード",
+          "pageDescription": "スキャンでネットワークに参加 — パスワード入力不要。",
+          "placeholder": "上にネットワーク名を入力するとQRコードが表示されます"
+        },
+        "vcard": {
+          "pageTitle": "連絡先QRコード",
+          "pageDescription": "スキャンして連絡先情報をスマートフォンのアドレス帳に直接保存。",
+          "placeholder": "上に名前を入力するとQRコードが表示されます"
+        },
+        "sms": {
+          "pageTitle": "SMS QRコード",
+          "pageDescription": "スキャンして任意の電話に事前入力されたテキストメッセージを開く。",
+          "placeholder": "上に電話番号を入力するとQRコードが表示されます"
+        },
+        "email": {
+          "pageTitle": "メールQRコード",
+          "pageDescription": "スキャンして任意のメールアプリに事前入力されたメールを開く。",
+          "placeholder": "上にメールアドレスを入力するとQRコードが表示されます"
+        },
+        "text": {
+          "pageTitle": "テキストQRコード",
+          "pageDescription": "任意のプレーンテキストをエンコード — メモ、住所、コードなど何でも。",
+          "placeholder": "上にテキストを入力するとQRコードが表示されます"
+        }
+      },
+      "forms": {
+        "url": {
+          "label": "URLまたはリンク",
+          "placeholder": "https://example.com",
+          "hint": "リンクをペーストするだけ — アカウント不要。"
+        },
+        "wifi": {
+          "ssid": "ネットワーク名（SSID）",
+          "ssidPlaceholder": "My WiFi Network",
+          "password": "パスワード",
+          "passwordPlaceholder": "オープンネットワークの場合は空白",
+          "security": "セキュリティ",
+          "encNone": "なし",
+          "hidden": "非表示ネットワーク"
+        },
+        "vcard": {
+          "name": "氏名",
+          "namePlaceholder": "田中 花子",
+          "phone": "電話番号",
+          "phonePlaceholder": "+81 90 0000 0000",
+          "email": "メール",
+          "emailPlaceholder": "hanako@example.com",
+          "org": "組織",
+          "orgPlaceholder": "株式会社サンプル",
+          "title": "役職",
+          "titlePlaceholder": "ソフトウェアエンジニア",
+          "url": "ウェブサイト",
+          "urlPlaceholder": "https://example.com",
+          "address": "住所",
+          "addressPlaceholder": "〒123-4567 東京都渋谷区..."
+        },
+        "sms": {
+          "phone": "電話番号",
+          "phonePlaceholder": "+81 90 0000 0000",
+          "message": "メッセージ",
+          "messagePlaceholder": "事前入力メッセージテキスト…",
+          "hint": "スキャンしてこの番号への事前入力SMSを開く。"
+        },
+        "email": {
+          "to": "宛先",
+          "toPlaceholder": "recipient@example.com",
+          "subject": "件名",
+          "subjectPlaceholder": "メールの件名…",
+          "body": "本文",
+          "bodyPlaceholder": "メール本文…",
+          "hint": "スキャンして事前入力されたメールを開く。"
+        },
+        "text": {
+          "label": "テキスト",
+          "placeholder": "任意のテキストまたはメモを入力…",
+          "hint": "テキスト — メモ、住所、コードなど何でも。"
+        }
+      }
     },
     "history": {
       "title": "保存されたQRコード",
@@ -85,10 +184,10 @@
       "supporterPro": "サポータープロ",
       "free": "無料",
       "expires": "有効期限: {date}",
-      "donate": "Quick QR をサポートする"
+      "donate": "Simplified QR をサポートする"
     },
     "donate": {
-      "title": "Quick QRを支援する",
+      "title": "Simplified QRを支援する",
       "subtitle": "あなたの寄付がこのツールを無料でプライベートに保ちます",
       "alreadyDonor": "あなたはすでにサポーターです。ありがとうございます！",
       "amount": "寄付金額",

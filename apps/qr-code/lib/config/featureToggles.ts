@@ -88,8 +88,14 @@ export const AppRoutes = {
   donate: '/donate',
   donateSuccess: '/donate/success',
 
-  // QR routes
+  // QR tool routes
   generate: '/generate',
+  generateUrl: '/generate/url',
+  generateWifi: '/generate/wifi',
+  generateVcard: '/generate/vcard',
+  generateSms: '/generate/sms',
+  generateEmail: '/generate/email',
+  generateText: '/generate/text',
 
   // SEO/misc
   privacy: '/privacy',

@@ -6,7 +6,7 @@ import { Plus, Minus } from 'lucide-react'
 export function FAQ() {
   const faqs = [
     {
-      q: "Is Quick QR really free?",
+      q: "Is Simplified QR really free?",
       a: "Yes. Generating QR codes for any content type and downloading them as PNG or SVG are completely free. No trial period, no credit card required, no subscription. We mean it."
     },
     {
@@ -31,15 +31,15 @@ export function FAQ() {
     },
     {
       q: "Does it work offline?",
-      a: "Yes. Once you've loaded Quick QR in your browser, the generator works without an internet connection. Your QR code history is stored locally on your device."
+      a: "Yes. Once you've loaded Simplified QR in your browser, the generator works without an internet connection. Your QR code history is stored locally on your device."
     },
     {
-      q: "Is Quick QR available on mobile?",
-      a: "Yes. Quick QR works in any modern mobile browser on iOS and Android. You can even install it to your home screen for quick access."
+      q: "Is Simplified QR available on mobile?",
+      a: "Yes. Simplified QR works in any modern mobile browser on iOS and Android. You can even install it to your home screen for quick access."
     },
     {
-      q: "How does Quick QR make money if it's free?",
-      a: "Quick QR is sustained by optional donations from users who find it useful and want to support it. That's it. There are no hidden revenue streams that compromise your privacy."
+      q: "How does Simplified QR make money if it's free?",
+      a: "Simplified QR is sustained by optional donations from users who find it useful and want to support it. That's it. There are no hidden revenue streams that compromise your privacy."
     }
   ]
 

@@ -8,7 +8,7 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-12 mb-16">
           <div className="md:col-span-2">
             <Link href="/" className="font-display text-2xl text-white dark:text-foreground mb-4 block">
-              Quick QR
+              Simplified QR
             </Link>
             <p className="text-[#F0EFE9]/60 dark:text-muted-foreground max-w-sm mb-6">
               The free QR code generator with no catch.
@@ -36,14 +36,14 @@ export function Footer() {
             <ul className="space-y-3 text-[#F0EFE9]/60 dark:text-muted-foreground text-sm">
               <li><Link href="#faq" className="hover:text-white dark:hover:text-foreground transition-colors">FAQ</Link></li>
               <li><Link href={AppRoutes.privacy} className="hover:text-white dark:hover:text-foreground transition-colors">Privacy Policy</Link></li>
-              <li><a href="mailto:hello@quickqr.app" className="hover:text-white dark:hover:text-foreground transition-colors">Contact</a></li>
+              <li><a href="mailto:hello@simplifiedqr.com" className="hover:text-white dark:hover:text-foreground transition-colors">Contact</a></li>
             </ul>
           </div>
         </div>
 
         <div className="pt-8 border-t border-white/10 dark:border-border flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#F0EFE9]/40 dark:text-muted-foreground">
           <div>
-            © 2025 Quick QR · Made with ☕ · No data uploaded in the making of this generator
+            © 2025 Simplified QR · Made with ☕ · No data uploaded in the making of this generator
           </div>
           <div className="flex gap-6">
             <Link href={AppRoutes.privacy} className="hover:text-white dark:hover:text-foreground transition-colors">Privacy</Link>

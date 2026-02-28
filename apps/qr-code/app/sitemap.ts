@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_URL ?? 'https://quickqr.app'
+  const baseUrl = process.env.NEXT_PUBLIC_URL ?? 'https://simplifiedqr.com'
 
   return [
     {

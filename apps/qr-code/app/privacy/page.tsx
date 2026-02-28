@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description:
-    'Quick QR is built on a simple principle: your data is yours. Nothing you encode is ever uploaded, stored, or seen by us.',
+    'Simplified QR is built on a simple principle: your data is yours. Nothing you encode is ever uploaded, stored, or seen by us.',
   alternates: {
     canonical: (process.env.NEXT_PUBLIC_URL ?? '') + '/privacy',
   },
@@ -24,8 +24,8 @@ export default function PrivacyPage() {
           <section className="p-8 rounded-xl bg-accent/20 border border-primary/20">
             <h2 className="font-display text-3xl text-foreground mb-4">The short version</h2>
             <p className="text-foreground text-lg leading-relaxed">
-              Quick QR is built on a simple principle: <strong>your files are yours.</strong>
-              Nothing you edit in Quick QR is ever uploaded to our servers, stored on our systems,
+              Simplified QR is built on a simple principle: <strong>your files are yours.</strong>
+              Nothing you edit in Simplified QR is ever uploaded to our servers, stored on our systems,
               or seen by us. Everything runs inside your browser, on your own device.
             </p>
           </section>
@@ -34,7 +34,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="font-display text-3xl text-foreground mb-6">How your files are handled</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              When you open a PDF in Quick QR, the file is loaded directly into your browser using
+              When you open a PDF in Simplified QR, the file is loaded directly into your browser using
               the Web File API. No bytes of that file are transmitted to any server — ours or anyone else&apos;s.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-4">
@@ -56,7 +56,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="font-display text-3xl text-foreground mb-6">What we do collect</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Quick QR collects minimal, non-personal data to keep the service running and understand
+              Simplified QR collects minimal, non-personal data to keep the service running and understand
               basic usage patterns:
             </p>
             <ul className="space-y-3 text-muted-foreground">
@@ -83,7 +83,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="font-display text-3xl text-foreground mb-6">Cookies</h2>
             <p className="text-muted-foreground leading-relaxed">
-              Quick QR uses no advertising cookies and no cross-site tracking cookies.
+              Simplified QR uses no advertising cookies and no cross-site tracking cookies.
               We may use a minimal session cookie if you create an optional account, purely to keep you
               signed in. Analytics data is collected without cookies where possible.
             </p>
@@ -95,7 +95,7 @@ export default function PrivacyPage() {
             <ul className="space-y-3 text-muted-foreground">
               <li className="flex items-start gap-3">
                 <span className="text-primary mt-1">•</span>
-                <span><strong className="text-foreground">Vercel</strong> — Quick QR is hosted on Vercel. Vercel receives standard web server logs (IP address, request path, timestamp) for infrastructure purposes. See Vercel&apos;s privacy policy for details.</span>
+                <span><strong className="text-foreground">Vercel</strong> — Simplified QR is hosted on Vercel. Vercel receives standard web server logs (IP address, request path, timestamp) for infrastructure purposes. See Vercel&apos;s privacy policy for details.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-primary mt-1">•</span>
