@@ -22,9 +22,11 @@ export const env = createEnv({
       .url()
       .default('http://dev-box:3000'),
     NEXT_PUBLIC_STAGE: z.enum(['local', 'dev', 'staging', 'prod']).default('local'),
+    NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: z.string().min(1).optional(),
   },
   experimental__runtimeEnv: {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
     NEXT_PUBLIC_STAGE: process.env.NEXT_PUBLIC_STAGE,
+    NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
 })

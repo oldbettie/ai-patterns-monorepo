@@ -7,6 +7,9 @@ import type { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'https://qrcode.app'),
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || '',
+  },
   title: {
     default: 'Simplified QR',
     template: '%s — Simplified QR',

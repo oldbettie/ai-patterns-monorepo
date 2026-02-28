@@ -11,7 +11,7 @@ import type { Metadata, Viewport } from 'next'
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'https://simplifiedpdf.com'),
   verification: {
-    google: 'MqoJOkIY5M9o2d-HAXo76DvJFHoOVXw1B6dMeXYJPSw', // from Step 1
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || '',
   },
   title: {
     default: 'SimplifiedPDF',
