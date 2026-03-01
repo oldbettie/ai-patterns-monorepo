@@ -99,6 +99,10 @@ export const AppRoutes = {
 
   // SEO/misc
   privacy: '/privacy',
+  wifiQrCode: '/wifi-qr-code',
+  vcardQrCode: '/vcard-qr-code',
+  alternativesQrTiger: '/alternatives/qr-tiger',
+  alternativesQrcodeMonkey: '/alternatives/qrcode-monkey',
 } as const
 
 /**

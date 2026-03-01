@@ -29,6 +29,8 @@ export function Footer() {
               <li><Link href="#how-it-works" className="hover:text-white dark:hover:text-foreground transition-colors">{t('howItWorks')}</Link></li>
               <li><Link href="#features" className="hover:text-white dark:hover:text-foreground transition-colors">{t('features')}</Link></li>
               <li><Link href={AppRoutes.generate} className="hover:text-white dark:hover:text-foreground transition-colors">{t('qrGenerator')}</Link></li>
+              <li><Link href={AppRoutes.wifiQrCode} className="hover:text-white dark:hover:text-foreground transition-colors">{t('wifiQrGenerator')}</Link></li>
+              <li><Link href={AppRoutes.vcardQrCode} className="hover:text-white dark:hover:text-foreground transition-colors">{t('contactQrCode')}</Link></li>
               <li><a href={ExternalLinks.pdfApp} className="hover:text-white dark:hover:text-foreground transition-colors">{t('simplifiedPDF')}</a></li>
             </ul>
           </div>
