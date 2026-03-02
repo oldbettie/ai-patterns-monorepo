@@ -4,6 +4,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { Document } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
@@ -30,6 +31,7 @@ interface PDFEditorShellProps {
 
 export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
   const t = useTranslations('pages.editor')
+  const router = useRouter()
   const { getDocument } = useIndexedDB()
   const editor = usePDFEditor()
   const { setExportFn, clearExportFn, setEditorTitle, clearEditorTitle } = useEditorActions()
@@ -186,7 +188,7 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
       <div className="flex flex-1 items-center justify-center">
         <UnlockDialog
           onUnlock={handleUnlock}
-          onCancel={() => setAwaitingUnlock(false)}
+          onCancel={() => router.push('/editor?error=locked')}
           error={unlockError}
         />
       </div>

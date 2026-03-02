@@ -2,8 +2,9 @@
 // @feature:pdf-password @domain:pdf @frontend
 // @summary: Modal for setting, changing, or removing the export password
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import { X } from 'lucide-react'
 
 interface PasswordDialogProps {
   /** null = set new password; non-null = change or remove existing */
@@ -21,6 +22,12 @@ export function PasswordDialog({ currentPassword, onSet, onRemove, onClose }: Pa
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [errors, setErrors] = useState<{ existing?: boolean; mismatch?: boolean }>({})
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [onClose])
 
   const validateExisting = () => existingPassword === currentPassword
 
@@ -41,9 +48,19 @@ export function PasswordDialog({ currentPassword, onSet, onRemove, onClose }: Pa
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="bg-background rounded-xl shadow-2xl p-6 w-full max-w-sm mx-4 border border-border">
-        <h2 className="text-lg font-semibold mb-4 text-foreground">
-          {isManage ? t('manageTitle') : t('setTitle')}
-        </h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold text-foreground">
+            {isManage ? t('manageTitle') : t('setTitle')}
+          </h2>
+          <button
+            type="button"
+            onClick={onClose}
+            className="ml-2 p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+            aria-label="Close"
+          >
+            <X size={16} />
+          </button>
+        </div>
 
         <form onSubmit={handleChange} className="flex flex-col gap-3">
           {isManage && (

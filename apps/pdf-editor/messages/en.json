@@ -236,6 +236,7 @@
         "dragDrop": "Drag and drop or click to select",
         "accept": "PDF files only"
       },
+      "lockedError": "This PDF is password protected. Enter the correct password to open it.",
       "storage": {
         "warning": "Storage almost full"
       },

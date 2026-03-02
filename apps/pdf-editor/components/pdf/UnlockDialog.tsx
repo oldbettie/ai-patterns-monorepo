@@ -2,8 +2,9 @@
 // @feature:pdf-password @domain:pdf @frontend
 // @summary: Modal shown when opening a password-protected PDF
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
+import { X } from 'lucide-react'
 
 interface UnlockDialogProps {
   onUnlock: (password: string) => void
@@ -15,6 +16,12 @@ export function UnlockDialog({ onUnlock, onCancel, error }: UnlockDialogProps) {
   const t = useTranslations('pages.editor.password')
   const [password, setPassword] = useState('')
 
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onCancel() }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  }, [onCancel])
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (password) onUnlock(password)
@@ -23,7 +30,17 @@ export function UnlockDialog({ onUnlock, onCancel, error }: UnlockDialogProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="bg-background rounded-xl shadow-2xl p-6 w-full max-w-sm mx-4 border border-border">
-        <h2 className="text-lg font-semibold mb-1 text-foreground">{t('unlockTitle')}</h2>
+        <div className="flex items-start justify-between mb-1">
+          <h2 className="text-lg font-semibold text-foreground">{t('unlockTitle')}</h2>
+          <button
+            type="button"
+            onClick={onCancel}
+            className="ml-2 p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+            aria-label="Close"
+          >
+            <X size={16} />
+          </button>
+        </div>
         <p className="text-sm text-muted-foreground mb-4">{t('unlockBody')}</p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
