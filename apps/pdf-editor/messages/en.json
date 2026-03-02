@@ -276,6 +276,22 @@
       "export": {
         "generating": "Generating PDF...",
         "success": "PDF downloaded"
+      },
+      "password": {
+        "setTitle": "Set Password",
+        "manageTitle": "Manage Password",
+        "unlockTitle": "PDF is Password Protected",
+        "unlockBody": "Enter the password to unlock this document for editing.",
+        "currentPassword": "Current password",
+        "newPassword": "New password",
+        "confirmPassword": "Confirm password",
+        "mismatch": "Passwords do not match",
+        "wrongPassword": "Incorrect password",
+        "setButton": "Set Password",
+        "changeButton": "Change Password",
+        "removeButton": "Remove Password",
+        "unlockButton": "Unlock",
+        "cancel": "Cancel"
       }
     },
     "profile": {
