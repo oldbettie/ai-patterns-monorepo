@@ -110,6 +110,10 @@ export const ApiRoutes = {
   // Core API v1
   users: '/api/core/v1/users',
   donations: '/api/core/v1/donations',
+  pdfs: {
+    protect: '/api/core/v1/pdfs/protect',
+    unlock: '/api/core/v1/pdfs/unlock',
+  },
 
 } as const
 

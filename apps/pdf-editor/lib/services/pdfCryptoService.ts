@@ -399,11 +399,7 @@ export class PDFCryptoService {
     const decrypted: PDFObject[] = filtered.map(obj => {
       const objKey = deriveObjectKey(fileKey, obj.objNum, obj.genNum, isAES)
 
-      let newStream: Buffer | null = null
-      if (obj.streamData) {
-        try { newStream = decryptData(obj.streamData, objKey, algorithm) }
-        catch { newStream = obj.streamData }
-      }
+      const newStream = obj.streamData ? decryptData(obj.streamData, objKey, algorithm) : null
 
       let dictText = processStringsInText(obj.dictText, objKey, algorithm, 'decrypt')
       if (newStream && newStream.length !== obj.streamData?.length) {

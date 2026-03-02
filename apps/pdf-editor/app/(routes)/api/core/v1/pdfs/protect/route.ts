@@ -16,9 +16,12 @@ export const POST = createRouteHandler({ isPublic: true }, async (req) => {
 
   const bytes = new Uint8Array(await file.arrayBuffer())
   const service = createPDFCryptoService()
-  const encrypted = await service.encryptPDF(bytes, password)
 
-  return new NextResponse(encrypted, {
-    headers: { 'Content-Type': 'application/pdf' },
-  })
+  try {
+    const encrypted = await service.encryptPDF(bytes, password)
+    return new NextResponse(encrypted, { headers: { 'Content-Type': 'application/pdf' } })
+  } catch (e) {
+    console.error('PDF protect failed:', e)
+    return NextResponse.json({ data: null, error: 'Failed to encrypt PDF' }, { status: 500 })
+  }
 })

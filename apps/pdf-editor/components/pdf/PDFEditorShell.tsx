@@ -22,6 +22,7 @@ import { EditorTopBar } from '@/components/pdf/EditorTopBar'
 import { SignatureToolbar } from '@/components/pdf/SignatureToolbar'
 import { loadPDFBytes, getPDFPageCount, exportPDF, downloadPDF, addBlankPage, reorderPDFPages } from '@/lib/pdf/pdfEditor'
 import { protectPDFAction, unlockPDFAction } from '@/actions/pdf-crypto-actions'
+import { AppRoutes } from '@/lib/config/featureToggles'
 import type { ActiveTool } from '@/components/pdf/EditorTopBar'
 import type { PDFPageStackHandle } from '@/components/pdf/PDFPageStack'
 
@@ -113,8 +114,9 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
       const reordered = await reorderPDFPages(withOverlays, order)
       const password = exportPassword
       if (password) {
-        const protected_ = await protectPDFAction(reordered, password)
-        downloadPDF(protected_ ?? reordered, filename)
+        const { data: protectedBytes, error } = await protectPDFAction(reordered, password)
+        if (error || !protectedBytes) throw new Error('Failed to protect PDF. Please try again.')
+        downloadPDF(protectedBytes, filename)
       } else {
         downloadPDF(reordered, filename)
       }
@@ -145,9 +147,9 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
     if (!encryptedBytes) return
     setUnlockError(null)
     editor.setLoading(true)
-    const decrypted = await unlockPDFAction(encryptedBytes, password)
+    const { data: decrypted, error } = await unlockPDFAction(encryptedBytes, password)
     if (!decrypted) {
-      setUnlockError('incorrect')
+      setUnlockError(error)
       editor.setLoading(false)
       return
     }
@@ -188,7 +190,7 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
       <div className="flex flex-1 items-center justify-center">
         <UnlockDialog
           onUnlock={handleUnlock}
-          onCancel={() => router.push('/editor?error=locked')}
+          onCancel={() => router.push(`${AppRoutes.editor}?error=locked`)}
           error={unlockError}
         />
       </div>

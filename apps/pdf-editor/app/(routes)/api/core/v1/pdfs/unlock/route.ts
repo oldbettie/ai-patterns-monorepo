@@ -19,10 +19,12 @@ export const POST = createRouteHandler({ isPublic: true }, async (req) => {
 
   try {
     const decrypted = await service.decryptPDF(bytes, password)
-    return new NextResponse(decrypted, {
-      headers: { 'Content-Type': 'application/pdf' },
-    })
-  } catch {
-    return NextResponse.json({ data: null, error: 'Incorrect password' }, { status: 401 })
+    return new NextResponse(decrypted, { headers: { 'Content-Type': 'application/pdf' } })
+  } catch (e) {
+    if (e instanceof Error && e.message === 'Incorrect password') {
+      return NextResponse.json({ data: null, error: 'Incorrect password' }, { status: 401 })
+    }
+    console.error('PDF unlock failed:', e)
+    return NextResponse.json({ data: null, error: 'Failed to decrypt PDF' }, { status: 500 })
   }
 })

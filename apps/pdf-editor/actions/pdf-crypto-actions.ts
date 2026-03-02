@@ -5,6 +5,7 @@
 
 import { headers } from 'next/headers'
 import { getBaseUrl } from '@/lib/utils'
+import { ApiRoutes } from '@/lib/config/featureToggles'
 
 async function pdfBinaryFetch(path: string, formData: FormData): Promise<Response> {
   const headersList = await headers()
@@ -20,30 +21,31 @@ async function pdfBinaryFetch(path: string, formData: FormData): Promise<Respons
   })
 }
 
-/**
- * Encrypt a PDF with a password.
- * Returns the encrypted PDF bytes, or null on error.
- */
-export async function protectPDFAction(bytes: Uint8Array, password: string): Promise<Uint8Array | null> {
+export async function protectPDFAction(
+  bytes: Uint8Array,
+  password: string,
+): Promise<{ data: Uint8Array | null; error: string | null }> {
   const formData = new FormData()
-  formData.append('file', new Blob([bytes], { type: 'application/pdf' }), 'document.pdf')
+  formData.append('file', new Blob([Buffer.from(bytes)], { type: 'application/pdf' }), 'document.pdf')
   formData.append('password', password)
 
-  const res = await pdfBinaryFetch('/api/core/v1/pdfs/protect', formData)
-  if (!res.ok) return null
-  return new Uint8Array(await res.arrayBuffer())
+  const res = await pdfBinaryFetch(ApiRoutes.pdfs.protect, formData)
+  if (!res.ok) return { data: null, error: 'Failed to encrypt PDF' }
+  return { data: new Uint8Array(await res.arrayBuffer()), error: null }
 }
 
-/**
- * Decrypt a password-protected PDF.
- * Returns the decrypted PDF bytes, or null if the password is incorrect.
- */
-export async function unlockPDFAction(bytes: Uint8Array, password: string): Promise<Uint8Array | null> {
+export async function unlockPDFAction(
+  bytes: Uint8Array,
+  password: string,
+): Promise<{ data: Uint8Array | null; error: string | null }> {
   const formData = new FormData()
-  formData.append('file', new Blob([bytes], { type: 'application/pdf' }), 'document.pdf')
+  formData.append('file', new Blob([Buffer.from(bytes)], { type: 'application/pdf' }), 'document.pdf')
   formData.append('password', password)
 
-  const res = await pdfBinaryFetch('/api/core/v1/pdfs/unlock', formData)
-  if (!res.ok) return null
-  return new Uint8Array(await res.arrayBuffer())
+  const res = await pdfBinaryFetch(ApiRoutes.pdfs.unlock, formData)
+  if (!res.ok) {
+    if (res.status === 401) return { data: null, error: 'incorrect' }
+    return { data: null, error: 'Failed to decrypt PDF' }
+  }
+  return { data: new Uint8Array(await res.arrayBuffer()), error: null }
 }
