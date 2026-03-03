@@ -66,11 +66,34 @@ export default function QrTigerAlternativePage() {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: process.env.NEXT_PUBLIC_URL || 'https://simplifiedqr.com',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Alternatives',
+            item: `${process.env.NEXT_PUBLIC_URL}/alternatives/qr-tiger`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: 'QR Tiger Alternative',
+            item: `${process.env.NEXT_PUBLIC_URL}/alternatives/qr-tiger`,
+          },
+        ],
+      },
+      {
         '@type': 'SoftwareApplication',
         name: 'Simplified QR',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Any (Web Browser)',
-        url: process.env.NEXT_PUBLIC_URL,
+        url: process.env.NEXT_PUBLIC_URL || 'https://simplifiedqr.com',
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       },
       {

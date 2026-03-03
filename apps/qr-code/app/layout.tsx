@@ -6,7 +6,7 @@ import { GlobalHeader } from '@/components/GlobalHeader'
 import type { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'https://qrcode.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_URL || 'https://simplifiedqr.com'),
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || '',
   },
@@ -23,6 +23,15 @@ export const metadata: Metadata = {
     description:
       'Free QR code generator. Create QR codes for URLs, WiFi, vCards, SMS, and more. No signup required.',
     locale: 'en_US',
+    url: 'https://simplifiedqr.com',
+  },
+  alternates: {
+    canonical: 'https://simplifiedqr.com',
+    languages: {
+      'en-US': 'https://simplifiedqr.com',
+      'ja-JP': 'https://simplifiedqr.com',
+      'x-default': 'https://simplifiedqr.com',
+    },
   },
   twitter: {
     card: 'summary_large_image',

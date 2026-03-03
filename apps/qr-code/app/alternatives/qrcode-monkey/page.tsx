@@ -11,14 +11,14 @@ export const metadata: Metadata = {
   description:
     'QRCode Monkey adds watermarks and limits free downloads. Simplified QR is genuinely free — unlimited PNG and SVG downloads, no watermarks, no signup ever.',
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_URL}/alternatives/qrcode-monkey`,
+    canonical: 'https://simplifiedqr.com/alternatives/qrcode-monkey',
   },
   openGraph: {
     title: 'Free QRCode Monkey Alternative — No Watermarks, No Download Limits',
     description:
       'QRCode Monkey adds watermarks and limits free downloads. Simplified QR is genuinely free — unlimited PNG and SVG downloads, no watermarks, no signup ever.',
     type: 'website',
-    url: `${process.env.NEXT_PUBLIC_URL}/alternatives/qrcode-monkey`,
+    url: 'https://simplifiedqr.com/alternatives/qrcode-monkey',
     siteName: 'Simplified QR',
   },
   twitter: {
@@ -66,11 +66,34 @@ export default function QrcodeMonkeyAlternativePage() {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://simplifiedqr.com',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Alternatives',
+            item: 'https://simplifiedqr.com/alternatives/qrcode-monkey',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: 'QRCode Monkey Alternative',
+            item: 'https://simplifiedqr.com/alternatives/qrcode-monkey',
+          },
+        ],
+      },
+      {
         '@type': 'SoftwareApplication',
         name: 'Simplified QR',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Any (Web Browser)',
-        url: process.env.NEXT_PUBLIC_URL,
+        url: 'https://simplifiedqr.com',
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       },
       {

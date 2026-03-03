@@ -3,6 +3,7 @@ import { Hero } from './sections/Hero'
 import { WhyWeExist } from './sections/WhyWeExist'
 import { HowItWorks } from './sections/HowItWorks'
 import { Features } from './sections/Features'
+import { Advantage } from './sections/Advantage'
 import { Privacy } from './sections/Privacy'
 import { Comparison } from './sections/Comparison'
 import { UseCases } from './sections/UseCases'
@@ -19,6 +20,7 @@ export function LandingPage() {
         <WhyWeExist />
         <HowItWorks />
         <Features />
+        <Advantage />
         <Privacy />
         <Comparison />
         <UseCases />

@@ -10,14 +10,14 @@ export const metadata: Metadata = {
   description:
     'Add text to any PDF instantly in your browser. Fill forms, annotate, download clean. Free forever. No watermark. No account. Your files never leave your device.',
   alternates: {
-    canonical: 'https://www.simplifiedpdf.com/edit-pdf',
+    canonical: 'https://simplifiedpdf.com/edit-pdf',
   },
   openGraph: {
     title: 'Edit PDF Free Online — Add Text, Fill Forms, No Signup',
     description:
       'Add text to any PDF instantly in your browser. Fill forms, annotate, download clean. Free forever. No watermark. No account.',
     type: 'website',
-    url: 'https://www.simplifiedpdf.com/edit-pdf',
+    url: 'https://simplifiedpdf.com/edit-pdf',
     siteName: 'SimplifiedPDF',
   },
   twitter: {
@@ -71,7 +71,7 @@ export default function EditPdfPage() {
     { feature: t('row6Feature'), us: t('row6Us'), them: t('row6Them') },
   ]
 
-  const faqs = Array.from({ length: 6 }, (_, i) => ({
+  const faqs = Array.from({ length: 10 }, (_, i) => ({
     q: t(`faq_q${i + 1}`),
     a: t(`faq_a${i + 1}`),
   }))
@@ -80,11 +80,28 @@ export default function EditPdfPage() {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://simplifiedpdf.com',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Edit PDF',
+            item: 'https://simplifiedpdf.com/edit-pdf',
+          },
+        ],
+      },
+      {
         '@type': 'SoftwareApplication',
         name: 'SimplifiedPDF — Edit PDF Online',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Any (Web Browser)',
-        url: 'https://www.simplifiedpdf.com/edit-pdf',
+        url: 'https://simplifiedpdf.com/edit-pdf',
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
         featureList: ['Add text to PDF', 'Fill PDF forms', 'Sign PDF', 'Download without watermark', 'No file upload'],
       },

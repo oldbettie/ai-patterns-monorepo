@@ -10,14 +10,14 @@ export const metadata: Metadata = {
   description:
     'Sign any PDF in seconds, right in your browser. Draw your signature, place it, download instantly. No account. No subscription. Files never leave your device.',
   alternates: {
-    canonical: 'https://www.simplifiedpdf.com/sign-pdf',
+    canonical: 'https://simplifiedpdf.com/sign-pdf',
   },
   openGraph: {
     title: 'Sign PDF Online Free — No Signup, No Software',
     description:
       'Sign any PDF in seconds, right in your browser. Draw your signature, place it, download instantly. No account. No subscription.',
     type: 'website',
-    url: 'https://www.simplifiedpdf.com/sign-pdf',
+    url: 'https://simplifiedpdf.com/sign-pdf',
     siteName: 'SimplifiedPDF',
   },
   twitter: {
@@ -63,7 +63,7 @@ export default function SignPdfPage() {
     { icon: GraduationCap, label: t('uc4Label'), desc: t('uc4Desc') },
   ]
 
-  const faqs = Array.from({ length: 6 }, (_, i) => ({
+  const faqs = Array.from({ length: 10 }, (_, i) => ({
     q: t(`faq_q${i + 1}`),
     a: t(`faq_a${i + 1}`),
   }))
@@ -72,11 +72,28 @@ export default function SignPdfPage() {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://simplifiedpdf.com',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Sign PDF',
+            item: 'https://simplifiedpdf.com/sign-pdf',
+          },
+        ],
+      },
+      {
         '@type': 'SoftwareApplication',
         name: 'SimplifiedPDF — Sign PDF Online',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Any (Web Browser)',
-        url: 'https://www.simplifiedpdf.com/sign-pdf',
+        url: 'https://simplifiedpdf.com/sign-pdf',
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
         featureList: ['Draw signature', 'Place on PDF', 'Download signed PDF', 'No account required', 'No file upload'],
       },

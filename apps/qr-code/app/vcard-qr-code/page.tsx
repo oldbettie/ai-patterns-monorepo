@@ -12,14 +12,14 @@ export const metadata: Metadata = {
   description:
     'Turn your contact details into a scannable QR code. Perfect for business cards, networking events, and email signatures. Free, no signup, no watermarks.',
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_URL}/vcard-qr-code`,
+    canonical: 'https://simplifiedqr.com/vcard-qr-code',
   },
   openGraph: {
     title: 'vCard QR Code Generator — Share Your Contact Info with a Scan',
     description:
       'Turn your contact details into a scannable QR code. Perfect for business cards, networking events, and email signatures. Free, no signup, no watermarks.',
     type: 'website',
-    url: `${process.env.NEXT_PUBLIC_URL}/vcard-qr-code`,
+    url: 'https://simplifiedqr.com/vcard-qr-code',
     siteName: 'Simplified QR',
   },
   twitter: {
@@ -73,11 +73,28 @@ export default function VcardQrCodePage() {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://simplifiedqr.com',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Contact QR Code',
+            item: 'https://simplifiedqr.com/vcard-qr-code',
+          },
+        ],
+      },
+      {
         '@type': 'SoftwareApplication',
         name: 'Simplified QR — vCard QR Code Generator',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Any (Web Browser)',
-        url: `${process.env.NEXT_PUBLIC_URL}/vcard-qr-code`,
+        url: 'https://simplifiedqr.com/vcard-qr-code',
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
         featureList: [
           'Generate vCard QR codes',
