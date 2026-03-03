@@ -9,54 +9,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
-      languages: {
-        'ja-JP': baseUrl,
-      },
+      alternates: { languages: { 'ja-JP': baseUrl } },
     },
     {
       url: `${baseUrl}/edit-pdf`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
-      languages: {
-        'ja-JP': `${baseUrl}/edit-pdf`,
-      },
+      alternates: { languages: { 'ja-JP': `${baseUrl}/edit-pdf` } },
     },
     {
       url: `${baseUrl}/sign-pdf`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
-      languages: {
-        'ja-JP': `${baseUrl}/sign-pdf`,
-      },
+      alternates: { languages: { 'ja-JP': `${baseUrl}/sign-pdf` } },
     },
     {
       url: `${baseUrl}/alternatives/adobe-acrobat`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
-      languages: {
-        'ja-JP': `${baseUrl}/alternatives/adobe-acrobat`,
-      },
+      alternates: { languages: { 'ja-JP': `${baseUrl}/alternatives/adobe-acrobat` } },
     },
     {
       url: `${baseUrl}/alternatives/smallpdf`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
-      languages: {
-        'ja-JP': `${baseUrl}/alternatives/smallpdf`,
-      },
+      alternates: { languages: { 'ja-JP': `${baseUrl}/alternatives/smallpdf` } },
     },
     {
       url: `${baseUrl}/privacy`,
       lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.4,
-      languages: {
-        'ja-JP': `${baseUrl}/privacy`,
-      },
+      alternates: { languages: { 'ja-JP': `${baseUrl}/privacy` } },
     },
   ]
 }
