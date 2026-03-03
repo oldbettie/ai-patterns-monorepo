@@ -11,14 +11,14 @@ export const metadata: Metadata = {
   description:
     'QR Tiger charges $7/month for dynamic codes and adds watermarks on the free plan. Simplified QR gives you beautiful QR codes free — forever. No subscription, no signup.',
   alternates: {
-    canonical: 'https://simplifiedqr.com/alternatives/qr-tiger',
+    canonical: `${process.env.NEXT_PUBLIC_URL}/alternatives/qr-tiger`,
   },
   openGraph: {
     title: 'Free QR Tiger Alternative — No Subscription, No Watermarks',
     description:
       'QR Tiger charges $7/month for dynamic codes and adds watermarks on the free plan. Simplified QR gives you beautiful QR codes free — forever.',
     type: 'website',
-    url: 'https://simplifiedqr.com/alternatives/qr-tiger',
+    url: `${process.env.NEXT_PUBLIC_URL}/alternatives/qr-tiger`,
     siteName: 'Simplified QR',
   },
   twitter: {
@@ -72,19 +72,19 @@ export default function QrTigerAlternativePage() {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://simplifiedqr.com',
+            item: process.env.NEXT_PUBLIC_URL || 'https://simplifiedqr.com',
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'Alternatives',
-            item: 'https://simplifiedqr.com/alternatives/qr-tiger',
+            item: `${process.env.NEXT_PUBLIC_URL}/alternatives/qr-tiger`,
           },
           {
             '@type': 'ListItem',
             position: 3,
             name: 'QR Tiger Alternative',
-            item: 'https://simplifiedqr.com/alternatives/qr-tiger',
+            item: `${process.env.NEXT_PUBLIC_URL}/alternatives/qr-tiger`,
           },
         ],
       },
@@ -93,7 +93,7 @@ export default function QrTigerAlternativePage() {
         name: 'Simplified QR',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Any (Web Browser)',
-        url: 'https://simplifiedqr.com',
+        url: process.env.NEXT_PUBLIC_URL || 'https://simplifiedqr.com',
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       },
       {
