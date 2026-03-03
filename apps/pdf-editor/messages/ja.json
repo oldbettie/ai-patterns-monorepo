@@ -236,6 +236,7 @@
         "dragDrop": "ドラッグ＆ドロップまたはクリックして選択",
         "accept": "PDFファイルのみ"
       },
+      "lockedError": "このPDFはパスワードで保護されています。開くには正しいパスワードを入力してください。",
       "storage": {
         "warning": "ストレージがほぼいっぱいです"
       },
@@ -276,6 +277,22 @@
       "export": {
         "generating": "PDF生成中...",
         "success": "PDFをダウンロードしました"
+      },
+      "password": {
+        "setTitle": "パスワードを設定",
+        "manageTitle": "パスワードを管理",
+        "unlockTitle": "PDFはパスワードで保護されています",
+        "unlockBody": "このドキュメントを編集するためにパスワードを入力してください。",
+        "currentPassword": "現在のパスワード",
+        "newPassword": "新しいパスワード",
+        "confirmPassword": "パスワードを確認",
+        "mismatch": "パスワードが一致しません",
+        "wrongPassword": "パスワードが正しくありません",
+        "setButton": "パスワードを設定",
+        "changeButton": "パスワードを変更",
+        "removeButton": "パスワードを削除",
+        "unlockButton": "ロック解除",
+        "cancel": "キャンセル"
       }
     },
     "profile": {

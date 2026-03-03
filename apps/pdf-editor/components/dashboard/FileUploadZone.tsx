@@ -31,7 +31,8 @@ export function FileUploadZone() {
       }
 
       const bytes = await loadPDFBytes(file)
-      const pageCount = await getPDFPageCount(bytes)
+      let pageCount = 0
+      try { pageCount = await getPDFPageCount(bytes) } catch { /* encrypted PDF — editor will handle unlock */ }
       const id = uuidv4()
 
       const doc: PDFDocument = {

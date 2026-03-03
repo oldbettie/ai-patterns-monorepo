@@ -14,14 +14,21 @@ import { AppRoutes, FeatureToggles } from '@/lib/config/featureToggles'
 interface DashboardClientProps {
   user: User | null
   isDonor: boolean
+  errorCode?: string
 }
 
-export function DashboardClient({ user, isDonor }: DashboardClientProps) {
+export function DashboardClient({ user, isDonor, errorCode }: DashboardClientProps) {
   const t = useTranslations('pages.dashboard')
 
   return (
     <main className="container-balanced py-8 md:py-20">
       <SectionHeader title={t('documents.title')} subtitle={t('documents.subtitle')} />
+
+      {errorCode === 'locked' && (
+        <div className="mb-6 px-4 py-3 rounded-md bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 text-sm">
+          {t('lockedError')}
+        </div>
+      )}
 
       <section className="mb-8">
         <FileUploadZone />

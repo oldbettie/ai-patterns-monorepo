@@ -4,6 +4,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { Document } from 'react-pdf'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import 'react-pdf/dist/Page/TextLayer.css'
@@ -13,11 +14,15 @@ import { useEditorActions } from '@/lib/context/EditorActionsContext'
 import { useSignatures } from '@/components/hooks/useSignatures'
 import { TextToolbar } from '@/components/pdf/TextToolbar'
 import { SignatureDrawingModal } from '@/components/pdf/SignatureDrawingModal'
+import { PasswordDialog } from '@/components/pdf/PasswordDialog'
+import { UnlockDialog } from '@/components/pdf/UnlockDialog'
 import { PDFPageThumbnails } from '@/components/pdf/PDFPageThumbnails'
 import { PDFPageStack } from '@/components/pdf/PDFPageStack'
 import { EditorTopBar } from '@/components/pdf/EditorTopBar'
 import { SignatureToolbar } from '@/components/pdf/SignatureToolbar'
 import { loadPDFBytes, getPDFPageCount, exportPDF, downloadPDF, addBlankPage, reorderPDFPages } from '@/lib/pdf/pdfEditor'
+import { protectPDFAction, unlockPDFAction } from '@/actions/pdf-crypto-actions'
+import { AppRoutes } from '@/lib/config/featureToggles'
 import type { ActiveTool } from '@/components/pdf/EditorTopBar'
 import type { PDFPageStackHandle } from '@/components/pdf/PDFPageStack'
 
@@ -27,6 +32,7 @@ interface PDFEditorShellProps {
 
 export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
   const t = useTranslations('pages.editor')
+  const router = useRouter()
   const { getDocument } = useIndexedDB()
   const editor = usePDFEditor()
   const { setExportFn, clearExportFn, setEditorTitle, clearEditorTitle } = useEditorActions()
@@ -44,6 +50,13 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
   const [scale, setScale] = useState(1)
   const [pageOrder, setPageOrder] = useState<number[]>([])
   const [selectedTextId, setSelectedTextId] = useState<string | null>(null)
+
+  // Password protection state
+  const [pdfPassword, setPdfPassword] = useState<string | null>(null)
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false)
+  const [awaitingUnlock, setAwaitingUnlock] = useState(false)
+  const [unlockError, setUnlockError] = useState<string | null>(null)
+  const [encryptedBytes, setEncryptedBytes] = useState<Uint8Array | null>(null)
 
   // Create the file object exactly once when pdfBytes first becomes available.
   // A stable reference prevents react-pdf from reloading the document on every re-render.
@@ -66,10 +79,20 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
       setDocumentName(doc.name)
       setEditorTitle(doc.name)
       const bytes = await loadPDFBytes(doc.originalFile)
-      const pageCount = await getPDFPageCount(bytes)
-      if (cancelled) return
-      editor.setPdfBytes(bytes, pageCount)
-      setPageOrder(Array.from({ length: pageCount }, (_, i) => i))
+
+      // Check for encrypted PDF — defer loading until password is entered
+      try {
+        const pageCount = await getPDFPageCount(bytes)
+        if (cancelled) return
+        editor.setPdfBytes(bytes, pageCount)
+        setPageOrder(Array.from({ length: pageCount }, (_, i) => i))
+      } catch {
+        // pdf-lib throws on encrypted PDFs — prompt for password
+        if (cancelled) return
+        setEncryptedBytes(bytes)
+        setAwaitingUnlock(true)
+        editor.setLoading(false)
+      }
     }
     loadDocument()
     return () => { cancelled = true; clearEditorTitle() }
@@ -85,14 +108,22 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
     const images = signatures.signatureImages
     const filename = documentName
     const order = pageOrder
+    const exportPassword = pdfPassword
     setExportFn(async () => {
       const withOverlays = await exportPDF(pdfBytes, textElements, signatureElements, images)
       const reordered = await reorderPDFPages(withOverlays, order)
-      downloadPDF(reordered, filename)
+      const password = exportPassword
+      if (password) {
+        const { data: protectedBytes, error } = await protectPDFAction(reordered, password)
+        if (error || !protectedBytes) throw new Error('Failed to protect PDF. Please try again.')
+        downloadPDF(protectedBytes, filename)
+      } else {
+        downloadPDF(reordered, filename)
+      }
     })
     return clearExportFn
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editor.pdfBytes, editor.textElements, editor.signatureElements, signatures.signatureImages, documentName, pageOrder])
+  }, [editor.pdfBytes, editor.textElements, editor.signatureElements, signatures.signatureImages, documentName, pageOrder, pdfPassword])
 
   const handleThumbnailClick = useCallback((visualPos: number) => {
     editor.setActivePage(visualPos)
@@ -112,6 +143,30 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
     mainFileRef.current = { data: newBytes.slice() }
   }, [editor])
 
+  const handleUnlock = useCallback(async (password: string) => {
+    if (!encryptedBytes) return
+    setUnlockError(null)
+    editor.setLoading(true)
+    const { data: decrypted, error } = await unlockPDFAction(encryptedBytes, password)
+    if (!decrypted) {
+      setUnlockError(error)
+      editor.setLoading(false)
+      return
+    }
+    try {
+      const pageCount = await getPDFPageCount(decrypted)
+      editor.setPdfBytes(decrypted, pageCount)
+      setPageOrder(Array.from({ length: pageCount }, (_, i) => i))
+      mainFileRef.current = { data: decrypted.slice() }
+      setPdfPassword(password)
+      setAwaitingUnlock(false)
+      setEncryptedBytes(null)
+    } catch {
+      setUnlockError('incorrect')
+      editor.setLoading(false)
+    }
+  }, [encryptedBytes, editor])
+
   const handlePageClick = (e: React.MouseEvent<HTMLDivElement>, pageIndex: number) => {
     if (activeTool === 'selector') return
 
@@ -128,6 +183,18 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
       signatures.handlePlaceAt(x, y, pageIndex)
     }
     e.stopPropagation()
+  }
+
+  if (awaitingUnlock) {
+    return (
+      <div className="flex flex-1 items-center justify-center">
+        <UnlockDialog
+          onUnlock={handleUnlock}
+          onCancel={() => router.push(`${AppRoutes.editor}?error=locked`)}
+          error={unlockError}
+        />
+      </div>
+    )
   }
 
   if (editor.isLoading) {
@@ -153,6 +220,8 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
         onToolChange={(tool) => { setActiveTool(tool); setPendingTextPlacement(false) }}
         scale={scale}
         onScaleChange={setScale}
+        passwordSet={pdfPassword !== null}
+        onPasswordClick={() => setShowPasswordDialog(true)}
       />
 
       {activeTool === 'text' && (
@@ -227,6 +296,15 @@ export function PDFEditorShell({ documentId }: PDFEditorShellProps) {
         <SignatureDrawingModal
           onSave={signatures.handleSaveSignature}
           onClose={signatures.closeModal}
+        />
+      )}
+
+      {showPasswordDialog && (
+        <PasswordDialog
+          currentPassword={pdfPassword}
+          onSet={(password) => { setPdfPassword(password); setShowPasswordDialog(false) }}
+          onRemove={() => { setPdfPassword(null); setShowPasswordDialog(false) }}
+          onClose={() => setShowPasswordDialog(false)}
         />
       )}
     </div>

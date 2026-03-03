@@ -13,8 +13,13 @@ export async function generateMetadata() {
   }
 }
 
-export default async function EditorDashboardPage() {
+export default async function EditorDashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>
+}) {
   const session = await auth.api.getSession({ headers: await headers() })
+  const { error } = await searchParams
 
   const user: User | null = session
     ? {
@@ -29,5 +34,5 @@ export default async function EditorDashboardPage() {
     ? (await getDonorStatusAction()).data?.isDonor ?? false
     : false
 
-  return <DashboardClient user={user} isDonor={isDonor} />
+  return <DashboardClient user={user} isDonor={isDonor} errorCode={error} />
 }

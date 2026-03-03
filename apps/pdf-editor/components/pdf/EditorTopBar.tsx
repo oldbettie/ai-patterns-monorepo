@@ -2,7 +2,7 @@
 // @feature:pdf-editor @domain:pdf @frontend
 // @summary: Top toolbar with tool selector and zoom controls
 
-import { MousePointer2, Type, PenLine } from 'lucide-react'
+import { MousePointer2, Type, PenLine, Lock, LockOpen } from 'lucide-react'
 
 export type ActiveTool = 'selector' | 'text' | 'signature'
 
@@ -14,9 +14,11 @@ interface EditorTopBarProps {
   onToolChange: (tool: ActiveTool) => void
   scale: number
   onScaleChange: (scale: number) => void
+  passwordSet: boolean
+  onPasswordClick: () => void
 }
 
-export function EditorTopBar({ activeTool, onToolChange, scale, onScaleChange }: EditorTopBarProps) {
+export function EditorTopBar({ activeTool, onToolChange, scale, onScaleChange, passwordSet, onPasswordClick }: EditorTopBarProps) {
   return (
     <div className="flex items-center justify-between px-4 h-12 bg-background border-b border-border">
       {/* Left: Tool selector */}
@@ -68,6 +70,21 @@ export function EditorTopBar({ activeTool, onToolChange, scale, onScaleChange }:
           aria-label="Zoom in"
         >
           +
+        </button>
+      </div>
+
+      {/* Right: Password lock */}
+      <div className="w-full flex justify-end">
+        <button
+          onClick={onPasswordClick}
+          className={`w-8 h-7 flex items-center justify-center rounded transition-colors ${
+            passwordSet
+              ? 'text-primary hover:bg-accent'
+              : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+          }`}
+          aria-label={passwordSet ? 'Manage password' : 'Set password'}
+        >
+          {passwordSet ? <Lock className="w-4 h-4" /> : <LockOpen className="w-4 h-4" />}
         </button>
       </div>
     </div>
