@@ -12,14 +12,14 @@ export const metadata: Metadata = {
   description:
     'Create a WiFi QR code in seconds. Let guests connect to your network with one scan — no typing passwords. Free, private, and works in any browser. No account needed.',
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_URL}/wifi-qr-code`,
+    canonical: 'https://simplifiedqr.com/wifi-qr-code',
   },
   openGraph: {
     title: 'WiFi QR Code Generator — Free, Instant, No Signup',
     description:
       'Create a WiFi QR code in seconds. Let guests connect to your network with one scan — no typing passwords. Free, private, and works in any browser.',
     type: 'website',
-    url: `${process.env.NEXT_PUBLIC_URL}/wifi-qr-code`,
+    url: 'https://simplifiedqr.com/wifi-qr-code',
     siteName: 'Simplified QR',
   },
   twitter: {
@@ -73,11 +73,28 @@ export default function WifiQrCodePage() {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://simplifiedqr.com',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'WiFi QR Code',
+            item: 'https://simplifiedqr.com/wifi-qr-code',
+          },
+        ],
+      },
+      {
         '@type': 'SoftwareApplication',
         name: 'Simplified QR — WiFi QR Code Generator',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Any (Web Browser)',
-        url: `${process.env.NEXT_PUBLIC_URL}/wifi-qr-code`,
+        url: 'https://simplifiedqr.com/wifi-qr-code',
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
         featureList: [
           'Generate WiFi QR codes',

@@ -26,6 +26,15 @@ export const metadata: Metadata = {
     description:
       'Free PDF editor with no signup, no subscription, and no watermarks. Edit PDFs, add text, and sign documents right in your browser. Your files never leave your device.',
     locale: 'en_US',
+    url: 'https://simplifiedpdf.com',
+  },
+  alternates: {
+    canonical: 'https://simplifiedpdf.com',
+    languages: {
+      'en-US': 'https://simplifiedpdf.com',
+      'ja-JP': 'https://simplifiedpdf.com',
+      'x-default': 'https://simplifiedpdf.com',
+    },
   },
   twitter: {
     card: 'summary_large_image',

@@ -9,13 +9,13 @@ export const metadata: Metadata = {
   title: 'Free PDF Editor — No Signup, No Subscription, No Catch',
   description: 'Edit and sign PDFs for free, right in your browser. Add text, draw signatures, and download instantly. No signup required, no subscription, no files uploaded to our servers. Ever.',
   alternates: {
-    canonical: 'https://www.simplifiedpdf.com',
+    canonical: 'https://simplifiedpdf.com',
   },
   openGraph: {
     title: 'Free PDF Editor — No Signup, No Subscription, No Catch',
     description: 'Edit and sign PDFs for free, right in your browser. Add text, draw signatures, and download instantly. No signup required, no subscription.',
     type: 'website',
-    url: 'https://www.simplifiedpdf.com',
+    url: 'https://simplifiedpdf.com',
     siteName: 'SimplifiedPDF',
     images: [
       {
@@ -40,14 +40,14 @@ const homeJsonLd = {
     {
       '@type': 'WebSite',
       name: 'SimplifiedPDF',
-      url: 'https://www.simplifiedpdf.com',
+      url: 'https://simplifiedpdf.com',
     },
     {
       '@type': 'SoftwareApplication',
       name: 'SimplifiedPDF',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Any (Web Browser)',
-      url: 'https://www.simplifiedpdf.com',
+      url: 'https://simplifiedpdf.com',
       offers: {
         '@type': 'Offer',
         price: '0',

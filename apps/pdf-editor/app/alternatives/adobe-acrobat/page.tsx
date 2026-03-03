@@ -9,14 +9,14 @@ export const metadata: Metadata = {
   description:
     "Skip Adobe's $23/month. SimplifiedPDF edits PDFs, adds text, and signs documents free in your browser. No software. No subscription.",
   alternates: {
-    canonical: 'https://www.simplifiedpdf.com/alternatives/adobe-acrobat',
+    canonical: 'https://simplifiedpdf.com/alternatives/adobe-acrobat',
   },
   openGraph: {
     title: 'Free Adobe Acrobat Alternative — No Subscription, No Signup',
     description:
       "Skip Adobe's $23/month. SimplifiedPDF edits PDFs, adds text, and signs documents free in your browser. No software. No subscription.",
     type: 'website',
-    url: 'https://www.simplifiedpdf.com/alternatives/adobe-acrobat',
+    url: 'https://simplifiedpdf.com/alternatives/adobe-acrobat',
     siteName: 'SimplifiedPDF',
   },
   twitter: {
@@ -67,11 +67,34 @@ export default function AdobeAcrobatAlternativePage() {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://simplifiedpdf.com',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Alternatives',
+            item: 'https://simplifiedpdf.com/alternatives/adobe-acrobat',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: 'Adobe Acrobat Alternative',
+            item: 'https://simplifiedpdf.com/alternatives/adobe-acrobat',
+          },
+        ],
+      },
+      {
         '@type': 'SoftwareApplication',
         name: 'SimplifiedPDF',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Any (Web Browser)',
-        url: 'https://www.simplifiedpdf.com',
+        url: 'https://simplifiedpdf.com',
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       },
       {

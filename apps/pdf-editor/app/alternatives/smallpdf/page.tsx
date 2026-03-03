@@ -9,14 +9,14 @@ export const metadata: Metadata = {
   description:
     "Unlike Smallpdf, SimplifiedPDF never uploads your files, never watermarks downloads, and has no daily limits. 100% free PDF editing in your browser.",
   alternates: {
-    canonical: 'https://www.simplifiedpdf.com/alternatives/smallpdf',
+    canonical: 'https://simplifiedpdf.com/alternatives/smallpdf',
   },
   openGraph: {
     title: 'Free Smallpdf Alternative — No Upload, No Watermark, No Subscription',
     description:
       "Unlike Smallpdf, SimplifiedPDF never uploads your files, never watermarks downloads, and has no daily limits.",
     type: 'website',
-    url: 'https://www.simplifiedpdf.com/alternatives/smallpdf',
+    url: 'https://simplifiedpdf.com/alternatives/smallpdf',
     siteName: 'SimplifiedPDF',
   },
   twitter: {
@@ -64,11 +64,34 @@ export default function SmallpdfAlternativePage() {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://simplifiedpdf.com',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Alternatives',
+            item: 'https://simplifiedpdf.com/alternatives/smallpdf',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: 'Smallpdf Alternative',
+            item: 'https://simplifiedpdf.com/alternatives/smallpdf',
+          },
+        ],
+      },
+      {
         '@type': 'SoftwareApplication',
         name: 'SimplifiedPDF',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Any (Web Browser)',
-        url: 'https://www.simplifiedpdf.com',
+        url: 'https://simplifiedpdf.com',
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       },
       {

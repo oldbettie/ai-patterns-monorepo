@@ -11,14 +11,14 @@ export const metadata: Metadata = {
   description:
     'QR Tiger charges $7/month for dynamic codes and adds watermarks on the free plan. Simplified QR gives you beautiful QR codes free — forever. No subscription, no signup.',
   alternates: {
-    canonical: `${process.env.NEXT_PUBLIC_URL}/alternatives/qr-tiger`,
+    canonical: 'https://simplifiedqr.com/alternatives/qr-tiger',
   },
   openGraph: {
     title: 'Free QR Tiger Alternative — No Subscription, No Watermarks',
     description:
       'QR Tiger charges $7/month for dynamic codes and adds watermarks on the free plan. Simplified QR gives you beautiful QR codes free — forever.',
     type: 'website',
-    url: `${process.env.NEXT_PUBLIC_URL}/alternatives/qr-tiger`,
+    url: 'https://simplifiedqr.com/alternatives/qr-tiger',
     siteName: 'Simplified QR',
   },
   twitter: {
@@ -66,11 +66,34 @@ export default function QrTigerAlternativePage() {
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://simplifiedqr.com',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Alternatives',
+            item: 'https://simplifiedqr.com/alternatives/qr-tiger',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: 'QR Tiger Alternative',
+            item: 'https://simplifiedqr.com/alternatives/qr-tiger',
+          },
+        ],
+      },
+      {
         '@type': 'SoftwareApplication',
         name: 'Simplified QR',
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Any (Web Browser)',
-        url: process.env.NEXT_PUBLIC_URL,
+        url: 'https://simplifiedqr.com',
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       },
       {

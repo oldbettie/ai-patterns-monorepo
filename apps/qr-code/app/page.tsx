@@ -9,12 +9,13 @@ export const metadata: Metadata = {
   title: 'Free QR Code Generator — No Signup, No Subscription, No Catch',
   description: 'Generate QR codes for URLs, WiFi, vCards, SMS, email, and plain text. Free, fast, and private. No signup required, no files uploaded to our servers. Ever.',
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_URL || 'https://qrcode.app',
+    canonical: 'https://simplifiedqr.com',
   },
   openGraph: {
     title: 'Free QR Code Generator — No Signup, No Subscription, No Catch',
     description: 'Generate QR codes for URLs, WiFi, vCards, SMS, email, and plain text. Free, fast, and private.',
     type: 'website',
+    url: 'https://simplifiedqr.com',
     siteName: 'Simplified QR',
   },
   twitter: {
@@ -30,13 +31,14 @@ const homeJsonLd = {
     {
       '@type': 'WebSite',
       name: 'Simplified QR',
-      url: process.env.NEXT_PUBLIC_URL || 'https://qrcode.app',
+      url: 'https://simplifiedqr.com',
     },
     {
       '@type': 'SoftwareApplication',
       name: 'Simplified QR',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Any (Web Browser)',
+      url: 'https://simplifiedqr.com',
       offers: {
         '@type': 'Offer',
         price: '0',
