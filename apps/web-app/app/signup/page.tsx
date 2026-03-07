@@ -1,6 +1,7 @@
 'use client'
 
 import { authClient } from '@/lib/auth'
+import { FeatureConfig } from '@/lib/config/featureToggles'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
@@ -30,9 +31,10 @@ export default function SignupPage() {
 
       if (result.error) {
         setError(result.error.message || errorsT('somethingWentWrong'))
-      } else {
-        // Redirect to email verification page since email verification is required
+      } else if (FeatureConfig.features.emailVerification) {
         router.push(`/auth/verify-email?email=${encodeURIComponent(email)}`)
+      } else {
+        router.push('/')
       }
     } catch (err) {
       console.error(err)
@@ -111,6 +113,7 @@ export default function SignupPage() {
                 type='password'
                 autoComplete='new-password'
                 required
+                minLength={8}
                 className='mt-1 block w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-neutral-900 placeholder-neutral-500 shadow-sm focus:outline-none focus:ring-2 focus:ring-neutral-300 focus:border-neutral-300 sm:text-sm dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:placeholder-neutral-500 dark:focus:ring-neutral-700 dark:focus:border-neutral-700'
                 placeholder={pageT('passwordPlaceholder')}
                 value={password}

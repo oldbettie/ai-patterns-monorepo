@@ -5,13 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
-interface VerificationSuccessClientProps {
-  token: string
-}
-
-export default function VerificationSuccessClient({
-  token,
-}: VerificationSuccessClientProps) {
+export default function VerificationSuccessClient() {
   const t = useTranslations('pages.verifyEmail')
   const commonT = useTranslations('common')
   const [loading, setLoading] = useState(true)
@@ -26,9 +20,11 @@ export default function VerificationSuccessClient({
 
         if (session.data?.user) {
           setSuccess(true)
+          setLoading(false)
           router.push('/')
         } else {
           setError(t('emailVerificationCompletedButLoginFailed'))
+          setLoading(false)
         }
       } catch (err) {
         setError(t('unexpectedErrorDuringVerification'))

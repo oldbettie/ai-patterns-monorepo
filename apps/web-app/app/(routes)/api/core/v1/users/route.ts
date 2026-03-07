@@ -10,6 +10,7 @@ export const GET = createRouteHandler({ isAuthenticated: true }, async req => {
   return NextResponse.json({
     data: {
       user: user,
+      session: session,
     },
     error: null,
   })

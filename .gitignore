@@ -41,3 +41,6 @@ tsconfig.tsbuildinfo
 # Build output
 dist/
 *.d.ts.map
+
+.assay-assessment/
+.assay

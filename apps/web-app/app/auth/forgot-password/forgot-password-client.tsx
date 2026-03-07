@@ -27,11 +27,7 @@ export default function ForgotPasswordClient() {
         redirectTo: `${window.location.origin}/auth/reset-password`,
       })
 
-      if (result.error) {
-        setError(result.error.message || 'Failed to send reset email')
-      } else {
-        setMessage(t('emailSent'))
-      }
+      setMessage(t('emailSent'))
     } catch (error) {
       console.error(error)
       setError(commonT('error'))

@@ -5,11 +5,13 @@
 
 import { authClient, useUser } from '@/lib/auth'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export default function LogoutButton() {
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const { isAuthenticated } = useUser()
+  const router = useRouter()
   const componentT = useTranslations('components.authStatus')
 
   // Don't render if user is not authenticated
@@ -23,6 +25,7 @@ export default function LogoutButton() {
     setIsLoggingOut(true)
     try {
       await authClient.signOut()
+      router.push('/login')
     } catch (error) {
       console.error('Logout failed:', error)
     } finally {
